@@ -22,7 +22,7 @@ deploy:
   distributions: sdist bdist_wheel
   user: Young-won
   password:
-    secure: PLEASE_REPLACE_ME
+    secure:
   on:
     tags: true
     repo: Young-won/deepmicrobiome
