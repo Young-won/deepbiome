@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Deep nerual network weights and numpy
+*.h5
+*.csv
+*.npy
+*.json
+
 # C extensions
 *.so
 
