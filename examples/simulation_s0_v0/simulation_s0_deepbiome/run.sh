@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 echo $CUDA_VISIBLE_DEVICES
 
 model=${PWD##*/}
