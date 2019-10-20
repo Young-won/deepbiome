@@ -72,7 +72,11 @@ class MicroBiomeReader(BaseReader):
         x = pd.DataFrame(prepro.transform(mat), columns = list(x.columns))
         self.x = np.array(x, dtype=np.float32)
         
-        y = pd.DataFrame(y.iloc[:, sim]) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
+        try:
+            y = pd.DataFrame(y.iloc[:, sim]) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
+        except:
+            y = pd.DataFrame(y) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
+            
         # self.y_label = ['y1','y2']
         if np.array(y).dtype == np.int and np.max(np.array(y)) > 1:
             self.num_classes = np.max(np.array(y))+1

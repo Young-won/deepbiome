@@ -17,6 +17,7 @@ import tensorflow as tf
 import keras.backend as K
 from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy
 from keras.metrics import binary_accuracy, categorical_accuracy
+from sklearn.metrics import roc_auc_score, f1_score
 
 ###############################################################################################################################
 # tf loss functions
@@ -40,6 +41,32 @@ def specificity(y_true, y_pred):
 
 def gmeasure(y_true, y_pred):
     return (sensitivity(y_true, y_pred) * specificity(y_true, y_pred)) ** 0.5
+
+def auc(y_true, y_pred):
+    # https://stackoverflow.com/questions/43263111/defining-an-auc-metric-for-keras-to-support-evaluation-of-validation-dataset
+    score = K.tf.py_func(lambda y_true, y_pred : roc_auc_score(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+                        [y_true, y_pred],
+                        'float32',
+                        stateful=False,
+                        name='sklearnAUC')
+    return score
+
+def f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None):
+    try:
+        score = f1_score(y_true, y_pred, average=average, sample_weight=sample_weight)
+    except:
+        score = np.nan
+    return score
+
+def f1(y_true, y_pred):
+    # https://stackoverflow.com/questions/43263111/defining-an-auc-metric-for-keras-to-support-evaluation-of-validation-dataset
+    y_pred = K.round(y_pred)
+    score = K.tf.py_func(lambda y_true, y_pred : f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+                        [y_true, y_pred],
+                        'float32',
+                        stateful=False,
+                        name='sklearnF1')
+    return score
 
 def correlation_coefficient(y_true, y_pred):
     x = y_true

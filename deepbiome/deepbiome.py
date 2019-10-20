@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Main module."""
 ######################################################################
 ## DeepBiome
 ## - Main code for simulation
@@ -71,7 +68,7 @@ model_save_dir = path_info['model_info']['model_dir']
 # except: save_frequency=None
 
 model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
-hist_path = os.path.join(model_save_dir, path_info['model_info']['history'])
+# hist_path = os.path.join(model_save_dir, path_info['model_info']['history'])
 
 ### Reader ###########################################################################################
 log.info('-----------------------------------------------------------------')
@@ -79,23 +76,29 @@ reader_class = getattr(readers, network_info['model_info']['reader_class'].strip
 reader = reader_class(log, verbose=True)
 
 data_path = path_info['data_info']['data_path']
-count_path = path_info['data_info']['count_path']
-x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None)[0])
-y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
+# TODO: fix
 idxs = np.array(pd.read_csv(path_info['data_info']['idx_path'])-1, dtype=np.int)
+try:
+    count_path = path_info['data_info']['count_path']
+    x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
+    x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(idxs.shape[1])])
+except:
+    x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(idxs.shape[1])])
+y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
 
 ### Simulations #################################################################################
-history = []
-evaluation = []
+# history = []
+train_evaluation = []
+test_evaluation = []
 # train_tot_idxs = []
 # test_tot_idxs = []
 starttime = time.time()
-for fold in range(20):
+for fold in range(idxs.shape[1]):
     log.info('-------%d simulation start!----------------------------------' % (fold+1))
     foldstarttime = time.time()
     
     ### Read datasets ####################################################################################
-    reader.read_dataset('%s/%s'%(count_path, x_list[fold]), y_path, fold)
+    reader.read_dataset(x_path[fold], y_path, fold)
     x_train, x_test, y_train, y_test = reader.get_dataset(idxs[:,fold])
     num_classes = reader.get_num_classes()
     
@@ -114,33 +117,45 @@ for fold in range(20):
     hist = network.fit(x_train, y_train, 
                        max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing,
                        model_path=file_path_fold(model_path, fold))
-    history.append(hist.history)
+    # history.append(hist.history)
     sys.stdout.flush()
         
     network.save_weights(file_path_fold(model_path, fold))
     log.debug('Save weight at {}'.format(file_path_fold(model_path, fold)))
-    network.save_history(file_path_fold(hist_path, fold), history)
-    log.debug('Save history at {}'.format(file_path_fold(hist_path, fold)))
+    # network.save_history(file_path_fold(hist_path, fold), history)
+    # log.debug('Save history at {}'.format(file_path_fold(hist_path, fold)))
     sys.stdout.flush()
     
     # Evaluation
-    eval_res = network.evaluate(x_test, y_test)
-    evaluation.append(eval_res)
+    train_eval_res = network.evaluate(x_train, y_train)
+    train_evaluation.append(train_eval_res)
+    test_eval_res = network.evaluate(x_test, y_test)
+    test_evaluation.append(test_eval_res)
     
     k.clear_session()
     log.info('Compute time : {}'.format(time.time()-foldstarttime))
     log.info('%d fold computing end!---------------------------------------------' % (fold+1))
 
 ### Summary #########################################################################################
-evaluation = np.vstack(evaluation)
-log.info('Evaluation : %s' % np.array(['loss']+[metric.strip() for metric in network_info['model_info']['metrics'].split(',')]))
-mean = np.mean(evaluation, axis=0)
-std = np.std(evaluation, axis=0)
+log.info('-----------------------------------------------------------------')
+train_evaluation = np.vstack(train_evaluation)
+log.info('Train Evaluation : %s' % np.array(['loss']+[metric.strip() for metric in network_info['model_info']['metrics'].split(',')]))
+mean = np.mean(train_evaluation, axis=0)
+std = np.std(train_evaluation, axis=0)
 log.info('      mean : %s',mean)
 log.info('       std : %s',std)
+log.info('-----------------------------------------------------------------')
+test_evaluation = np.vstack(test_evaluation)
+log.info('Test Evaluation : %s' % np.array(['loss']+[metric.strip() for metric in network_info['model_info']['metrics'].split(',')]))
+mean = np.mean(test_evaluation, axis=0)
+std = np.std(test_evaluation, axis=0)
+log.info('      mean : %s',mean)
+log.info('       std : %s',std)
+log.info('-----------------------------------------------------------------')
 
 ### Save #########################################################################################
-np.save(os.path.join(model_save_dir, path_info['model_info']['evaluation']),evaluation)
+np.save(os.path.join(model_save_dir, 'train_%s'%path_info['model_info']['evaluation']),train_evaluation)
+np.save(os.path.join(model_save_dir, 'test_%s'%path_info['model_info']['evaluation']),test_evaluation)
 # np.save(os.path.join(model_save_dir, path_info['model_info']['train_tot_idxs']), np.array(train_tot_idxs))
 # np.save(os.path.join(model_save_dir, path_info['model_info']['test_tot_idxs']), np.array(test_tot_idxs))
 
