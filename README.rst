@@ -18,6 +18,7 @@ Installation
 
 Prerequisites
 ^^^^^^^^^^^^^^^^
+* python >= 3.5
 * Tensorflow
 * Keras
 
