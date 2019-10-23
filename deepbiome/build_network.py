@@ -26,8 +26,8 @@ from keras.layers import Concatenate
 from keras.layers import BatchNormalization, Dropout
 from keras.initializers import VarianceScaling
 
-import loss_and_metric
-from utils import TensorBoardWrapper
+from . import loss_and_metric
+from .utils import TensorBoardWrapper
      
 #####################################################################################################################
 # Base Network

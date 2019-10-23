@@ -20,11 +20,11 @@ import pandas as pd
 from sklearn.model_selection import KFold, train_test_split
 # from sklearn.preprocessing import scale, minmax_scale, robust_scale
 from sklearn.preprocessing import MinMaxScaler
-
-import logging_daily
-from utils import file_size, convert_bytes, print_sysinfo
 from keras.utils import to_categorical
 # from keras.utils import to_categorical
+
+from . import logging_daily
+from .utils import file_size, convert_bytes, print_sysinfo
 
 ########################################################################################################
 # Base reader

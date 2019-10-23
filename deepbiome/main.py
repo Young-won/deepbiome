@@ -19,12 +19,12 @@ import gc
 import warnings
 warnings.filterwarnings("ignore")
 
-import logging_daily
-import configuration
-import loss_and_metric
-import readers
-import build_network
-from utils import file_path_fold, argv_parse
+from . import logging_daily
+from . import configuration
+from . import loss_and_metric
+from . import readers
+from . import build_network
+from .utils import file_path_fold, argv_parse
 
 import keras.backend as k
 argdict = argv_parse(sys.argv)

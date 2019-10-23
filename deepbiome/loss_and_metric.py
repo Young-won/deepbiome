@@ -15,8 +15,8 @@ import sklearn.metrics as skmetrics
 from keras.callbacks import Callback
 import tensorflow as tf
 import keras.backend as K
-from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy
-from keras.metrics import binary_accuracy, categorical_accuracy
+from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy, sparse_categorical_crossentropy
+from keras.metrics import binary_accuracy, categorical_accuracy, sparse_categorical_accuracy
 from sklearn.metrics import roc_auc_score, f1_score
 
 ###############################################################################################################################
