@@ -27,11 +27,6 @@ from . import readers
 from . import build_network
 from .utils import file_path_fold, argv_parse
 
-import keras.backend as k
-import tensorflow as tf
-
-config = tf.ConfigProto()
-
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     max_queue_size=10, workers=1, use_multiprocessing=False):
     model_save_dir = path_info['model_info']['model_dir']
@@ -163,7 +158,10 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 
 
 #########################################################################################################################
-if __name__ == "__main__":
+if __name__ == "__main__":    
+    import keras.backend as k
+    import tensorflow as tf
+
     argdict = argv_parse(sys.argv)
     config = tf.ConfigProto()
     if 'gpu_memory_fraction' in argdict: config.gpu_options.per_process_gpu_memory_fraction = float(argdict['gpu_memory_fraction'][0])
