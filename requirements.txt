@@ -2,4 +2,5 @@
 keras
 tensorflow
 pandas
+sklearn
 
