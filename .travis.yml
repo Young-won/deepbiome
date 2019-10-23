@@ -1,5 +1,8 @@
+# .travis.yml
+
 language: python
 python:
+  - 3.4
   - 3.5
   - 3.6
   - 3.7
@@ -7,6 +10,11 @@ cache:
   directories:
     - $HOME/.cache/pip
     - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
+ 
+env:
+  global:
+    # Doctr deploy key for Young-won/deepbiome
+    - secure: "g5obCUXvcQOPFWn3bw6o0O1XJists3EBqRg7x/yeKsB7eyASqX4IbrxsHX5bKWqSP61ztyIIAsWCk+Z1Rep2v2slgFAGfx8svEnw932QgsAZo5BTeBX9chsh06vzFpmgM5pukLS/EuosgWG85oXdICB7ywXBCM9MUu3GL2+C6OtB3Jsw4D+3XH3fOrkmgZpm7GXI2t+YWHJMiIHL4ejE17I7cznmugWTpiHyP60AZveDlzYguXd01XsBsarTRe8Os7+BreTbSLttyvAGm789M8m9qgDQ75p7+rKZq1ysL6HNw6Pa67DlWEZt6QVzPjpr+uhD/YMkUGfvZfrRx7LYMpYWaWS/LWCirXHc+jE/cA3HHmnuIt3anPF2yK5db9+OtQDR/yafCXi75nl/SgFvSg1WSttyxQLVXv7pp6psgr8ZdLAbIvr6CCXSjBq7Ndo+f6rnU0EYg6qmH1Jj4/1mygyyXndsESrPA+LVoCrgfRiOsaQ07z6pvskmBqfBWKEGHg4CdiOLPf84WbCwbQQqjGHs2UORbB6661k+eY2dKAOSpsjpnypLqem++WpxkxgriVVvrNHIW4MnYhYOJoNoJrA9YBMBkeAPxgqYcAAp3B9V3cwkdC9I2G2I1W6Xg8CQBW2HTn/F08Qcwlq5VylfXQmXDBkcgbGUFelDXHYfmMU="
 
 install:
   # Install this package and the packages listed in requirements.txt.
@@ -23,8 +31,4 @@ script:
   - make -C docs html  # Build the documentation.
   - pip install doctr
   - doctr deploy --built-docs docs/build/html .
-  
-env:
-  global:
-    # Doctr deploy key for Young-won/deepbiome
-    - secure: "g5obCUXvcQOPFWn3bw6o0O1XJists3EBqRg7x/yeKsB7eyASqX4IbrxsHX5bKWqSP61ztyIIAsWCk+Z1Rep2v2slgFAGfx8svEnw932QgsAZo5BTeBX9chsh06vzFpmgM5pukLS/EuosgWG85oXdICB7ywXBCM9MUu3GL2+C6OtB3Jsw4D+3XH3fOrkmgZpm7GXI2t+YWHJMiIHL4ejE17I7cznmugWTpiHyP60AZveDlzYguXd01XsBsarTRe8Os7+BreTbSLttyvAGm789M8m9qgDQ75p7+rKZq1ysL6HNw6Pa67DlWEZt6QVzPjpr+uhD/YMkUGfvZfrRx7LYMpYWaWS/LWCirXHc+jE/cA3HHmnuIt3anPF2yK5db9+OtQDR/yafCXi75nl/SgFvSg1WSttyxQLVXv7pp6psgr8ZdLAbIvr6CCXSjBq7Ndo+f6rnU0EYg6qmH1Jj4/1mygyyXndsESrPA+LVoCrgfRiOsaQ07z6pvskmBqfBWKEGHg4CdiOLPf84WbCwbQQqjGHs2UORbB6661k+eY2dKAOSpsjpnypLqem++WpxkxgriVVvrNHIW4MnYhYOJoNoJrA9YBMBkeAPxgqYcAAp3B9V3cwkdC9I2G2I1W6Xg8CQBW2HTn/F08Qcwlq5VylfXQmXDBkcgbGUFelDXHYfmMU="
+ 
