@@ -9,14 +9,9 @@ __pycache__/
 *.npy
 *.json
 
-# Specific data
-examples/data/genus48/*
-examples/data/pulmonary
-examples/data/simulation/s2/*
-
 ## Exception for the example file
-!examples/data/genus48/genus48_dic.csv
-
+!deepbiome/tests/data/*
+!deepbiome/tests/data/count/*
 
 # C extensions
 *.so
