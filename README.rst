@@ -15,10 +15,14 @@ Deep Learning package using the phylogenetic tree information for microbiome dat
 
 Installation
 --------
-## Prerequisites
+
+Prerequisites
+^^^^^^^^^^^^^^^^
 * Tensorflow
 * Keras
 
+Istall Deepbiome
+^^^^^^^^^^^^^^^^
 At the command line:
 .. code-block:: bash
 
