@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; deepbiome 0.1.0 documentation</title>
+  <title>Credits &mdash; deepbiome 0.1.0 documentation</title>
   
 
   
@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release History" href="release-history.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Minimum Version of Python and NumPy" href="min_versions.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,10 +90,14 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#maintainer">Maintainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 </ul>
 
@@ -140,13 +144,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Usage</li>
+      <li>Credits</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/authors.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,64 +163,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<p>To use deepbiome in a project:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepbiome</span> <span class="k">import</span> <span class="n">deepbiome</span>
-</pre></div>
+  <div class="section" id="credits">
+<h1>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="maintainer">
+<h2>Maintainer<a class="headerlink" href="#maintainer" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Youngwon Choi &lt;<a class="reference external" href="mailto:youngwon08&#37;&#52;&#48;gmail&#46;com">youngwon08<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p></li>
+</ul>
 </div>
-<dl class="function">
-<dt id="deepbiome.deepbiome.deepbiome_train">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_train</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">gpu_memory_fraction=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_train" title="Permalink to this definition">¶</a></dt>
-<dd><p>Training the deep neural network with phylogenetic tree weight regularizer.
-See ref url (TODO: update)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>log</strong><span class="classifier">logging instance</span></dt><dd><p>python logging instance for logging</p>
-</dd>
-<dt><strong>network_info</strong><span class="classifier">dictionary</span></dt><dd><p>python dictionary with network_information</p>
-</dd>
-<dt><strong>path_info</strong><span class="classifier">dictionary</span></dt><dd><p>python dictionary with path_information</p>
-</dd>
-<dt><strong>number_of_fold</strong><span class="classifier">int</span></dt><dd><p>default=None</p>
-</dd>
-<dt><strong>gpu_memory_fraction</strong><span class="classifier">float</span></dt><dd><p>default=None</p>
-</dd>
-<dt><strong>max_queue_size</strong><span class="classifier">int</span></dt><dd><p>default=10</p>
-</dd>
-<dt><strong>workers</strong><span class="classifier">int</span></dt><dd><p>default=1</p>
-</dd>
-<dt><strong>use_multiprocessing</strong><span class="classifier">boolean</span></dt><dd><p>default=False</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>test_evaluation</strong><span class="classifier">numpy array</span></dt><dd><p>numpy array of the evaluation using testset from all fold</p>
-</dd>
-<dt><strong>train_evaluation</strong><span class="classifier">numpy array</span></dt><dd><p>numpy array of the evaluation using training from all fold</p>
-</dd>
-<dt><strong>network</strong><span class="classifier">deepbiome network instance</span></dt><dd><p>deepbiome class instance</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>Training the deep neural network with phylogenetic tree weight regularizer.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">)</span>
-</pre></div>
+<div class="section" id="contributors">
+<h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Jing Zhai &lt;<a class="reference external" href="mailto:jingzhai&#37;&#52;&#48;meail&#46;arizona&#46;edu">jingzhai<span>&#64;</span>meail<span>&#46;</span>arizona<span>&#46;</span>edu</a>&gt;</p></li>
+</ul>
 </div>
-</dd></dl>
-
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-</tbody>
-</table>
 </div>
 
 
@@ -227,10 +187,10 @@ See ref url (TODO: update)</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="min_versions.html" class="btn btn-neutral float-left" title="Minimum Version of Python and NumPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

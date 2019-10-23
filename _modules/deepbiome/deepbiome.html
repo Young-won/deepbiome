@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepbiome.deepbiome &mdash; deepbiome 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> deepbiome
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">deepbiome</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>deepbiome.deepbiome</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for deepbiome.deepbiome</h1><div class="highlight"><pre>
+<span></span><span class="c1">######################################################################</span>
+<span class="c1">## DeepBiome</span>
+<span class="c1">## - Main code</span>
+<span class="c1">##</span>
+<span class="c1">## July 10. 2019</span>
+<span class="c1">## Youngwon (youngwon08@gmail.com)</span>
+<span class="c1">##</span>
+<span class="c1">## Reference</span>
+<span class="c1">## - Keras (https://github.com/keras-team/keras)</span>
+<span class="c1">######################################################################</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">logging_daily</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">configuration</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">loss_and_metric</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">readers</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">build_network</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">file_path_fold</span><span class="p">,</span> <span class="n">argv_parse</span>
+
+<span class="kn">import</span> <span class="nn">keras.backend</span> <span class="k">as</span> <span class="nn">k</span>  
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+    
+<div class="viewcode-block" id="deepbiome_train"><a class="viewcode-back" href="../../usage.html#deepbiome.deepbiome.deepbiome_train">[docs]</a><span class="k">def</span> <span class="nf">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                    <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Training the deep neural network with phylogenetic tree weight regularizer.</span>
+<span class="sd">    See ref url (TODO: update)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log : logging instance</span>
+<span class="sd">        python logging instance for logging</span>
+<span class="sd">    network_info : dictionary</span>
+<span class="sd">        python dictionary with network_information</span>
+<span class="sd">    path_info : dictionary</span>
+<span class="sd">        python dictionary with path_information</span>
+<span class="sd">    number_of_fold : int</span>
+<span class="sd">        default=None</span>
+<span class="sd">    gpu_memory_fraction : float</span>
+<span class="sd">        default=None</span>
+<span class="sd">    max_queue_size : int</span>
+<span class="sd">        default=10</span>
+<span class="sd">    workers : int</span>
+<span class="sd">        default=1</span>
+<span class="sd">    use_multiprocessing : boolean</span>
+<span class="sd">        default=False</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    test_evaluation : numpy array</span>
+<span class="sd">        numpy array of the evaluation using testset from all fold</span>
+<span class="sd">    train_evaluation : numpy array</span>
+<span class="sd">        numpy array of the evaluation using training from all fold</span>
+<span class="sd">    network : deepbiome network instance</span>
+<span class="sd">        deepbiome class instance</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Training the deep neural network with phylogenetic tree weight regularizer.</span>
+
+<span class="sd">    &gt;&gt;&gt; deepbiome_train(log, network_info, path_info)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">### Argument #########################################################################################</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">gpu_memory_fraction</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">per_process_gpu_memory_fraction</span> <span class="o">=</span> <span class="n">gpu_memory_fraction</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">allow_growth</span><span class="o">=</span><span class="kc">True</span>
+        
+    <span class="n">model_save_dir</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;model_dir&#39;</span><span class="p">]</span>
+    <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_dir</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
+    <span class="c1"># hist_path = os.path.join(model_save_dir, path_info[&#39;model_info&#39;][&#39;history&#39;</span>
+
+    <span class="c1"># TODO : Warm start</span>
+    <span class="c1"># warm_start= network_info[&#39;training_info&#39;][&#39;warm_start&#39;] == &#39;True&#39;</span>
+    <span class="c1"># warm_start_model = network_info[&#39;training_info&#39;][&#39;warm_start_model&#39;]</span>
+    <span class="c1"># try: save_frequency=int(network_info[&#39;training_info&#39;][&#39;save_frequency&#39;])</span>
+    <span class="c1"># except: save_frequency=None</span>
+
+    <span class="c1">### Reader ###########################################################################################</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">reader_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">readers</span><span class="p">,</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;reader_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">reader_class</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;data_path&#39;</span><span class="p">]</span>
+    <span class="c1"># TODO: fix</span>
+    <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;idx_path&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">count_path</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;count_path&#39;</span><span class="p">]</span>
+        <span class="n">x_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;count_list_path&#39;</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">x_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">count_path</span><span class="p">,</span> <span class="n">x_list</span><span class="p">[</span><span class="n">fold</span><span class="p">])</span> <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idxs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">x_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;x_path&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idxs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+    <span class="n">y_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;y_path&#39;</span><span class="p">])</span>
+
+    <span class="c1">### Simulations #################################################################################</span>
+    <span class="c1"># history = []</span>
+    <span class="n">train_evaluation</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">test_evaluation</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># train_tot_idxs = []</span>
+    <span class="c1"># test_tot_idxs = []</span>
+    <span class="k">if</span> <span class="n">number_of_fold</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">number_of_fold</span> <span class="o">=</span> <span class="n">idxs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">starttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_fold</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-------</span><span class="si">%d</span><span class="s1"> simulation start!----------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">foldstarttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1">### Read datasets ####################################################################################</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">read_dataset</span><span class="p">(</span><span class="n">x_path</span><span class="p">[</span><span class="n">fold</span><span class="p">],</span> <span class="n">y_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">)</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">idxs</span><span class="p">[:,</span><span class="n">fold</span><span class="p">])</span>
+        <span class="n">num_classes</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_num_classes</span><span class="p">()</span>
+
+        <span class="c1">### Bulid network ####################################################################################</span>
+        <span class="n">k</span><span class="o">.</span><span class="n">set_session</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Build network for </span><span class="si">%d</span><span class="s1"> simulation&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">network_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">build_network</span><span class="p">,</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;network_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
+        <span class="n">network</span> <span class="o">=</span> <span class="n">network_class</span><span class="p">(</span><span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">],</span> <span class="n">log</span><span class="p">,</span> <span class="n">fold</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">)</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">model_compile</span><span class="p">()</span> <span class="c1">## TODO : weight clear only (no recompile)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="c1">### Training #########################################################################################</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> fold computing start!----------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">hist</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> 
+                           <span class="n">max_queue_size</span><span class="o">=</span><span class="n">max_queue_size</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="n">workers</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">use_multiprocessing</span><span class="p">,</span>
+                           <span class="n">model_path</span><span class="o">=</span><span class="n">file_path_fold</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">))</span>
+        <span class="c1"># history.append(hist.history)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="n">network</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="n">file_path_fold</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Save weight at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_path_fold</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">)))</span>
+        <span class="c1"># network.save_history(file_path_fold(hist_path, fold), history)</span>
+        <span class="c1"># log.debug(&#39;Save history at {}&#39;.format(file_path_fold(hist_path, fold)))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="c1"># Evaluation</span>
+        <span class="n">train_eval_res</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">train_evaluation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_eval_res</span><span class="p">)</span>
+        <span class="n">test_eval_res</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+        <span class="n">test_evaluation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_eval_res</span><span class="p">)</span>
+
+        <span class="n">k</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Compute time : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">foldstarttime</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> fold computing end!---------------------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1">### Summary #########################################################################################</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">train_evaluation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">train_evaluation</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Train Evaluation : </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="n">metric</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;metrics&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]))</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">train_evaluation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">train_evaluation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;      mean : </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">mean</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;       std : </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">std</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">test_evaluation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">test_evaluation</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Test Evaluation : </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="n">metric</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;metrics&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]))</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_evaluation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">test_evaluation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;      mean : </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">mean</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;       std : </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">std</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+
+    <span class="c1">### Save #########################################################################################</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_dir</span><span class="p">,</span> <span class="s1">&#39;train_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;evaluation&#39;</span><span class="p">]),</span><span class="n">train_evaluation</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_dir</span><span class="p">,</span> <span class="s1">&#39;test_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;evaluation&#39;</span><span class="p">]),</span><span class="n">test_evaluation</span><span class="p">)</span>
+    <span class="c1"># np.save(os.path.join(model_save_dir, path_info[&#39;model_info&#39;][&#39;train_tot_idxs&#39;]), np.array(train_tot_idxs))</span>
+    <span class="c1"># np.save(os.path.join(model_save_dir, path_info[&#39;model_info&#39;][&#39;test_tot_idxs&#39;]), np.array(test_tot_idxs))</span>
+
+    <span class="c1">### Exit #########################################################################################</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Total Computing Ended&#39;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span></div>
+
+
+<span class="c1">#########################################################################################################################</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  
+    <span class="n">argdict</span> <span class="o">=</span> <span class="n">argv_parse</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;gpu_memory_fraction&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> 
+    <span class="k">except</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;max_queue_size&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span>
+    <span class="k">try</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;workers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span>
+    <span class="k">try</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;use_multiprocessing&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;True&#39;</span>      
+    <span class="k">except</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span>
+
+    <span class="c1">### Logger ############################################################################################</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging_daily</span><span class="o">.</span><span class="n">logging_daily</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;log_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">reset_logging</span><span class="p">()</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get_logging</span><span class="p">()</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging_daily</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Argument input&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">argname</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">argdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">argname</span><span class="p">,</span><span class="n">arg</span><span class="p">))</span>
+
+    <span class="c1">### Configuration #####################################################################################</span>
+    <span class="n">config_data</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;path_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">log</span><span class="p">)</span>
+    <span class="n">config_data</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_data</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+    <span class="n">config_data</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+
+    <span class="n">config_network</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;network_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">log</span><span class="p">)</span>
+    <span class="n">config_network</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_network</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+    <span class="n">config_network</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+
+    <span class="n">path_info</span> <span class="o">=</span> <span class="n">config_data</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+    <span class="n">network_info</span> <span class="o">=</span> <span class="n">config_network</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+    <span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Youngwon Choi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
