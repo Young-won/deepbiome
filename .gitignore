@@ -10,9 +10,9 @@ __pycache__/
 *.json
 
 # Specific data
-example/data/genus48/phenotype
-example/data/genus48/*.txt
-example/data/genus48/tree.png
+example/data/genus48/*
+example/data/pulmonary
+example/data/simulation/s2/*
 
 ## Exception for the example file
 !example/data/genus48/genus48_dic.csv
