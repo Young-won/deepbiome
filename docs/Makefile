@@ -3,7 +3,8 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    = "-W"  # This flag turns warnings into errors.
-SPHINXBUILD   = sphinx-build
+#SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = python3 -m sphinx
 SPHINXPROJ    = PackagingScientificPython
 SOURCEDIR     = source
 BUILDDIR      = build

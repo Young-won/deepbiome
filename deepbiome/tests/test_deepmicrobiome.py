@@ -27,6 +27,7 @@ def test_deepbiome(input_value, output_value):
     test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info, number_of_fold=2)
     # np.save('data/real_train_evaluation.npy',training_evaluation)
     # np.save('data/real_test_evaluation.npy',test_evaluation)
+    
     log.info('test')
     log.info(real_test_evaluation)
     log.info(test_evaluation)

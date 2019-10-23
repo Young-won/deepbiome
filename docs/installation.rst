@@ -8,13 +8,21 @@ Installation
 Stable release
 --------------
 
-To install deepmicrobiome, run this command in your terminal:
+To install deepbiome, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install deepmicrobiome
+    $ pip install deepbiome
 
-This is the preferred method to install deepmicrobiome, as it will always install the most recent stable release.
+This is the preferred method to install deepbiome, as it will always install the most recent stable release.
+
+If you want to install the latest version:
+
+.. code-block:: console
+
+    # for python 3.x
+    
+    $ pip3 install git+https://github.com/Young-won/deepbiome.git
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -32,13 +40,7 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/Young-won/deepmicrobiome
-
-Or download the `tarball`_:
-
-.. code-block:: console
-
-    $ curl -OJL https://github.com/Young-won/deepmicrobiome/tarball/master
+    $ git clone git://github.com/Young-won/deepbiome
 
 Once you have a copy of the source, you can install it with:
 
@@ -46,6 +48,4 @@ Once you have a copy of the source, you can install it with:
 
     $ python setup.py install
 
-
-.. _Github repo: https://github.com/Young-won/deepmicrobiome
-.. _tarball: https://github.com/Young-won/deepmicrobiome/tarball/master
+.. _Github repo: https://github.com/Young-won/deepbiome

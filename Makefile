@@ -51,7 +51,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 deepmicrobiome tests
+	flake8 deepbiome tests
 
 test: ## run tests quickly with the default Python
 	pytest
@@ -60,15 +60,15 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source deepmicrobiome -m pytest
+	coverage run --source deepbiome -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/deepmicrobiome.rst
+	rm -f docs/deepbiome.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ deepmicrobiome
+	sphinx-apidoc -o docs/ deepbiome
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
