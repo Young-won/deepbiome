@@ -11,10 +11,10 @@ def input_value():
     logging.basicConfig(format = formatter,
                     level=logging.DEBUG)
     log = logging.getLogger()
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.DEBUG)
-    handler.setFormatter(formatter)
-    log.addHandler(handler)
+    # handler = logging.StreamHandler(sys.stdout)
+    # handler.setLevel(logging.DEBUG)
+    # handler.setFormatter(formatter)
+    # log.addHandler(handler)
     
     config_data = configuration.Configurator('data/path_info.cfg', log)
     config_data.set_config_map(config_data.get_section_map())

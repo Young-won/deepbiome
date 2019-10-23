@@ -16,9 +16,3 @@ deepbiome Documentation
    min_versions
    authors
    contributing
-
-Indices and tables
-========================
-* : ref:`genindex`
-* : ref:`modindex`
-* : ref:`search`
