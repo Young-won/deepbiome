@@ -31,7 +31,7 @@ import keras.backend as k
 import tensorflow as tf
     
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
-                    max_queue_size=10, workers=1, use_multiprocessing=False):
+                    gpu_memory_fraction = None, max_queue_size=10, workers=1, use_multiprocessing=False):
     '''
     Deepbiome
     -----------
@@ -42,6 +42,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     path_info: python dictionary with path_information
     number_of_fold: 
         default:None
+    gpu_memory_fraction:
+        default:None
     max_queue_size:
         default:10
     workers:
@@ -51,6 +53,11 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     '''
     
     ### Argument #########################################################################################
+    config = tf.ConfigProto()
+    if not gpu_memory_fraction==None:
+        config.gpu_options.per_process_gpu_memory_fraction = gpu_memory_fraction
+    else: config.gpu_options.allow_growth=True
+        
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
     # hist_path = os.path.join(model_save_dir, path_info['model_info']['history'
@@ -162,10 +169,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 #########################################################################################################################
 if __name__ == "__main__":  
     argdict = argv_parse(sys.argv)
-    config = tf.ConfigProto()
-    if 'gpu_memory_fraction' in argdict: config.gpu_options.per_process_gpu_memory_fraction = float(argdict['gpu_memory_fraction'][0])
-    else: config.gpu_options.allow_growth=True
-
+    try: gpu_memory_fraction = float(argdict['gpu_memory_fraction'][0]) 
+    except: gpu_memory_fraction = None
     try: max_queue_size=int(argdict['max_queue_size'][0])
     except: max_queue_size=10
     try: workers=int(argdict['workers'][0])
