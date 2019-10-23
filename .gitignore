@@ -8,6 +8,9 @@ __pycache__/
 *.csv
 *.npy
 *.json
+## Exception for the example file
+!example/data/genus48/genus48_dic.csv
+
 
 # C extensions
 *.so
