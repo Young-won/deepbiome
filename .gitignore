@@ -10,12 +10,12 @@ __pycache__/
 *.json
 
 # Specific data
-example/data/genus48/*
-example/data/pulmonary
-example/data/simulation/s2/*
+examples/data/genus48/*
+examples/data/pulmonary
+examples/data/simulation/s2/*
 
 ## Exception for the example file
-!example/data/genus48/genus48_dic.csv
+!examples/data/genus48/genus48_dic.csv
 
 
 # C extensions
