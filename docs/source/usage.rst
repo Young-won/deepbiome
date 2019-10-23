@@ -2,8 +2,11 @@
 Usage
 =====
 
-Start by importing deepbiome.
+To use deepbiome in a project::
 
-.. code-block:: python
+    from deepbiome import deepbiome
 
-    import deepbiome
+.. autofunction:: deepbiome.deepbiome.deepbiome_train
+
+.. autosummary::
+   :toctree: generated/

@@ -4,12 +4,21 @@
    contain the root `toctree` directive.
 
 deepbiome Documentation
-=======================
+========================
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    installation
    usage
    release-history
    min_versions
+   authors
+   contributing
+
+Indices and tables
+========================
+* : ref:`genindex`
+* : ref:`modindex`
+* : ref:`search`
