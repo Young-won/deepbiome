@@ -21,7 +21,7 @@ Prerequisites
 * Tensorflow
 * Keras
 
-Istall Deepbiome
+Install Deepbiome
 ^^^^^^^^^^^^^^^^
 At the command line:
 .. code-block:: bash
