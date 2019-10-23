@@ -1,6 +1,6 @@
 ######################################################################
 ## DeepBiome
-## - Main code for simulation
+## - Main code
 ##
 ## July 10. 2019
 ## Youngwon (youngwon08@gmail.com)
@@ -28,20 +28,42 @@ from . import build_network
 from .utils import file_path_fold, argv_parse
 
 import keras.backend as k
-config = k.tf.ConfigProto()
+import tensorflow as tf
+
+config = tf.ConfigProto()
 
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     max_queue_size=10, workers=1, use_multiprocessing=False):
     model_save_dir = path_info['model_info']['model_dir']
+    
+    '''
+    Deepbiome
+    -----------
+    Training deep learning network with weigh
+    
+    log: logging instance
+    network_info: python dictionary with network_information
+    path_info: python dictionary with path_information
+    number_of_fold: 
+        default:None
+    max_queue_size:
+        default:10
+    workers:
+        default:1
+    use_multiprocessing:
+        default:False
+    '''
+    
+    ### Argument #########################################################################################
+    model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
+    # hist_path = os.path.join(model_save_dir, path_info['model_info']['history'
+
     # TODO : Warm start
     # warm_start= network_info['training_info']['warm_start'] == 'True'
     # warm_start_model = network_info['training_info']['warm_start_model']
     # try: save_frequency=int(network_info['training_info']['save_frequency'])
     # except: save_frequency=None
 
-    model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
-    # hist_path = os.path.join(model_save_dir, path_info['model_info']['history'
-    
     ### Reader ###########################################################################################
     log.info('-----------------------------------------------------------------')
     reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
@@ -77,7 +99,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         num_classes = reader.get_num_classes()
 
         ### Bulid network ####################################################################################
-        k.set_session(k.tf.Session(config=config))
+        k.set_session(tf.Session(config=config))
         log.info('-----------------------------------------------------------------')
         log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
@@ -138,3 +160,41 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     log.info('-----------------------------------------------------------------')
     gc.collect()
     return test_evaluation, train_evaluation, network
+
+
+#########################################################################################################################
+if __name__ == "__main__":
+    argdict = argv_parse(sys.argv)
+    config = tf.ConfigProto()
+    if 'gpu_memory_fraction' in argdict: config.gpu_options.per_process_gpu_memory_fraction = float(argdict['gpu_memory_fraction'][0])
+    else: config.gpu_options.allow_growth=True
+
+    try: max_queue_size=int(argdict['max_queue_size'][0])
+    except: max_queue_size=10
+    try: workers=int(argdict['workers'][0])
+    except: workers=1
+    try: use_multiprocessing=argdict['use_multiprocessing'][0]=='True'      
+    except: use_multiprocessing=False
+
+    ### Logger ############################################################################################
+    logger = logging_daily.logging_daily(argdict['log_info'][0])
+    logger.reset_logging()
+    log = logger.get_logging()
+    log.setLevel(logging_daily.logging.INFO)
+
+    log.info('Argument input')
+    for argname, arg in argdict.items():
+        log.info('    {}:{}'.format(argname,arg))
+
+    ### Configuration #####################################################################################
+    config_data = configuration.Configurator(argdict['path_info'][0], log)
+    config_data.set_config_map(config_data.get_section_map())
+    config_data.print_config_map()
+
+    config_network = configuration.Configurator(argdict['network_info'][0], log)
+    config_network.set_config_map(config_network.get_section_map())
+    config_network.print_config_map()
+
+    path_info = config_data.get_config_map()
+    network_info = config_network.get_config_map()
+    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info, number_of_fold=2)

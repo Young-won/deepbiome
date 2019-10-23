@@ -19,6 +19,7 @@ import pandas as pd
 import keras
 import keras.callbacks
 
+import tensorflow as tf
 import keras.backend as K
 from keras.models import Sequential, Model
 from keras.layers import Input, Activation, Dense, Flatten, Lambda, Reshape, LeakyReLU
@@ -241,7 +242,7 @@ class Dense_with_tree(Dense):
         # self.tree_weight = tree_weight
     
     def call(self, inputs):
-        output = K.dot(inputs, K.tf.multiply(self.kernel, self.tree_weight))
+        output = K.dot(inputs, tf.multiply(self.kernel, self.tree_weight))
         if self.use_bias:
             output = K.bias_add(output, self.bias, data_format='channels_last')
         if self.activation is not None:
@@ -285,7 +286,7 @@ class Dense_with_tree_schedule(Dense):
     
     def call(self, inputs):
         self.scheduled_tree_weight = self.alpha * self.tree_noise_weight + (1.-self.alpha) * self.tree_weight 
-        output = K.dot(inputs, K.tf.multiply(self.kernel, self.scheduled_tree_weight))
+        output = K.dot(inputs, tf.multiply(self.kernel, self.scheduled_tree_weight))
         self.alpha = self.alpha * 0.99
         
         if self.use_bias:

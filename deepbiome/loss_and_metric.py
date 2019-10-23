@@ -44,7 +44,7 @@ def gmeasure(y_true, y_pred):
 
 def auc(y_true, y_pred):
     # https://stackoverflow.com/questions/43263111/defining-an-auc-metric-for-keras-to-support-evaluation-of-validation-dataset
-    score = K.tf.py_func(lambda y_true, y_pred : roc_auc_score(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+    score = tf.py_func(lambda y_true, y_pred : roc_auc_score(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
                         [y_true, y_pred],
                         'float32',
                         stateful=False,
@@ -61,7 +61,7 @@ def f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None):
 def f1(y_true, y_pred):
     # https://stackoverflow.com/questions/43263111/defining-an-auc-metric-for-keras-to-support-evaluation-of-validation-dataset
     y_pred = K.round(y_pred)
-    score = K.tf.py_func(lambda y_true, y_pred : f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+    score = tf.py_func(lambda y_true, y_pred : f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
                         [y_true, y_pred],
                         'float32',
                         stateful=False,
