@@ -19,4 +19,12 @@ script:
   - coverage report -m  # Generate test coverage report.
   - codecov  # Upload the report to codecov.
   - flake8  # Enforce code style ('relaxed' line length limit is set in .flake8 config file).
+  - set -e
   - make -C docs html  # Build the documentation.
+  - pip install doctr
+  - doctr deploy --built-docs docs/build/html .
+  
+env:
+  global:
+    # Doctr deploy key for Young-won/deepbiome
+    - secure: "BDocUoHxfQk8nGWkqZIbrjB/erl6Nu74dVHQ/nhSpQKHUx1Afq8ategEUbFe+Vq6SmSNpJpNMafakMI5hHxbY6r/SWq9K+tKhFyj/KKrg56bxN54jQNjqOL+pbBFcfqxv2G1hOJiGhA26dE0MKKqbyyGUwjlYKYycntKMshQyYKd596xBtreScVtJQAB1weob6ukm9vOGQYxWjtFsABXgNjBZiMi9JqlneIfwUG+5vo0XLevv439h5Rz+wWwmfN95daX9FYkX0Q2S0SSp6W8rXiL/BSImb2q6P4WJGrfeblVDLQVeq1f1VFOV5p0VKk6hGEKPlFYk8LEMyfXYzkJzjLYpH6E/7Q0a/yQuBp4dzVJlabJcBcS/b8h6RR6kIRKICxNYBcXKtJhtM4nAmHV6eyZz6hekeQulJCXxTuJVPDbKXNgjTSweQ3nzOqC9dwM8cdVlvFUzv5FTv3Q5Mtnp4Sx3HhMoIDssMbX59tEpASM14+8+ukeVKQ6cULCuo68UNs/ljjUL4SQtRQP94A2W73KJ51F4EQaBl17qLjbxW6sDImqMJxe77Jei+PzfPdoXsy/tUKlOkhkWOiMgRsNhmTH6MScz6egiDdWVJy8PFKzbJKq4zstF9SKRuU7ynQjr/gyO284TcoejbzqY97qGkC3xB6sS/BhbCgn6yOgZt0="
