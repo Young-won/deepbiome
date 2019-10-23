@@ -37,7 +37,7 @@ Features
 
 
 Credits
-
+--------
 This package was created with Cookiecutter_ and the `NSLS-II/scientific-python-cookiecutter`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
