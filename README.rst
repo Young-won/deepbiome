@@ -1,5 +1,5 @@
 =========
-deepbiome
+Deepbiome
 =========
 
 .. image:: https://img.shields.io/travis/Young-won/deepbiome.svg
@@ -7,15 +7,7 @@ deepbiome
 
 .. image:: https://img.shields.io/pypi/v/deepbiome.svg
         :target: https://pypi.python.org/pypi/deepbiome
-
-.. image:: https://deepmicrobiome.readthedocs.io/badge/?version=latest
-        :target: https://deepmicrobiome.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-.. image:: https://pyup.io/repos/github/Young-won/deepbiome/shield.svg
-     :target: https://pyup.io/repos/github/Young-won/deepbiome/
-     :alt: Updates
-
+        
 Deep Learning package using the phylogenetic tree information for microbiome data analysis.
 
 * Free software: 3-clause BSD license
