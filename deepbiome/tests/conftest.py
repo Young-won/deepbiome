@@ -30,6 +30,6 @@ def input_value():
 
 @pytest.fixture
 def output_value():
-    training_evaluation = np.load('data/real_train_evaluation.npy')
-    test_evaluation = np.load('data/real_test_evaluation.npy')
+    training_evaluation = np.load('./data/real_train_evaluation.npy')
+    test_evaluation = np.load('./data/real_test_evaluation.npy')
     return training_evaluation, test_evaluation
