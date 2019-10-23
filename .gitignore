@@ -8,6 +8,12 @@ __pycache__/
 *.csv
 *.npy
 *.json
+
+# Specific data
+example/data/genus48/phenotype
+example/data/genus48/*.txt
+example/data/genus48/tree.png
+
 ## Exception for the example file
 !example/data/genus48/genus48_dic.csv
 
