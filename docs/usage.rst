@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use deepmicrobiome in a project::
+To use deepbiome in a project::
 
-    import deepmicrobiome
+    from deepbiome import deepbiome

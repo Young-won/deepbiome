@@ -28,16 +28,30 @@ def recall(y_true, y_pred):
     return K.sum(y_true*y_pred)/(K.sum(y_true*y_pred) + K.sum(y_true*(1-y_pred)) + 1e-10)
 
 def sensitivity(y_true, y_pred):
-    y_pred = K.round(y_pred)
-    true_positives = K.sum(y_true * y_pred)
-    data_positives = K.sum(y_true)
-    return true_positives / (data_positives + K.epsilon())
+#     y_pred = K.round(y_pred)
+#     neg_y_pred = 1 - y_pred
+#     true_positive = K.sum(y_true * y_pred)
+#     false_negative = K.sum(y_true * neg_y_pred)
+#     return (true_positive) / (true_positive + false_negative + K.epsilon())
+    y_pred = K.cast(K.greater(K.clip(y_pred, 0, 1), 0.5), K.floatx())
+    neg_y_pred = 1 - y_pred
+    true_positive = K.round(K.sum(K.clip(y_true * y_pred, 0, 1)))
+    false_negative = K.round(K.sum(K.clip(y_true * neg_y_pred, 0, 1)))
+    return (true_positive) / (true_positive + false_negative + K.epsilon())
 
 def specificity(y_true, y_pred):
-    y_pred = K.round(y_pred)
-    true_negatives = K.sum((1-y_true) * (1-y_pred))
-    data_positives = K.sum(1-y_true)
-    return true_negatives / (data_positives + K.epsilon())
+#     y_pred = K.round(y_pred)
+#     neg_y_true = 1 - y_true
+#     neg_y_pred = 1 - y_pred
+#     false_positive = K.sum(neg_y_true * y_pred)
+#     true_negative = K.sum(neg_y_true * neg_y_pred)
+#     return (true_negative) / (false_positive + true_negative + K.epsilon())
+    y_pred = K.cast(K.greater(K.clip(y_pred, 0, 1), 0.5), K.floatx())
+    neg_y_true = 1 - y_true
+    neg_y_pred = 1 - y_pred
+    false_positive = K.round(K.sum(K.clip(neg_y_true * y_pred, 0, 1)))
+    true_negative = K.round(K.sum(K.clip(neg_y_true * neg_y_pred, 0, 1)))
+    return (true_negative) / (false_positive + true_negative + K.epsilon())
 
 def gmeasure(y_true, y_pred):
     return (sensitivity(y_true, y_pred) * specificity(y_true, y_pred)) ** 0.5

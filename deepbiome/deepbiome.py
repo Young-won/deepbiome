@@ -32,25 +32,44 @@ import tensorflow as tf
     
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     gpu_memory_fraction = None, max_queue_size=10, workers=1, use_multiprocessing=False):
-    '''
-    Deepbiome
-    -----------
-    Training deep learning network with weigh
+    """
+    Training the deep neural network with phylogenetic tree weight regularizer.
+    See ref url (TODO: update)
+
+    Parameters
+    ----------
+    log : logging instance
+        python logging instance for logging
+    network_info : dictionary
+        python dictionary with network_information
+    path_info : dictionary
+        python dictionary with path_information
+    number_of_fold : int
+        default=None
+    gpu_memory_fraction : float
+        default=None
+    max_queue_size : int
+        default=10
+    workers : int
+        default=1
+    use_multiprocessing : boolean
+        default=False
+
+    Returns
+    -------
+    test_evaluation : numpy array
+        numpy array of the evaluation using testset from all fold
+    train_evaluation : numpy array
+        numpy array of the evaluation using training from all fold
+    network : deepbiome network instance
+        deepbiome class instance
     
-    log: logging instance
-    network_info: python dictionary with network_information
-    path_info: python dictionary with path_information
-    number_of_fold: 
-        default:None
-    gpu_memory_fraction:
-        default:None
-    max_queue_size:
-        default:10
-    workers:
-        default:1
-    use_multiprocessing:
-        default:False
-    '''
+    Examples
+    --------
+    Training the deep neural network with phylogenetic tree weight regularizer.
+
+    >>> deepbiome_train(log, network_info, path_info)
+    """
     
     ### Argument #########################################################################################
     config = tf.ConfigProto()
