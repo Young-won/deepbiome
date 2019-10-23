@@ -16,11 +16,11 @@ def input_value():
     # handler.setFormatter(formatter)
     # log.addHandler(handler)
     
-    config_data = configuration.Configurator('data/path_info.cfg', log)
+    config_data = configuration.Configurator('./data/path_info.cfg', log)
     config_data.set_config_map(config_data.get_section_map())
     config_data.print_config_map()
 
-    config_network = configuration.Configurator('data/network_info.cfg', log)
+    config_network = configuration.Configurator('./data/network_info.cfg', log)
     config_network.set_config_map(config_network.get_section_map())
     config_network.print_config_map()
 
