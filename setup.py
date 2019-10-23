@@ -1,55 +1,67 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-"""The setup script."""
-
+from os import path
 from setuptools import setup, find_packages
+import sys
+import versioneer
 
-with open('README.rst') as readme_file:
+
+# NOTE: This file must remain Python 2 compatible for the foreseeable future,
+# to ensure that we error out properly for people with outdated setuptools
+# and/or pip.
+min_version = (3, 5)
+if sys.version_info < min_version:
+    error = """
+deepbiome does not support Python {0}.{1}.
+Python {2}.{3} and above is required. Check your Python version like so:
+
+python3 --version
+
+This may be due to an out-of-date pip. Make sure you have pip >= 9.0.1.
+Upgrade pip like so:
+
+pip install --upgrade pip
+""".format(*(sys.version_info[:2] + min_version))
+    sys.exit(error)
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
+with open(path.join(here, 'requirements.txt')) as requirements_file:
+    # Parse requirements.txt, ignoring any commented-out lines.
+    requirements = [line for line in requirements_file.read().splitlines()
+                    if not line.startswith('#')]
 
-requirements = ['Click>=6.0', ]
-
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest>=3', ]
 
 setup(
+    name='deepbiome',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
+    description="Deep Learning package using the phylogenetic tree information for microbiome data analysis.",
+    long_description=readme,
     author="Youngwon Choi",
     author_email='youngwon08@gmail.com',
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-    ],
-    description="DeepMicrobiome",
+    url='https://github.com/Young-won/deepbiome',
+    python_requires='>={}'.format('.'.join(str(n) for n in min_version)),
+    packages=find_packages(exclude=['docs', 'tests']),
     entry_points={
         'console_scripts': [
-            'deepmicrobiome=deepmicrobiome.cli:main',
+            # 'command = some.module:some_function',
         ],
     },
-    install_requires=requirements,
-    license="BSD license",
-    long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='deepmicrobiome',
-    name='deepmicrobiome',
-    packages=find_packages(include=['deepmicrobiome']),
-    setup_requires=setup_requirements,
-    test_suite='tests',
-    tests_require=test_requirements,
-    url='https://github.com/Young-won/deepmicrobiome',
-    version='0.1.0',
-    zip_safe=False,
+    package_data={
+        'deepbiome': [
+            # When adding files here, remember to update MANIFEST.in as well,
+            # or else they will not be included in the distribution on PyPI!
+            # 'path/to/data_file',
+        ]
+    },
+    install_requires=requirements,
+    license="BSD (3-clause)",
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+    ],
 )

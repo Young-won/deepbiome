@@ -1,41 +1,28 @@
-==============
-deepmicrobiome
-==============
+=========
+deepbiome
+=========
+
+.. image:: https://img.shields.io/travis/Young-won/deepbiome.svg
+        :target: https://travis-ci.org/Young-won/deepbiome
+
+.. image:: https://img.shields.io/pypi/v/deepbiome.svg
+        :target: https://pypi.python.org/pypi/deepbiome
 
 
-.. image:: https://img.shields.io/pypi/v/deepmicrobiome.svg
-        :target: https://pypi.python.org/pypi/deepmicrobiome
+Deep Learning package using the phylogenetic tree information for microbiome data analysis.
 
-.. image:: https://img.shields.io/travis/Young-won/deepmicrobiome.svg
-        :target: https://travis-ci.org/Young-won/deepmicrobiome
-
-.. image:: https://readthedocs.org/projects/deepmicrobiome/badge/?version=latest
-        :target: https://deepmicrobiome.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-
-.. image:: https://pyup.io/repos/github/Young-won/deepmicrobiome/shield.svg
-     :target: https://pyup.io/repos/github/Young-won/deepmicrobiome/
-     :alt: Updates
-
-
-
-DeepMicrobiome
-
-
-* Free software: BSD license
-* Documentation: https://deepmicrobiome.readthedocs.io.
-
+* Free software: 3-clause BSD license
+* Documentation: (COMING SOON!) https://Young-won.github.io/deepbiome.
 
 Features
 --------
 
 * TODO
 
-Credits
--------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+Credits
+
+This package was created with Cookiecutter_ and the `NSLS-II/scientific-python-cookiecutter`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`NSLS-II/scientific-python-cookiecutter`: https://github.com/NSLS-II/scientific-python-cookiecutter

@@ -2,12 +2,14 @@
 Credits
 =======
 
-Development Lead
-----------------
+Maintainer
+----------
 
 * Youngwon Choi <youngwon08@gmail.com>
 
 Contributors
 ------------
 
-None yet. Why not be the first?
+* Jing Zhai <jingzhai@meail.arizona.edu>
+
+See: CONTRIBUTING.rst

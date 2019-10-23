@@ -1,29 +1,22 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 python:
-  - 3.7
-  - 3.6
   - 3.5
-  - 2.7
+  - 3.6
+  - 3.7
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
 
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
+install:
+  # Install this package and the packages listed in requirements.txt.
+  - pip install .
+  # Install extra requirements for running tests and building docs.
+  - pip install -r requirements-dev.txt
 
-# Command to run tests, e.g. python setup.py test
-script: tox
-
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: Young-won
-  password:
-    secure:
-  on:
-    tags: true
-    repo: Young-won/deepmicrobiome
-    python: 3.7
+script:
+  - coverage run -m pytest  # Run the tests and check for test coverage.
+  - coverage report -m  # Generate test coverage report.
+  - codecov  # Upload the report to codecov.
+  - flake8  # Enforce code style ('relaxed' line length limit is set in .flake8 config file).
+  - make -C docs html  # Build the documentation.
