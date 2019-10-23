@@ -29,8 +29,6 @@ from .utils import file_path_fold, argv_parse
 
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     max_queue_size=10, workers=1, use_multiprocessing=False):
-    model_save_dir = path_info['model_info']['model_dir']
-    
     '''
     Deepbiome
     -----------
