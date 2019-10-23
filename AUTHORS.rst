@@ -11,5 +11,3 @@ Contributors
 ------------
 
 * Jing Zhai <jingzhai@meail.arizona.edu>
-
-See: CONTRIBUTING.rst
