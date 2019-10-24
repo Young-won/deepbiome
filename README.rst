@@ -4,9 +4,15 @@ Deepbiome
 
 .. image:: https://img.shields.io/travis/Young-won/deepbiome.svg
         :target: https://travis-ci.org/Young-won/deepbiome
+        :alt: Build
+        
+.. image:: https://coveralls.io/repos/github/Young-won/deepbiome/badge.svg?branch=master
+        :target: https://coveralls.io/github/Young-won/deepbiome?branch=master
+        :alt: Coverage
 
 .. image:: https://img.shields.io/pypi/v/deepbiome.svg
         :target: https://pypi.python.org/pypi/deepbiome
+        :alt: Version
 
 .. image:: https://readthedocs.org/projects/deepmicrobiome/badge/?version=latest
         :target: https://deepmicrobiome.readthedocs.io/en/latest/?badge=latest
