@@ -30,7 +30,9 @@ Prerequisites
 
 Install Deepbiome
 ^^^^^^^^^^^^^^^^
+
 At the command line:
+
 .. code-block:: bash
 
     # for python 3.x
