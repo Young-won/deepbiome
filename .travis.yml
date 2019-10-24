@@ -25,7 +25,7 @@ script:
   - coverage run -m pytest  # Run the tests and check for test coverage.
   - coverage report -m  # Generate test coverage report.
   - codecov  # Upload the report to codecov.
-  - flake8  # Enforce code style ('relaxed' line length limit is set in .flake8 config file).
+  #- flake8  # Enforce code style ('relaxed' line length limit is set in .flake8 config file).
   - set -e
   - make -C docs html  # Build the documentation.
   - pip install doctr
