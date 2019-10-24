@@ -17,7 +17,7 @@ def test_deepbiome_classification(input_value, output_value):
     Test deepbiome by classification problem with simulated data
     '''
     log, network_info, path_info = input_value
-    real_test_evaluation, real_train_evaluation = output_value
+    real_train_evaluation, real_test_evaluation = output_value
     
     seed_value = 123
     os.environ['PYTHONHASHSEED']=str(seed_value)
@@ -38,5 +38,4 @@ def test_deepbiome_classification(input_value, output_value):
     log.info(real_train_evaluation)
     log.info(train_evaluation)
     log.info(np.all(np.isclose(real_train_evaluation, train_evaluation)))
-    # assert np.all(np.isclose(real_test_evaluation, test_evaluation)) & np.all(np.isclose(real_train_evaluation, train_evaluation))
-    assert 1+2==3
+    assert np.all(np.isclose(real_test_evaluation, test_evaluation)) & np.all(np.isclose(real_train_evaluation, train_evaluation))

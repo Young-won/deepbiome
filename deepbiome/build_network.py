@@ -588,8 +588,8 @@ class DeepBiomeNetwork(Base_Network):
         l = x_input
         for i, (tree_w, tree_wn) in enumerate(zip(self.tree_weight_list, self.tree_weight_noise_list)):
             bias_initializer='zeros'
-            if weight_initial == 'phylogenetic_tree_glorot_uniform': kernel_initializer = glorot_uniform_with_tree(tree_w)
-            elif weight_initial == 'phylogenetic_tree_he_normal': kernel_initializer = he_normal_with_tree(tree_w)
+            if weight_initial == 'phylogenetic_tree_glorot_uniform': kernel_initializer = glorot_uniform_with_tree(tree_w, seed=123)
+            elif weight_initial == 'phylogenetic_tree_he_normal': kernel_initializer = he_normal_with_tree(tree_w, seed=123)
             elif weight_initial == 'true_disease_weight': 
                 kernel_initializer = keras.initializers.Constant(true_disease_weight_list[i])
                 bias_initializer = keras.initializers.Constant(true_disease_bias_list[i])
