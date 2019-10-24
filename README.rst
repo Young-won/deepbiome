@@ -13,16 +13,6 @@ Deepbiome
 .. image:: https://img.shields.io/pypi/v/deepbiome.svg
         :target: https://pypi.python.org/pypi/deepbiome
         :alt: Version
-
-.. image:: https://readthedocs.org/projects/deepmicrobiome/badge/?version=latest
-        :target: https://deepmicrobiome.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-.. image:: https://pyup.io/repos/github/Young-won/deepmicrobiome/shield.svg
-     :target: https://pyup.io/repos/github/Young-won/deepmicrobiome/
-     :alt: Updates
-
-
  
 Deep Learning package using the phylogenetic tree information for microbiome data analysis.
 
