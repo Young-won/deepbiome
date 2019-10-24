@@ -12,9 +12,9 @@ import numpy as np
 
 from deepbiome import deepbiome
    
-def test_deepbiome(input_value, output_value):
+def test_deepbiome_classification(input_value, output_value):
     '''
-    Test deepbiome by some simulated data
+    Test deepbiome by classification problem with simulated data
     '''
     log, network_info, path_info = input_value
     real_test_evaluation, real_train_evaluation = output_value
@@ -23,7 +23,8 @@ def test_deepbiome(input_value, output_value):
     os.environ['PYTHONHASHSEED']=str(seed_value)
     random.seed(seed_value)
     np.random.seed(seed_value)
-    tf.set_random_seed(seed_value)
+    if tf.__version__.startswith('2'): tf.random.set_seed(seed_value)
+    else: tf.set_random_seed(seed_value)
     test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info, number_of_fold=2)
     # np.save('data/real_train_evaluation.npy', train_evaluation)
     # np.save('data/real_test_evaluation.npy', test_evaluation)
