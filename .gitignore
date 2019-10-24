@@ -7,6 +7,7 @@ __pycache__/
 *.h5
 *.csv
 *.npy
+*.log
 *.json
 
 ## Exception for the example file

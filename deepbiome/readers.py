@@ -76,18 +76,12 @@ class MicroBiomeReader(BaseReader):
             y = pd.DataFrame(y.iloc[:, sim]) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
         except:
             y = pd.DataFrame(y) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
-            
-        # self.y_label = ['y1','y2']
-        if np.array(y).dtype == np.int and np.max(np.array(y)) > 1:
-            self.num_classes = np.max(np.array(y))+1
-            self.y = to_categorical(y, num_classes=np.max(np.array(y))+1, dtype=np.int32)
-        elif np.array(y).dtype == np.int and np.max(np.array(y)) <= 1:
-            self.num_classes = 1
-            self.y = np.array(y, dtype=np.int32)[:,0]
-        else:
-            self.num_classes = 0
-            self.y = np.array(y, dtype=np.float32)[:,0]
-    
+        
+        self.num_classes, self.y = self._set_problem(y)
+   
+    def _set_problem(self):
+        raise NotImplementedError()
+        
     def get_num_classes(self):
         return self.num_classes
     
@@ -101,8 +95,45 @@ class MicroBiomeReader(BaseReader):
         y_train = self.y[idxs]
         y_test = self.y[remain_idxs]
         return x_train, x_test, y_train, y_test
+    
 
+    
+
+        # self.y_label = ['y1','y2']
+        if np.array(y).dtype == np.int and np.max(np.array(y)) > 1:
+            self.num_classes = np.max(np.array(y))+1
+            self.y = to_categorical(y, num_classes=np.max(np.array(y))+1, dtype=np.int32)
+        elif np.array(y).dtype == np.int and np.max(np.array(y)) <= 1:
+            self.num_classes = 1
+            self.y = np.array(y, dtype=np.int32)[:,0]
+        else:
+            self.num_classes = 0
+            self.y = np.array(y, dtype=np.float32)[:,0]
+            
 ########################################################################################################
+# Regression
+class MicroBiomeRegressionReader(MicroBiomeReader):
+    def _set_problem(self, y):
+        num_classes = 0
+        y = np.array(y, dtype=np.float32)[:,0]
+        return num_classes, y
+    
+########################################################################################################
+# Classification
+class MicroBiomeClassificationReader(MicroBiomeReader):
+    def _set_problem(self, y):
+        if np.min(np.array(y)) > 0: y = y - 1
+        if np.max(np.array(y)) <= 1:
+            # binary
+            num_classes = 1
+            try: y = np.array(y, dtype=np.int32)[:,0]
+            except: y = np.array(y, dtype=np.int32)
+        else:
+            # multiclass
+            num_classes = np.max(np.array(y))+1
+            y = to_categorical(y, num_classes=np.max(np.array(y))+1, dtype=np.int32)
+        return num_classes, y
+        
 ########################################################################################################
 # TODO: fix
 if __name__ == "__main__":
