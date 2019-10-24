@@ -1,5 +1,6 @@
 # List required packages in this file, one per line.
 keras
 tensorflow
+scipy
 pandas
 sklearn

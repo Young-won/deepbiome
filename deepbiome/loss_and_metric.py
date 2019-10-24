@@ -18,6 +18,7 @@ import keras.backend as K
 from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy, sparse_categorical_crossentropy
 from keras.metrics import binary_accuracy, categorical_accuracy, sparse_categorical_accuracy
 from sklearn.metrics import roc_auc_score, f1_score
+from scipy.stats import pearsonr
 
 ###############################################################################################################################
 # tf loss functions
@@ -81,18 +82,11 @@ def f1(y_true, y_pred):
     return score
 
 def correlation_coefficient(y_true, y_pred):
-    x = y_true
-    y = y_pred
-    mx = K.mean(x)
-    my = K.mean(y)
-    xm, ym = x-mx, y-my
-    r_num = K.sum(tf.multiply(xm,ym))
-    r_den = K.sqrt(tf.multiply(K.sum(K.square(xm)), K.sum(K.square(ym))))
-    r = r_num / r_den
-
-    r = K.maximum(K.minimum(r, 1.0), -1.0)
-    # return 1 - K.square(r)
-    return K.square(r)
+    score = tf.py_function(lambda y_true, y_pred : pearsonr(y_true, y_pred)[0].astype('float32'),
+                           [y_true, y_pred],
+                           Tout=tf.float32,
+                           name='correlation_coefficient')
+    return score
 
 # TODO
 # https://stackoverflow.com/questions/41032551/how-to-compute-receiving-operating-characteristic-roc-and-auc-in-keras
