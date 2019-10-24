@@ -54,7 +54,7 @@ setup(
         'deepbiome': [
             # When adding files here, remember to update MANIFEST.in as well,
             # or else they will not be included in the distribution on PyPI!
-            'deepbiome/tests/data/*',
+            'tests/data/*',
         ]
     },
     install_requires=requirements,

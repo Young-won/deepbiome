@@ -49,7 +49,6 @@ class BaseReader(object):
 ### MicroBiome Reader
 ########################################################################################################
 class MicroBiomeReader(BaseReader):
-    # def __init__(self, log, path_info, network_info, verbose=True):
     def __init__(self, log, verbose=True):
         super(MicroBiomeReader,self).__init__(log, verbose)
         # self.path_info = path_info
@@ -95,9 +94,6 @@ class MicroBiomeReader(BaseReader):
         y_train = self.y[idxs]
         y_test = self.y[remain_idxs]
         return x_train, x_test, y_train, y_test
-    
-
-    
 
         # self.y_label = ['y1','y2']
         if np.array(y).dtype == np.int and np.max(np.array(y)) > 1:
@@ -113,6 +109,8 @@ class MicroBiomeReader(BaseReader):
 ########################################################################################################
 # Regression
 class MicroBiomeRegressionReader(MicroBiomeReader):
+    def __init__(self, log, verbose=True):
+        super(MicroBiomeRegressionReader, self).__init__(log, verbose)
     def _set_problem(self, y):
         num_classes = 0
         y = np.array(y, dtype=np.float32)[:,0]
@@ -121,6 +119,8 @@ class MicroBiomeRegressionReader(MicroBiomeReader):
 ########################################################################################################
 # Classification
 class MicroBiomeClassificationReader(MicroBiomeReader):
+    def __init__(self, log, verbose=True):
+        super(MicroBiomeClassificationReader, self).__init__(log, verbose)
     def _set_problem(self, y):
         if np.min(np.array(y)) > 0: y = y - 1
         if np.max(np.array(y)) <= 1:
