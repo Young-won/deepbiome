@@ -68,7 +68,14 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 
     >>> deepbiome_train(log, network_info, path_info)
     """
-    
+    if tf.__version__.startswith('2'):
+        gpus = tf.config.experimental.get_visible_devices(device_type='GPU')
+        try: tf.config.experimental.set_memory_growth(gpus, True)
+        except: pass
+    else:
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth=True
+        
     ### Argument #########################################################################################
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
@@ -115,6 +122,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         num_classes = reader.get_num_classes()
 
         ### Bulid network ####################################################################################
+        if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
         log.info('-----------------------------------------------------------------')
         log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
@@ -143,6 +151,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         test_eval_res = network.evaluate(x_test, y_test)
         test_evaluation.append(test_eval_res)
 
+        if not tf.__version__.startswith('2'): k.clear_session()
         log.info('Compute time : {}'.format(time.time()-foldstarttime))
         log.info('%d fold computing end!---------------------------------------------' % (fold+1))
 
