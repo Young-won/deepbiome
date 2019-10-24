@@ -48,4 +48,4 @@ config_network.print_config_map()
 
 path_info = config_data.get_config_map()
 network_info = config_network.get_config_map()
-test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info, number_of_fold=10)
+test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info, number_of_fold=20)

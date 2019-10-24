@@ -117,23 +117,34 @@ def np_f1_score(y_true, y_pred):
     return skmetrics.f1_score(y_true, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)
 
 def np_roc_auc(y_true, y_pred):
-    return skmetrics.roc_auc_score(y_true, y_score, average='macro', sample_weight=None, max_fpr=None)
+    return skmetrics.roc_auc_score(y_true, y_pred, average='macro', sample_weight=None, max_fpr=None)
 
 def np_confusion_matrix(y_true, y_pred):
     return skmetrics.confusion_matrix(y_true, y_pred).ravel()
 
 def np_sensitivity(y_true, y_pred):
-    tn, fp, fn, tp = np_confusion_matrix(y_true, y_pred)
-    sensitivity = tp / (tp+fn)
-    return sensitivity
+    y_true = y_true.astype(np.int32)
+    y_pred = (y_pred >= 0.5).astype(np.int32)
+    neg_y_pred = 1 - y_pred
+    tp = np.sum(y_true * y_pred)
+    fn = np.sum(y_true * neg_y_pred)
+    return tp / (tp+fn)
 
 def np_specificity(y_true, y_pred):
-    tn, fp, fn, tp = np_confusion_matrix(y_true, y_pred)
-    specificity = tn / (tn+fp)
-    return specificity
-
+    y_true = y_true.astype(np.int32)
+    y_pred = (y_pred >= 0.5).astype(np.int32)
+    neg_y_true = 1 - y_true
+    neg_y_pred = 1 - y_pred
+    fp = np.sum(neg_y_true * y_pred)
+    tn = np.sum(neg_y_true * neg_y_pred)
+    return tn / (tn+fp)
+    
 def np_PPV(y_true, y_pred):
-    tn, fp, fn, tp = np_confusion_matrix(y_true, y_pred)
+    y_true = y_true.astype(np.int32)
+    y_pred = (y_pred >= 0.5).astype(np.int32)
+    neg_y_true = 1 - y_true
+    tp = np.sum(y_true * y_pred)
+    fp = np.sum(neg_y_true * y_pred)
     return tp/(tp+fp)
 
 def np_gmeasure(y_true, y_pred):
@@ -147,6 +158,8 @@ def metric_test(y_true, y_pred):
             np_roc_auc(y_true, y_pred))
 
 def metric_texa_test(y_true, y_pred):
+    y_true = y_true.astype(np.int32)
+    y_pred = (y_pred>=0.5).astype(np.int32)
     return (np_sensitivity(y_true, y_pred), np_specificity(y_true, y_pred),
             np_gmeasure(y_true, y_pred), np_binary_accuracy(y_true, y_pred))
 ###############################################################################################################################
