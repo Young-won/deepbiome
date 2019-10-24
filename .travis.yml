@@ -31,3 +31,5 @@ script:
   - pip install doctr
   - doctr deploy --built-docs docs/build/html .
  
+after_success:
+  - coveralls
