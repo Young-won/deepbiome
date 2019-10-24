@@ -82,7 +82,7 @@ def f1(y_true, y_pred):
     return score
 
 def correlation_coefficient(y_true, y_pred):
-    score = tf.py_function(lambda y_true, y_pred : pearsonr(y_true, y_pred)[0].astype('float32'),
+    score = tf.py_function(lambda y_true, y_pred : pearsonr(y_true, y_pred)[0],
                            [y_true, y_pred],
                            Tout=tf.float32,
                            name='correlation_coefficient')
