@@ -31,7 +31,7 @@ import keras.backend as k
 import tensorflow as tf
     
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
-                    gpu_memory_fraction = None, max_queue_size=10, workers=1, use_multiprocessing=False):
+                    max_queue_size=10, workers=1, use_multiprocessing=False):
     """
     Training the deep neural network with phylogenetic tree weight regularizer.
     See ref url (TODO: update)
@@ -45,8 +45,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     path_info : dictionary
         python dictionary with path_information
     number_of_fold : int
-        default=None
-    gpu_memory_fraction : float
         default=None
     max_queue_size : int
         default=10
@@ -72,11 +70,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     """
     
     ### Argument #########################################################################################
-    config = tf.ConfigProto()
-    if not gpu_memory_fraction==None:
-        config.gpu_options.per_process_gpu_memory_fraction = gpu_memory_fraction
-    else: config.gpu_options.allow_growth=True
-        
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
     # hist_path = os.path.join(model_save_dir, path_info['model_info']['history'
@@ -122,7 +115,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         num_classes = reader.get_num_classes()
 
         ### Bulid network ####################################################################################
-        k.set_session(tf.Session(config=config))
         log.info('-----------------------------------------------------------------')
         log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
@@ -151,7 +143,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         test_eval_res = network.evaluate(x_test, y_test)
         test_evaluation.append(test_eval_res)
 
-        k.clear_session()
         log.info('Compute time : {}'.format(time.time()-foldstarttime))
         log.info('%d fold computing end!---------------------------------------------' % (fold+1))
 
