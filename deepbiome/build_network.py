@@ -146,27 +146,27 @@ class Base_Network(abc.ABC):
         self.log.info('Training end with time {}!'.format(time.time()-trainingtime))
         return hist
     
-    def fit_generator(self, train_sampler, validation_sampler=None, 
-                      max_queue_size=50, workers=1, use_multiprocessing=False,
-                      model_path = None):
-        callbacks = self.get_callbacks(validation_sampler, model_path)
+#     def fit_generator(self, train_sampler, validation_sampler=None, 
+#                       max_queue_size=50, workers=1, use_multiprocessing=False,
+#                       model_path = None):
+#         callbacks = self.get_callbacks(validation_sampler, model_path)
         
-        self.log.info('Training start!')
-        trainingtime = time.time()
+#         self.log.info('Training start!')
+#         trainingtime = time.time()
         
-        hist = self.model.fit_generator(train_sampler,
-                                        steps_per_epoch=len(train_sampler),
-                                        epochs=int(self.network_info['training_info']['epochs']), 
-                                        verbose=1, 
-                                        callbacks=callbacks, 
-                                        validation_data=validation_sampler,
-                                        validation_steps=len(validation_sampler),
-                                        max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing)
+#         hist = self.model.fit_generator(train_sampler,
+#                                         steps_per_epoch=len(train_sampler),
+#                                         epochs=int(self.network_info['training_info']['epochs']), 
+#                                         verbose=1, 
+#                                         callbacks=callbacks, 
+#                                         validation_data=validation_sampler,
+#                                         validation_steps=len(validation_sampler),
+#                                         max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing)
         
-        if self.best_model_save:
-            self.load_weights(model_path)
-        self.log.info('Training end with time {}!'.format(time.time()-trainingtime))
-        return hist
+#         if self.best_model_save:
+#             self.load_weights(model_path)
+#         self.log.info('Training end with time {}!'.format(time.time()-trainingtime))
+#         return hist
     
     def evaluate(self, x, y):
         self.log.info('Evaluation start!')
@@ -178,15 +178,15 @@ class Base_Network(abc.ABC):
         self.log.info('Evaluation: {}'.format(evaluation))
         return evaluation
     
-    def evaluate_generator(self, test_sampler, 
-                           max_queue_size=50, workers=1, use_multiprocessing=False):
-        self.log.info('Evaluation start!')
-        trainingtime = time.time()
-        evaluation = self.model.evaluate_generator(test_sampler, steps=len(test_sampler), 
-                                                   max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing)
-        self.log.info('Evaluation end with time {}!'.format(time.time()-trainingtime))
-        self.log.info('Evaluation: {}'.format(evaluation))
-        return evaluation
+    # def evaluate_generator(self, test_sampler, 
+    #                        max_queue_size=50, workers=1, use_multiprocessing=False):
+    #     self.log.info('Evaluation start!')
+    #     trainingtime = time.time()
+    #     evaluation = self.model.evaluate_generator(test_sampler, steps=len(test_sampler), 
+    #                                                max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing)
+    #     self.log.info('Evaluation end with time {}!'.format(time.time()-trainingtime))
+    #     self.log.info('Evaluation: {}'.format(evaluation))
+    #     return evaluation
     
     def predict(self, x):
         self.log.info('Prediction start!')
@@ -197,16 +197,16 @@ class Base_Network(abc.ABC):
         self.log.info('Prediction end with time {}!'.format(time.time()-trainingtime))
         return prediction
     
-    def predict_generator(self, test_sampler,
-                          max_queue_size=50, workers=1, use_multiprocessing=False):
-        self.log.info('Prediction start!')
-        trainingtime = time.time()
+#     def predict_generator(self, test_sampler,
+#                           max_queue_size=50, workers=1, use_multiprocessing=False):
+#         self.log.info('Prediction start!')
+#         trainingtime = time.time()
         
-        prediction = self.model.predict_generator(test_sampler, steps=len(test_sampler), 
-                                            max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing,
-                                            verbose=1)
-        self.log.info('Prediction end with time {}!'.format(time.time()-trainingtime))
-        return prediction
+#         prediction = self.model.predict_generator(test_sampler, steps=len(test_sampler), 
+#                                             max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing,
+#                                             verbose=1)
+#         self.log.info('Prediction end with time {}!'.format(time.time()-trainingtime))
+#         return prediction
     
 
 #####################################################################################################################
