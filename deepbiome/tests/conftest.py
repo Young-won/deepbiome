@@ -9,7 +9,7 @@ from deepbiome import logging_daily
 
 @pytest.fixture
 def input_value_regression():
-    logger = logging_daily.logging_daily('tests/data/log_info.yaml')
+    logger = logging_daily.logging_daily(resource_filename('deepbiome', 'tests/data/log_info.yaml'))
     logger.reset_logging()
     log = logger.get_logging()
     log.setLevel(logging_daily.logging.INFO)
@@ -39,7 +39,7 @@ def output_value_regression():
 
 @pytest.fixture
 def input_value_classification():
-    logger = logging_daily.logging_daily('tests/data/log_info.yaml')
+    logger = logging_daily.logging_daily(resource_filename('deepbiome', 'tests/data/log_info.yaml'))
     logger.reset_logging()
     log = logger.get_logging()
     log.setLevel(logging_daily.logging.INFO)
