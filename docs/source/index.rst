@@ -11,6 +11,7 @@ deepbiome Documentation
    :caption: Contents:
 
    installation
+   prerequisites
    usage
    release-history
    min_versions
