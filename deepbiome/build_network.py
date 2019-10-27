@@ -28,7 +28,7 @@ from keras.layers import BatchNormalization, Dropout
 from keras.initializers import VarianceScaling
 
 from . import loss_and_metric
-from .utils import TensorBoardWrapper
+# from .utils import TensorBoardWrapper
      
 #####################################################################################################################
 # Base Network
@@ -40,7 +40,7 @@ class Base_Network(abc.ABC):
         self.network_info = network_info
         self.log = log
         self.best_model_save = False
-        self.TB = TensorBoardWrapper
+        # self.TB = TensorBoardWrapper
         self.model = None
     
     @abc.abstractmethod
@@ -116,17 +116,17 @@ class Base_Network(abc.ABC):
             callbacks = []
         try: batch_size = int(self.network_info['validation_info']['batch_size'])
         except: batch_size = None
-        if 'None' not in self.network_info['tensorboard_info']['tensorboard_dir']: ## TODO : exist로 fix
-                histogram_freq=int(self.network_info['tensorboard_info']['histogram_freq'])
-                callbacks.append(self.TB(log_dir='%s/%s' % (self.network_info['tensorboard_info']['tensorboard_dir'],self.fold),
-                                         validation_data = validation_data,
-                                         histogram_freq=histogram_freq,
-                                         batch_size=batch_size,
-                                         write_graph=self.network_info['tensorboard_info']['write_graph']=='True',
-                                         write_grads=self.network_info['tensorboard_info']['write_grads']=='True',
-                                         write_weights_histogram=self.network_info['tensorboard_info']['write_weights_histogram']=='True', 
-                                         write_weights_images=self.network_info['tensorboard_info']['write_weights_images']=='True',
-                                         tb_data_steps=batch_size))
+        # if 'None' not in self.network_info['tensorboard_info']['tensorboard_dir']: ## TODO : exist로 fix
+        #         histogram_freq=int(self.network_info['tensorboard_info']['histogram_freq'])
+        #         callbacks.append(self.TB(log_dir='%s/%s' % (self.network_info['tensorboard_info']['tensorboard_dir'],self.fold),
+        #                                  validation_data = validation_data,
+        #                                  histogram_freq=histogram_freq,
+        #                                  batch_size=batch_size,
+        #                                  write_graph=self.network_info['tensorboard_info']['write_graph']=='True',
+        #                                  write_grads=self.network_info['tensorboard_info']['write_grads']=='True',
+        #                                  write_weights_histogram=self.network_info['tensorboard_info']['write_weights_histogram']=='True', 
+        #                                  write_weights_images=self.network_info['tensorboard_info']['write_weights_images']=='True',
+        #                                  tb_data_steps=batch_size))
         return callbacks
     
     def fit(self, x, y, max_queue_size=50, workers=1, use_multiprocessing=False, model_path = None):
@@ -500,7 +500,7 @@ class DeepBiomeNetwork(Base_Network):
         if fold != None: self.fold = fold
         else: self.fold = ''
         # self.TB = TensorBoardWrapper_DeepBiome
-        self.TB = TensorBoardWrapper
+        # self.TB = TensorBoardWrapper
         self.num_classes = num_classes
         self.build_model(tree_info_path=tree_info_path, verbose=True)
     

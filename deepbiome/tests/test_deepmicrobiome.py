@@ -4,7 +4,7 @@
 """
 Tests for `deepbiome` package.
 
-pytest -s --log-cli-level=10
+export CUDA_VISIBLE_DEVICES=0; pytest -s --log-cli-level=10
 """
 
 
@@ -12,15 +12,16 @@ import pytest
 
 import os
 
-# os.environ['CUDA_VISIBLE_DEVICES']='0,1'
-
 import random
 import tensorflow as tf
 import numpy as np
 
 from deepbiome import deepbiome
 from deepbiome import loss_and_metric
+from deepbiome import utils
 
+def test_utils():
+    utils.print_sysinfo()
 
 def test_deepbiome_classification(input_value_classification, output_value_classification):
     '''
