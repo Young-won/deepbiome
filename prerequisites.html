@@ -203,10 +203,10 @@
 <div class="section" id="with-the-list-of-inputs">
 <h3>With the list of inputs<a class="headerlink" href="#with-the-list-of-inputs" title="Permalink to this headline">¶</a></h3>
 <p>Dataset should have the format as follow:</p>
-<p>tree information (.csv)</p>
-<blockquote>
-<div><table class="longtable docutils align-default" id="id1">
-<caption><span class="caption-text">Example of genus48_dic</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<dl>
+<dt>tree information (.csv)</dt><dd><p>Example of the genus dictionary</p>
+<table class="longtable docutils align-default" id="id1">
+<caption><span class="caption-text">Example of genus dictionary</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 17%" />
@@ -279,313 +279,732 @@
 <td><p>Firmicutes</p></td>
 <td><p>Bacteria</p></td>
 </tr>
-<tr class="row-even"><td><p>Fusobacterium</p></td>
-<td><p>Fusobacteriaceae</p></td>
-<td><p>Fusobacteriales</p></td>
-<td><p>Fusobacteria</p></td>
-<td><p>Fusobacteria</p></td>
-<td><p>Bacteria</p></td>
+</tbody>
+</table>
+</dd>
+<dt>lists of the name of input files (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<table class="longtable docutils align-default" id="id2">
+<caption><span class="caption-text">Example of input file name list</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>gcount_0001.csv</p></td>
 </tr>
-<tr class="row-odd"><td><p>Propionibacterium</p></td>
-<td><p>Propionibacteriaceae</p></td>
-<td><p>Actinomycetales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
+<tr class="row-even"><td><p>gcount_0002.csv</p></td>
 </tr>
-<tr class="row-even"><td><p>Gemella</p></td>
-<td><p>Bacillales_Incertae_Sedis_XI</p></td>
-<td><p>Bacillales</p></td>
-<td><p>Bacilli</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
+<tr class="row-odd"><td><p>gcount_0003.csv</p></td>
 </tr>
-<tr class="row-odd"><td><p>Rothia</p></td>
-<td><p>Micrococcaceae</p></td>
-<td><p>Actinomycetales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Granulicatella</p></td>
-<td><p>Carnobacteriaceae</p></td>
-<td><p>Lactobacillales</p></td>
-<td><p>Bacilli</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Neisseria</p></td>
-<td><p>Neisseriaceae</p></td>
-<td><p>Neisseriales</p></td>
-<td><p>Betaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Lactobacillus</p></td>
-<td><p>Lactobacillaceae</p></td>
-<td><p>Lactobacillales</p></td>
-<td><p>Bacilli</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Megasphaera</p></td>
-<td><p>Veillonellaceae</p></td>
-<td><p>Selenomonadales</p></td>
-<td><p>Negativicutes</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Catonella</p></td>
-<td><p>Lachnospiraceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Atopobium</p></td>
-<td><p>Coriobacteriaceae</p></td>
-<td><p>Coriobacteriales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Campylobacter</p></td>
-<td><p>Campylobacteraceae</p></td>
-<td><p>Campylobacterales</p></td>
-<td><p>Epsilonproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Capnocytophaga</p></td>
-<td><p>Flavobacteriaceae</p></td>
-<td><p>Flavobacteriales</p></td>
-<td><p>Flavobacteria</p></td>
-<td><p>Bacteroidetes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Solobacterium</p></td>
-<td><p>Erysipelotrichaceae</p></td>
-<td><p>Erysipelotrichales</p></td>
-<td><p>Erysipelotrichia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Moryella</p></td>
-<td><p>Lachnospiraceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>TM7_genera_incertae_sedis</p></td>
-<td><p>TM7_genera_incertae_sedis</p></td>
-<td><p>TM7_genera_incertae_sedis</p></td>
-<td><p>TM7_genera_incertae_sedis</p></td>
-<td><p>TM7</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Staphylococcus</p></td>
-<td><p>Staphylococcaceae</p></td>
-<td><p>Bacillales</p></td>
-<td><p>Bacilli</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Filifactor</p></td>
-<td><p>Peptostreptococcaceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Oribacterium</p></td>
-<td><p>Lachnospiraceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Burkholderia</p></td>
-<td><p>Burkholderiaceae</p></td>
-<td><p>Burkholderiales</p></td>
-<td><p>Betaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Sneathia</p></td>
-<td><p>Leptotrichiaceae</p></td>
-<td><p>Fusobacteriales</p></td>
-<td><p>Fusobacteria</p></td>
-<td><p>Fusobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Treponema</p></td>
-<td><p>Spirochaetaceae</p></td>
-<td><p>Spirochaetales</p></td>
-<td><p>Spirochaetes</p></td>
-<td><p>Spirochaetes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Moraxella</p></td>
-<td><p>Moraxellaceae</p></td>
-<td><p>Pseudomonadales</p></td>
-<td><p>Gammaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Haemophilus</p></td>
-<td><p>Pasteurellaceae</p></td>
-<td><p>Pasteurellales</p></td>
-<td><p>Gammaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Selenomonas</p></td>
-<td><p>Veillonellaceae</p></td>
-<td><p>Selenomonadales</p></td>
-<td><p>Negativicutes</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Corynebacterium</p></td>
-<td><p>Corynebacteriaceae</p></td>
-<td><p>Actinomycetales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Rhizobium</p></td>
-<td><p>Rhizobiaceae</p></td>
-<td><p>Rhizobiales</p></td>
-<td><p>Alphaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Bradyrhizobium</p></td>
-<td><p>Bradyrhizobiaceae</p></td>
-<td><p>Rhizobiales</p></td>
-<td><p>Alphaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Methylobacterium</p></td>
-<td><p>Methylobacteriaceae</p></td>
-<td><p>Rhizobiales</p></td>
-<td><p>Alphaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>OD1_genera_incertae_sedis</p></td>
-<td><p>OD1_genera_incertae_sedis</p></td>
-<td><p>OD1_genera_incertae_sedis</p></td>
-<td><p>OD1_genera_incertae_sedis</p></td>
-<td><p>OD1</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Finegoldia</p></td>
-<td><p>Clostridiales_Incertae_Sedis_XI</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Microbacterium</p></td>
-<td><p>Microbacteriaceae</p></td>
-<td><p>Actinomycetales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Sphingomonas</p></td>
-<td><p>Sphingomonadaceae</p></td>
-<td><p>Sphingomonadales</p></td>
-<td><p>Alphaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Chryseobacterium</p></td>
-<td><p>Flavobacteriaceae</p></td>
-<td><p>Flavobacteriales</p></td>
-<td><p>Flavobacteria</p></td>
-<td><p>Bacteroidetes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Bacteroides</p></td>
-<td><p>Bacteroidaceae</p></td>
-<td><p>Bacteroidales</p></td>
-<td><p>Bacteroidia</p></td>
-<td><p>Bacteroidetes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Bdellovibrio</p></td>
-<td><p>Bdellovibrionaceae</p></td>
-<td><p>Bdellovibrionales</p></td>
-<td><p>Deltaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Streptophyta</p></td>
-<td><p>Chloroplast</p></td>
-<td><p>Chloroplast</p></td>
-<td><p>Chloroplast</p></td>
-<td><p>Cyanobacteria_Chloroplast</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Lachnospiracea_incertae_sedis</p></td>
-<td><p>Lachnospiraceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Paracoccus</p></td>
-<td><p>Rhodobacteraceae</p></td>
-<td><p>Rhodobacterales</p></td>
-<td><p>Alphaproteobacteria</p></td>
-<td><p>Proteobacteria</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-even"><td><p>Fastidiosipila</p></td>
-<td><p>Ruminococcaceae</p></td>
-<td><p>Clostridiales</p></td>
-<td><p>Clostridia</p></td>
-<td><p>Firmicutes</p></td>
-<td><p>Bacteria</p></td>
-</tr>
-<tr class="row-odd"><td><p>Pseudonocardia</p></td>
-<td><p>Pseudonocardiaceae</p></td>
-<td><p>Actinomycetales</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Actinobacteria</p></td>
-<td><p>Bacteria</p></td>
+<tr class="row-even"><td><p>gcount_0004.csv</p></td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
-<dl class="simple">
-<dt>lists of the name of input files (.csv)</dt><dd><p>Example (TBD)</p>
+</dd>
+<dt>directory contain the list of the input files</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">Example of each input file (.csv)</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Streptococcus</p></td>
+<td><p>Tropheryma</p></td>
+<td><p>Veillonella</p></td>
+<td><p>Actinomyces</p></td>
+<td><p>Flavobacterium</p></td>
+<td><p>Prevotella</p></td>
+<td><p>Porphyromonas</p></td>
+<td><p>Parvimonas</p></td>
+<td><p>Fusobacterium</p></td>
+<td><p>Propionibacterium</p></td>
+<td><p>Gemella</p></td>
+<td><p>Rothia</p></td>
+<td><p>Granulicatella</p></td>
+<td><p>Neisseria</p></td>
+<td><p>Lactobacillus</p></td>
+<td><p>Megasphaera</p></td>
+<td><p>Catonella</p></td>
+<td><p>Atopobium</p></td>
+<td><p>Campylobacter</p></td>
+<td><p>Capnocytophaga</p></td>
+<td><p>Solobacterium</p></td>
+<td><p>Moryella</p></td>
+<td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>Staphylococcus</p></td>
+<td><p>Filifactor</p></td>
+<td><p>Oribacterium</p></td>
+<td><p>Burkholderia</p></td>
+<td><p>Sneathia</p></td>
+<td><p>Treponema</p></td>
+<td><p>Moraxella</p></td>
+<td><p>Haemophilus</p></td>
+<td><p>Selenomonas</p></td>
+<td><p>Corynebacterium</p></td>
+<td><p>Rhizobium</p></td>
+<td><p>Bradyrhizobium</p></td>
+<td><p>Methylobacterium</p></td>
+<td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>Finegoldia</p></td>
+<td><p>Microbacterium</p></td>
+<td><p>Sphingomonas</p></td>
+<td><p>Chryseobacterium</p></td>
+<td><p>Bacteroides</p></td>
+<td><p>Bdellovibrio</p></td>
+<td><p>Streptophyta</p></td>
+<td><p>Lachnospiracea_incertae_sedis</p></td>
+<td><p>Paracoccus</p></td>
+<td><p>Fastidiosipila</p></td>
+<td><p>Pseudonocardia</p></td>
+</tr>
+<tr class="row-even"><td><p>841</p></td>
+<td><p>0</p></td>
+<td><p>813</p></td>
+<td><p>505</p></td>
+<td><p>5</p></td>
+<td><p>3224</p></td>
+<td><p>0</p></td>
+<td><p>362</p></td>
+<td><p>11</p></td>
+<td><p>65</p></td>
+<td><p>156</p></td>
+<td><p>1</p></td>
+<td><p>55</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>20</p></td>
+<td><p>382</p></td>
+<td><p>1</p></td>
+<td><p>333</p></td>
+<td><p>24</p></td>
+<td><p>80</p></td>
+<td><p>43</p></td>
+<td><p>309</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p>382</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>96</p></td>
+<td><p>23</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>87</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>2133</p></td>
+</tr>
+<tr class="row-odd"><td><p>1445</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>573</p></td>
+<td><p>0</p></td>
+<td><p>1278</p></td>
+<td><p>82</p></td>
+<td><p>85</p></td>
+<td><p>69</p></td>
+<td><p>154</p></td>
+<td><p>436</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>61</p></td>
+<td><p>440</p></td>
+<td><p>0</p></td>
+<td><p>394</p></td>
+<td><p>83</p></td>
+<td><p>33</p></td>
+<td><p>123</p></td>
+<td><p>0</p></td>
+<td><p>49</p></td>
+<td><p>414</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>37</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>42</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>384</p></td>
+<td><p>27</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>146</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3638</p></td>
+</tr>
+<tr class="row-even"><td><p>1259</p></td>
+<td><p>0</p></td>
+<td><p>805</p></td>
+<td><p>650</p></td>
+<td><p>0</p></td>
+<td><p>1088</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>74</p></td>
+<td><p>0</p></td>
+<td><p>155</p></td>
+<td><p>228</p></td>
+<td><p>430</p></td>
+<td><p>765</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>11</p></td>
+<td><p>102</p></td>
+<td><p>68</p></td>
+<td><p>90</p></td>
+<td><p>77</p></td>
+<td><p>83</p></td>
+<td><p>322</p></td>
+<td><p>10</p></td>
+<td><p>0</p></td>
+<td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>122</p></td>
+<td><p>76</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>44</p></td>
+<td><p>13</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>39</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3445</p></td>
+</tr>
+<tr class="row-odd"><td><p>982</p></td>
+<td><p>0</p></td>
+<td><p>327</p></td>
+<td><p>594</p></td>
+<td><p>0</p></td>
+<td><p>960</p></td>
+<td><p>81</p></td>
+<td><p>19</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>45</p></td>
+<td><p>457</p></td>
+<td><p>1049</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p>450</p></td>
+<td><p>19</p></td>
+<td><p>170</p></td>
+<td><p>388</p></td>
+<td><p>147</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>41</p></td>
+<td><p>63</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>121</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>344</p></td>
+<td><p>0</p></td>
+<td><p>157</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>4</p></td>
+<td><p>60</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3507</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>y (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<p>One column for one repeatition</p>
+<table class="longtable docutils align-default" id="id4">
+<caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>V1</p></td>
+<td><p>V2</p></td>
+<td><p>V3</p></td>
+<td><p>V4</p></td>
+</tr>
+<tr class="row-even"><td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>index for training set for each repetation (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<p>One column for one repeatition.</p>
+<table class="longtable docutils align-default" id="id5">
+<caption><span class="caption-text">Example of index file (.csv)</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>V1</p></td>
+<td><p>V2</p></td>
+<td><p>V3</p></td>
+<td><p>V4</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
 </dd>
 </dl>
-<dl class="simple">
-<dt>directory contain the list of the input files</dt><dd><p>Example (TBD)</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>y (.csv)</dt><dd><p>Example (TBD)</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>index for repetation (.csv)</dt><dd><p>Example (TBD)</p>
-</dd>
-</dl>
+<p>In the example above, we used the first 3 row of the first column in <cite>y.csv</cite> for the training set in the first repeatition.</p>
 </div>
 <div class="section" id="with-the-one-input-file">
 <h3>With the one input file<a class="headerlink" href="#with-the-one-input-file" title="Permalink to this headline">¶</a></h3>
 <p>Instead of the lists of the name of input files and the directory contain the list of the input files,
 you can use the input file (.csv).</p>
 <p>Dataset should have the format as follow:</p>
-<dl class="simple">
-<dt>input (.csv)</dt><dd><p>Example (TBD)</p>
+<dl>
+<dt>input (.csv)</dt><dd><p>Example with 4 sample</p>
+<table class="longtable docutils align-default" id="id6">
+<caption><span class="caption-text">Example of input file (.csv)</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Streptococcus</p></td>
+<td><p>Tropheryma</p></td>
+<td><p>Veillonella</p></td>
+<td><p>Actinomyces</p></td>
+<td><p>Flavobacterium</p></td>
+<td><p>Prevotella</p></td>
+<td><p>Porphyromonas</p></td>
+<td><p>Parvimonas</p></td>
+<td><p>Fusobacterium</p></td>
+<td><p>Propionibacterium</p></td>
+<td><p>Gemella</p></td>
+<td><p>Rothia</p></td>
+<td><p>Granulicatella</p></td>
+<td><p>Neisseria</p></td>
+<td><p>Lactobacillus</p></td>
+<td><p>Megasphaera</p></td>
+<td><p>Catonella</p></td>
+<td><p>Atopobium</p></td>
+<td><p>Campylobacter</p></td>
+<td><p>Capnocytophaga</p></td>
+<td><p>Solobacterium</p></td>
+<td><p>Moryella</p></td>
+<td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>Staphylococcus</p></td>
+<td><p>Filifactor</p></td>
+<td><p>Oribacterium</p></td>
+<td><p>Burkholderia</p></td>
+<td><p>Sneathia</p></td>
+<td><p>Treponema</p></td>
+<td><p>Moraxella</p></td>
+<td><p>Haemophilus</p></td>
+<td><p>Selenomonas</p></td>
+<td><p>Corynebacterium</p></td>
+<td><p>Rhizobium</p></td>
+<td><p>Bradyrhizobium</p></td>
+<td><p>Methylobacterium</p></td>
+<td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>Microbacterium</p></td>
+<td><p>Sphingomonas</p></td>
+<td><p>Chryseobacterium</p></td>
+<td><p>Bdellovibrio</p></td>
+<td><p>Streptophyta</p></td>
+<td><p>Finegoldia</p></td>
+<td><p>Bacteroides</p></td>
+<td><p>Lachnospiracea_incertae_sedis</p></td>
+<td><p>Paracoccus</p></td>
+<td><p>Fastidiosipila</p></td>
+<td><p>Pseudonocardia</p></td>
+</tr>
+<tr class="row-even"><td><p>6244.0</p></td>
+<td><p>0.0</p></td>
+<td><p>2985.0</p></td>
+<td><p>204.0</p></td>
+<td><p>5.0</p></td>
+<td><p>3548.0</p></td>
+<td><p>308.0</p></td>
+<td><p>53.0</p></td>
+<td><p>506.0</p></td>
+<td><p>3.0</p></td>
+<td><p>324.0</p></td>
+<td><p>669.0</p></td>
+<td><p>795.0</p></td>
+<td><p>0.0</p></td>
+<td><p>3686.0</p></td>
+<td><p>6.0</p></td>
+<td><p>41.0</p></td>
+<td><p>609.0</p></td>
+<td><p>11.0</p></td>
+<td><p>0.0</p></td>
+<td><p>3.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>31.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>3.0</p></td>
+<td><p>0.0</p></td>
+<td><p>93.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>9.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>3.0</p></td>
+<td><p>2.0</p></td>
+<td><p>5.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3573.0</p></td>
+<td><p>3.0</p></td>
+<td><p>2566.0</p></td>
+<td><p>975.0</p></td>
+<td><p>0.0</p></td>
+<td><p>7195.0</p></td>
+<td><p>377.0</p></td>
+<td><p>39.0</p></td>
+<td><p>442.0</p></td>
+<td><p>69.0</p></td>
+<td><p>602.0</p></td>
+<td><p>45.0</p></td>
+<td><p>527.0</p></td>
+<td><p>4536.0</p></td>
+<td><p>324.0</p></td>
+<td><p>105.0</p></td>
+<td><p>626.0</p></td>
+<td><p>400.0</p></td>
+<td><p>1130.0</p></td>
+<td><p>1132.0</p></td>
+<td><p>127.0</p></td>
+<td><p>9.0</p></td>
+<td><p>426.0</p></td>
+<td><p>16.0</p></td>
+<td><p>0.0</p></td>
+<td><p>150.0</p></td>
+<td><p>1.0</p></td>
+<td><p>244.0</p></td>
+<td><p>248.0</p></td>
+<td><p>0.0</p></td>
+<td><p>19.0</p></td>
+<td><p>26.0</p></td>
+<td><p>9.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>14.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>516.0</p></td>
+<td><p>0.0</p></td>
+<td><p>227.0</p></td>
+<td><p>39.0</p></td>
+<td><p>0.0</p></td>
+<td><p>180.0</p></td>
+<td><p>54.0</p></td>
+<td><p>38.0</p></td>
+<td><p>80.0</p></td>
+<td><p>2.0</p></td>
+<td><p>84.0</p></td>
+<td><p>26.0</p></td>
+<td><p>18.0</p></td>
+<td><p>0.0</p></td>
+<td><p>2235.0</p></td>
+<td><p>4.0</p></td>
+<td><p>3.0</p></td>
+<td><p>3.0</p></td>
+<td><p>8.0</p></td>
+<td><p>2.0</p></td>
+<td><p>10.0</p></td>
+<td><p>2.0</p></td>
+<td><p>7.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>78.0</p></td>
+<td><p>7.0</p></td>
+<td><p>0.0</p></td>
+<td><p>4.0</p></td>
+<td><p>6.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>881.0</p></td>
+<td><p>1.0</p></td>
+<td><p>47.0</p></td>
+<td><p>4.0</p></td>
+<td><p>0.0</p></td>
+<td><p>13.0</p></td>
+<td><p>5.0</p></td>
+<td><p>1.0</p></td>
+<td><p>108.0</p></td>
+<td><p>1.0</p></td>
+<td><p>7.0</p></td>
+<td><p>6.0</p></td>
+<td><p>6.0</p></td>
+<td><p>117.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0</p></td>
+<td><p>4.0</p></td>
+<td><p>6.0</p></td>
+<td><p>0.0</p></td>
+<td><p>5.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>9.0</p></td>
+<td><p>3.0</p></td>
+<td><p>6.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>y (.csv)</dt><dd><p>Example with 4 sample</p>
+<table class="longtable docutils align-default" id="id7">
+<caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>y</p></td>
+</tr>
+<tr class="row-even"><td><p>0.78</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.01</p></td>
+</tr>
+<tr class="row-even"><td><p>0.92</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.91</p></td>
+</tr>
+</tbody>
+</table>
 </dd>
 </dl>
 </div>
