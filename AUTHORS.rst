@@ -11,3 +11,7 @@ Contributors
 ------------
 
 * Jing Zhai <jingzhai@meail.arizona.edu>
+
+* Jin Zhou <jzhou@email.arizona.edu>
+
+* HUA Zhou <huazhou@ucla.edu>

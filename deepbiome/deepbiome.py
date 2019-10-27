@@ -34,6 +34,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
                     max_queue_size=10, workers=1, use_multiprocessing=False):
     """
     Function for training the deep neural network with phylogenetic tree weight regularizer.
+    
     It uses microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
 
     See ref url (TODO: update)
@@ -68,7 +69,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     --------
     Training the deep neural network with phylogenetic tree weight regularizer.
 
-    >>> deepbiome_train(log, network_info, path_info)
+    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info)
     """
     if tf.__version__.startswith('2'):
         gpus = tf.config.experimental.get_visible_devices(device_type='GPU')
