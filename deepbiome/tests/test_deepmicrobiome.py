@@ -12,8 +12,6 @@ import pytest
 
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES']='0'
-
 import random
 import tensorflow as tf
 import numpy as np
