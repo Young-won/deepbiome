@@ -1,22 +1,18 @@
 import pytest
 
 import sys
-import logging
 import numpy as np
 from pkg_resources import resource_filename
 
 from deepbiome import configuration
+from deepbiome import logging_daily
 
 @pytest.fixture
 def input_value_regression():
-    formatter = logging.Formatter('[%(name)-8s|%(levelname)s|%(filename)s:%(lineno)s] %(message)s')
-    logging.basicConfig(format = formatter,
-                    level=logging.DEBUG)
-    log = logging.getLogger()
-    # handler = logging.StreamHandler(sys.stdout)
-    # handler.setLevel(logging.DEBUG)
-    # handler.setFormatter(formatter)
-    # log.addHandler(handler)
+    logger = logging_daily.logging_daily('tests/data/log_info.yaml')
+    logger.reset_logging()
+    log = logger.get_logging()
+    log.setLevel(logging_daily.logging.INFO)
     
     config_data = configuration.Configurator(resource_filename('deepbiome', 'tests/data/regression_path_info.cfg'), log)
     config_data.set_config_map(config_data.get_section_map())
@@ -43,14 +39,10 @@ def output_value_regression():
 
 @pytest.fixture
 def input_value_classification():
-    formatter = logging.Formatter('[%(name)-8s|%(levelname)s|%(filename)s:%(lineno)s] %(message)s')
-    logging.basicConfig(format = formatter,
-                    level=logging.DEBUG)
-    log = logging.getLogger()
-    # handler = logging.StreamHandler(sys.stdout)
-    # handler.setLevel(logging.DEBUG)
-    # handler.setFormatter(formatter)
-    # log.addHandler(handler)
+    logger = logging_daily.logging_daily('tests/data/log_info.yaml')
+    logger.reset_logging()
+    log = logger.get_logging()
+    log.setLevel(logging_daily.logging.INFO)
     
     config_data = configuration.Configurator(resource_filename('deepbiome', 'tests/data/classification_path_info.cfg'), log)
     config_data.set_config_map(config_data.get_section_map())
