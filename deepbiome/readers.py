@@ -78,7 +78,7 @@ class MicroBiomeReader(BaseReader):
         
         self.num_classes, self.y = self._set_problem(y)
    
-    def _set_problem(self):
+    def _set_problem(self, y):
         raise NotImplementedError()
         
     def get_num_classes(self):

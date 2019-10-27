@@ -38,28 +38,28 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 
     Parameters
     ----------
-    log : logging instance
+    log (logging instance) :
         python logging instance for logging
-    network_info : dictionary
+    network_info (dictionary) :
         python dictionary with network_information
-    path_info : dictionary
+    path_info (dictionary):
         python dictionary with path_information
-    number_of_fold : int
+    number_of_fold (int):
         default=None
-    max_queue_size : int
+    max_queue_size (int):
         default=10
-    workers : int
+    workers (int):
         default=1
-    use_multiprocessing : boolean
+    use_multiprocessing (boolean):
         default=False
 
     Returns
     -------
-    test_evaluation : numpy array
+    test_evaluation (numpy array):
         numpy array of the evaluation using testset from all fold
-    train_evaluation : numpy array
+    train_evaluation (numpy array):
         numpy array of the evaluation using training from all fold
-    network : deepbiome network instance
+    network (deepbiome network instance):
         deepbiome class instance
     
     Examples
