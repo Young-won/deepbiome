@@ -52,7 +52,12 @@ Features
 
 Credits
 --------
+This package was builded on the Keras_ and the Tensorflow_ packages.
+
 This package was created with Cookiecutter_ and the `NSLS-II/scientific-python-cookiecutter`_ project template.
 
+
+.. _Keras: https://keras.io/
+.. _Tensorflow: https://www.tensorflow.org/tutorials
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`NSLS-II/scientific-python-cookiecutter`: https://github.com/NSLS-II/scientific-python-cookiecutter
