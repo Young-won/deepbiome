@@ -97,6 +97,7 @@ def correlation_coefficient(y_true, y_pred):
 # helper
 
 def np_binary_accuracy(y_true, y_pred):
+    y_pred = (y_pred>=0.5).astype(np.int32)
     return skmetrics.accuracy_score(y_true, y_pred, normalize=True, sample_weight=None)
 
 def np_precision(y_true, y_pred):
@@ -111,7 +112,7 @@ def np_f1_score(y_true, y_pred):
     return skmetrics.f1_score(y_true, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)
 
 def np_roc_auc(y_true, y_pred):
-    return skmetrics.roc_auc_score(y_true, y_pred, average='macro', sample_weight=None, max_fpr=None)
+    return skmetrics.roc_auc_score(y_true, y_pred, average='macro', sample_weight=None)
 
 def np_confusion_matrix(y_true, y_pred):
     return skmetrics.confusion_matrix(y_true, y_pred).ravel()

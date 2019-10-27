@@ -1,7 +1,7 @@
 # List required packages in this file, one per line.
 keras
 tensorflow
-numpy==1.16
+numpy
 scipy
 pandas
 sklearn

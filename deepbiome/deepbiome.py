@@ -77,8 +77,10 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         except: pass
     else:
         config = tf.ConfigProto()
-        config.gpu_options.allow_growth=True
-        
+        gpus = len(config.gpu_options.visible_device_list)
+        if gpus:
+            config.gpu_options.allow_growth=True
+            
     ### Argument #########################################################################################
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
