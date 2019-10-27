@@ -2,6 +2,5 @@
 keras
 tensorflow
 numpy
-scipy
 pandas
 sklearn

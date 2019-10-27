@@ -18,7 +18,8 @@ import keras.backend as K
 from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy, sparse_categorical_crossentropy
 from keras.metrics import binary_accuracy, categorical_accuracy, sparse_categorical_accuracy
 from sklearn.metrics import roc_auc_score, f1_score
-from scipy.stats import pearsonr
+# from scipy.stats import pearsonr
+from numpy import corrcoef
 
 ###############################################################################################################################
 # tf loss functions
@@ -82,7 +83,11 @@ def f1(y_true, y_pred):
     return score
 
 def correlation_coefficient(y_true, y_pred):
-    score = tf.py_function(lambda y_true, y_pred : pearsonr(y_true, y_pred)[0],
+    # score = tf.py_function(lambda y_true, y_pred : pearsonr(y_true, y_pred)[0],
+    #                        [y_true, y_pred],
+    #                        Tout=tf.float32,
+    #                        name='correlation_coefficient')
+    score = tf.py_function(lambda y_true, y_pred : corrcoef(y_true, y_pred, rowvar=False)[0][1],
                            [y_true, y_pred],
                            Tout=tf.float32,
                            name='correlation_coefficient')

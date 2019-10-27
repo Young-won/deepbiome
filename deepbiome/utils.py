@@ -15,6 +15,7 @@ import timeit
 import glob
 import json
 import numpy as np
+import multiprocessing as mp
 import matplotlib.pyplot as plt
 from keras.callbacks import TensorBoard
 import keras.backend as k
@@ -22,7 +23,6 @@ import tensorflow as tf
 
 import matplotlib
 import matplotlib.cm
-
 
 def argv_parse(argvs):
     arglist = [arg.strip() for args in argvs[1:] for arg in args.split('=') if not arg.strip()=='']
