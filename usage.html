@@ -27,6 +27,7 @@
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
         <script type="text/javascript" src="_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -39,7 +40,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Release History" href="release-history.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Prerequisites" href="prerequisites.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,7 +91,20 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-the-dataset">Preparing the dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-the-configufation">Preparing the configufation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-configuration-dictionary">Using the configuration dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-configuration-file-cfg">Using the configuration file (.cfg)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cheatsheet-for-running-the-project-on-console">Cheatsheet for running the project on console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
@@ -161,15 +175,194 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="preparing-the-dataset">
+<h2>Preparing the dataset<a class="headerlink" href="#preparing-the-dataset" title="Permalink to this headline">¶</a></h2>
+<p>We assume that you have the dataset</p>
+<p>See <a class="reference internal" href="prerequisites.html#data-preprocessing"><span class="std std-ref">Data preprocessing</span></a>.</p>
+</div>
+<div class="section" id="preparing-the-configufation">
+<h2>Preparing the configufation<a class="headerlink" href="#preparing-the-configufation" title="Permalink to this headline">¶</a></h2>
+<p>For detailed configuration, we used python dictionary as inputs for the main training function.</p>
+<p>For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to <cite>netowrk_info</cite> field.</p>
+<p>For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to <cite>path_info</cite> feild.</p>
+<div class="section" id="using-the-configuration-dictionary">
+<h3>Using the configuration dictionary<a class="headerlink" href="#using-the-configuration-dictionary" title="Permalink to this headline">¶</a></h3>
+<p>You can use the network configuration dictionary <cite>network_info</cite> and the path configuration dictionary <cite>path_info</cite> for configuration.</p>
+<p>See <a class="reference internal" href="prerequisites.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+</div>
+<div class="section" id="using-the-configuration-file-cfg">
+<h3>Using the configuration file (.cfg)<a class="headerlink" href="#using-the-configuration-file-cfg" title="Permalink to this headline">¶</a></h3>
+<p>You can use the configuration format files <cite>.cfg</cite> for configuration (for example, <cite>path_info.cfg</cite> and <cite>network_info.cfg</cite>).</p>
+<p>See <a class="reference internal" href="prerequisites.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+<p>If then, you can get the dictionaries from the config files by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">configuration</span>
+
+<span class="n">config_data</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="s1">&#39;./path_info.cfg&#39;</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+<span class="n">config_data</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_data</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+<span class="n">config_data</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+<span class="n">path_info</span> <span class="o">=</span> <span class="n">config_data</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+
+<span class="n">config_network</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="s1">&#39;./network_info.cfg&#39;</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+<span class="n">config_network</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_network</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+<span class="n">config_network</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+<span class="n">network_info</span> <span class="o">=</span> <span class="n">config_network</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>For logging, you have to use the logging instance. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can use the logging instance <cite>log</cite> as an input of the main training fuction below.</p>
+<p>For more information about <cite>logging</cite> module, please check the documentation <a class="reference external" href="https://docs.python.org/3/library/logging.html">logging</a>.</p>
+</div>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>To use deepbiome:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+
+<span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to train the network with specific number <cite>k</cite> of cross-validation repeatition, you can set the <cite>number_of_fold</cite>. For example, if you want to run the 5-fold cross-validation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+
+<span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you use one input file, it will run the 5-fold cross validation using all data in that file. If you use the list of the input files, it will run the training by the first <cite>k</cite> files.</p>
+<p>By defaults, <cite>number_of_fold==None</cite>. Then, the code will run for the leave-one-out-cross-validation (LOOCV).</p>
+<p>If you use one input file, it will run the LOOCV using all data in that file. If you use the list of the input files, it will repeat the training for every files.</p>
+</div>
+<div class="section" id="cheatsheet-for-running-the-project-on-console">
+<h2>Cheatsheet for running the project on console<a class="headerlink" href="#cheatsheet-for-running-the-project-on-console" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><dl class="simple">
+<dt>Preprocessing the data (convert raw data to the format readable for python): (See <a class="reference internal" href="prerequisites.html#data-preprocessing"><span class="std std-ref">Data preprocessing</span></a>.)</dt><dd><p>Example: TODO (Julia)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set configuration file about training hyperparameter and path information:</dt><dd><ol class="arabic simple">
+<li><dl class="simple">
+<dt>Set the training hyper-parameter (<cite>network_info.cfg</cite>): (See <a class="reference internal" href="prerequisites.html#configuration"><span class="std std-ref">Configuration</span></a>.)</dt><dd><p>Example: <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome//config/network_info.cfg">https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome//config/network_info.cfg</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set the path information (<cite>path_info.cfg</cite>): (See <a class="reference internal" href="prerequisites.html#configuration"><span class="std std-ref">Configuration</span></a>.)</dt><dd><p>Example: <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome/config/path_info.cfg">https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome/config/path_info.cfg</a></p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Write the python script for running the function <cite>deepbiome.deepbiome_train</cite>. For example:</dt><dd><p>Example: <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples/main.py">https://github.com/Young-won/deepbiome/tree/master/examples/main.py</a></p>
+<p>Example of the python script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">configuration</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">logging_daily</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+<span class="kn">from</span> <span class="nn">deepbiome.utils</span> <span class="kn">import</span> <span class="n">argv_parse</span>
+
+<span class="c1"># Argument ##########################################################</span>
+<span class="n">argdict</span> <span class="o">=</span> <span class="n">argv_parse</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;gpu_memory_fraction&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">try</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;max_queue_size&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span>
+<span class="k">try</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;workers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">try</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;use_multiprocessing&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;True&#39;</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="bp">False</span>
+
+<span class="c1"># Logger ###########################################################</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging_daily</span><span class="o">.</span><span class="n">logging_daily</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;log_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">reset_logging</span><span class="p">()</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get_logging</span><span class="p">()</span>
+<span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging_daily</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Argument input&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">argname</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">argdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    {}:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">argname</span><span class="p">,</span><span class="n">arg</span><span class="p">))</span>
+
+<span class="c1"># Configuration ####################################################</span>
+<span class="n">config_data</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;path_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">log</span><span class="p">)</span>
+<span class="n">config_data</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_data</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+<span class="n">config_data</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+
+<span class="n">config_network</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;network_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">log</span><span class="p">)</span>
+<span class="n">config_network</span><span class="o">.</span><span class="n">set_config_map</span><span class="p">(</span><span class="n">config_network</span><span class="o">.</span><span class="n">get_section_map</span><span class="p">())</span>
+<span class="n">config_network</span><span class="o">.</span><span class="n">print_config_map</span><span class="p">()</span>
+
+<span class="n">path_info</span> <span class="o">=</span> <span class="n">config_data</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+<span class="n">network_info</span> <span class="o">=</span> <span class="n">config_network</span><span class="o">.</span><span class="n">get_config_map</span><span class="p">()</span>
+<span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
+<ol class="arabic" start="5">
+<li><p>Check the available GPU (if you have no GPU, it will run on CPU):</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nvidia-smi</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><dl>
+<dt>Select the number of GPUs and CPU cores from the bash file:</dt><dd><p>Example: <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome/run.sh">https://github.com/Young-won/deepbiome/tree/master/examples/simulation_s0/simulation_s0_deepbiome/run.sh</a></p>
+<p>Example of the bash file (.sh):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">2</span>
+<span class="nb">echo</span> <span class="nv">$CUDA_VISIBLE_DEVICES</span>
+
+<span class="nv">model</span><span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="p">##*/</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">$model</span>
+
+python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --path_info<span class="o">=</span>config/path_info.cfg --network_info<span class="o">=</span>config/network_info.cfg  --max_queue_size<span class="o">=</span><span class="m">50</span> --workers<span class="o">=</span><span class="m">10</span> --use_multiprocessing<span class="o">=</span>False
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>Run the bash file!</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./run.sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>To use deepbiome in a project:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepbiome</span> <span class="k">import</span> <span class="n">deepbiome</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>from deepbiome import deepbiome
 </pre></div>
 </div>
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_train">
 <code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_train</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_train" title="Permalink to this definition">¶</a></dt>
-<dd><p>Training the deep neural network with phylogenetic tree weight regularizer.
-See ref url (TODO: update)</p>
+<dd><p>Function for training the deep neural network with phylogenetic tree weight regularizer.</p>
+<p>It uses microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
+<p>See ref url (TODO: update)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -202,9 +395,7 @@ See ref url (TODO: update)</p>
 </dl>
 <p class="rubric">Examples</p>
 <p>Training the deep neural network with phylogenetic tree weight regularizer.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info)</p>
 </dd></dl>
 
 <table class="longtable docutils align-default">
@@ -215,6 +406,7 @@ See ref url (TODO: update)</p>
 <tbody>
 </tbody>
 </table>
+</div>
 </div>
 
 
@@ -228,7 +420,7 @@ See ref url (TODO: update)</p>
         <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="prerequisites.html" class="btn btn-neutral float-left" title="Prerequisites" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

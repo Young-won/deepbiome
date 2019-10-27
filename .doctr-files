@@ -5,6 +5,7 @@
 ./_sources/index.rst.txt
 ./_sources/installation.rst.txt
 ./_sources/min_versions.rst.txt
+./_sources/prerequisites.rst.txt
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
 ./_static/basic.css
@@ -70,6 +71,7 @@
 ./installation.html
 ./min_versions.html
 ./objects.inv
+./prerequisites.html
 ./release-history.html
 ./search.html
 ./searchindex.js

@@ -1,0 +1,1260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Prerequisites &mdash; deepbiome 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> deepbiome
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-preprocessing">Data preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-the-list-of-inputs">With the list of inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-the-one-input-file">With the one input file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-the-configuration-about-the-network-information-network-info">Preparing the configuration about the network information (<cite>network_info</cite>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-model-info">network_info[‘model_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-architecture-info">network_info[‘architecture_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-training-info">network_info[‘training_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-validation-info">network_info[‘validation_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-test-info">network_info[‘test_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-info-tensorboard-info">network_info[‘tensorboard_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-for-the-network-info">Example for the <cite>network_info</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-the-configuration-about-the-path-information-path-info">Preparing the configuration about the path information (<cite>path_info</cite>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#path-info-data-info">path_info[‘data_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#path-info-model-info">path_info[‘model_info’]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-for-the-path-info-for-the-list-of-inputs">Example for the <cite>path_info</cite> for the list of inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-for-the-path-info-for-the-one-input-file">Example for the <cite>path_info</cite> for the one input file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">deepbiome</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Prerequisites</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/prerequisites.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="prerequisites">
+<h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-preprocessing">
+<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p><cite>deepbiome</cite> packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
+<p>To use <cite>deepbiome</cite>, you can use the microbiome abundance data with the form:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>A list of input files for <cite>k</cite> times repeatition or <cite>k</cite>-fold cross validation.</p></li>
+<li><p>One input file for <cite>k</cite> times cross validation.</p></li>
+</ol>
+</div></blockquote>
+<div class="section" id="with-the-list-of-inputs">
+<h3>With the list of inputs<a class="headerlink" href="#with-the-list-of-inputs" title="Permalink to this headline">¶</a></h3>
+<p>Dataset should have the format as follow:</p>
+<p>tree information (.csv)</p>
+<blockquote>
+<div><table class="longtable docutils align-default" id="id1">
+<caption><span class="caption-text">Example of genus48_dic</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Genus</p></td>
+<td><p>Family</p></td>
+<td><p>Order</p></td>
+<td><p>Class</p></td>
+<td><p>Phylum</p></td>
+<td><p>Domain</p></td>
+</tr>
+<tr class="row-even"><td><p>Streptococcus</p></td>
+<td><p>Streptococcaceae</p></td>
+<td><p>Lactobacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tropheryma</p></td>
+<td><p>Cellulomonadaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Veillonella</p></td>
+<td><p>Veillonellaceae</p></td>
+<td><p>Selenomonadales</p></td>
+<td><p>Negativicutes</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Actinomyces</p></td>
+<td><p>Actinomycetaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Flavobacterium</p></td>
+<td><p>Flavobacteriaceae</p></td>
+<td><p>Flavobacteriales</p></td>
+<td><p>Flavobacteria</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prevotella</p></td>
+<td><p>Prevotellaceae</p></td>
+<td><p>Bacteroidales</p></td>
+<td><p>Bacteroidia</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Porphyromonas</p></td>
+<td><p>Porphyromonadaceae</p></td>
+<td><p>Bacteroidales</p></td>
+<td><p>Bacteroidia</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Parvimonas</p></td>
+<td><p>Clostridiales_Incertae_Sedis_XI</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Fusobacterium</p></td>
+<td><p>Fusobacteriaceae</p></td>
+<td><p>Fusobacteriales</p></td>
+<td><p>Fusobacteria</p></td>
+<td><p>Fusobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Propionibacterium</p></td>
+<td><p>Propionibacteriaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Gemella</p></td>
+<td><p>Bacillales_Incertae_Sedis_XI</p></td>
+<td><p>Bacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rothia</p></td>
+<td><p>Micrococcaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Granulicatella</p></td>
+<td><p>Carnobacteriaceae</p></td>
+<td><p>Lactobacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Neisseria</p></td>
+<td><p>Neisseriaceae</p></td>
+<td><p>Neisseriales</p></td>
+<td><p>Betaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Lactobacillus</p></td>
+<td><p>Lactobacillaceae</p></td>
+<td><p>Lactobacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Megasphaera</p></td>
+<td><p>Veillonellaceae</p></td>
+<td><p>Selenomonadales</p></td>
+<td><p>Negativicutes</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Catonella</p></td>
+<td><p>Lachnospiraceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Atopobium</p></td>
+<td><p>Coriobacteriaceae</p></td>
+<td><p>Coriobacteriales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Campylobacter</p></td>
+<td><p>Campylobacteraceae</p></td>
+<td><p>Campylobacterales</p></td>
+<td><p>Epsilonproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Capnocytophaga</p></td>
+<td><p>Flavobacteriaceae</p></td>
+<td><p>Flavobacteriales</p></td>
+<td><p>Flavobacteria</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Solobacterium</p></td>
+<td><p>Erysipelotrichaceae</p></td>
+<td><p>Erysipelotrichales</p></td>
+<td><p>Erysipelotrichia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Moryella</p></td>
+<td><p>Lachnospiraceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>TM7_genera_incertae_sedis</p></td>
+<td><p>TM7</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Staphylococcus</p></td>
+<td><p>Staphylococcaceae</p></td>
+<td><p>Bacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Filifactor</p></td>
+<td><p>Peptostreptococcaceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Oribacterium</p></td>
+<td><p>Lachnospiraceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Burkholderia</p></td>
+<td><p>Burkholderiaceae</p></td>
+<td><p>Burkholderiales</p></td>
+<td><p>Betaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sneathia</p></td>
+<td><p>Leptotrichiaceae</p></td>
+<td><p>Fusobacteriales</p></td>
+<td><p>Fusobacteria</p></td>
+<td><p>Fusobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Treponema</p></td>
+<td><p>Spirochaetaceae</p></td>
+<td><p>Spirochaetales</p></td>
+<td><p>Spirochaetes</p></td>
+<td><p>Spirochaetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Moraxella</p></td>
+<td><p>Moraxellaceae</p></td>
+<td><p>Pseudomonadales</p></td>
+<td><p>Gammaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Haemophilus</p></td>
+<td><p>Pasteurellaceae</p></td>
+<td><p>Pasteurellales</p></td>
+<td><p>Gammaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Selenomonas</p></td>
+<td><p>Veillonellaceae</p></td>
+<td><p>Selenomonadales</p></td>
+<td><p>Negativicutes</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Corynebacterium</p></td>
+<td><p>Corynebacteriaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rhizobium</p></td>
+<td><p>Rhizobiaceae</p></td>
+<td><p>Rhizobiales</p></td>
+<td><p>Alphaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Bradyrhizobium</p></td>
+<td><p>Bradyrhizobiaceae</p></td>
+<td><p>Rhizobiales</p></td>
+<td><p>Alphaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Methylobacterium</p></td>
+<td><p>Methylobacteriaceae</p></td>
+<td><p>Rhizobiales</p></td>
+<td><p>Alphaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>OD1_genera_incertae_sedis</p></td>
+<td><p>OD1</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Finegoldia</p></td>
+<td><p>Clostridiales_Incertae_Sedis_XI</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Microbacterium</p></td>
+<td><p>Microbacteriaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sphingomonas</p></td>
+<td><p>Sphingomonadaceae</p></td>
+<td><p>Sphingomonadales</p></td>
+<td><p>Alphaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Chryseobacterium</p></td>
+<td><p>Flavobacteriaceae</p></td>
+<td><p>Flavobacteriales</p></td>
+<td><p>Flavobacteria</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bacteroides</p></td>
+<td><p>Bacteroidaceae</p></td>
+<td><p>Bacteroidales</p></td>
+<td><p>Bacteroidia</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Bdellovibrio</p></td>
+<td><p>Bdellovibrionaceae</p></td>
+<td><p>Bdellovibrionales</p></td>
+<td><p>Deltaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Streptophyta</p></td>
+<td><p>Chloroplast</p></td>
+<td><p>Chloroplast</p></td>
+<td><p>Chloroplast</p></td>
+<td><p>Cyanobacteria_Chloroplast</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Lachnospiracea_incertae_sedis</p></td>
+<td><p>Lachnospiraceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Paracoccus</p></td>
+<td><p>Rhodobacteraceae</p></td>
+<td><p>Rhodobacterales</p></td>
+<td><p>Alphaproteobacteria</p></td>
+<td><p>Proteobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Fastidiosipila</p></td>
+<td><p>Ruminococcaceae</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pseudonocardia</p></td>
+<td><p>Pseudonocardiaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="simple">
+<dt>lists of the name of input files (.csv)</dt><dd><p>Example (TBD)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>directory contain the list of the input files</dt><dd><p>Example (TBD)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>y (.csv)</dt><dd><p>Example (TBD)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>index for repetation (.csv)</dt><dd><p>Example (TBD)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="with-the-one-input-file">
+<h3>With the one input file<a class="headerlink" href="#with-the-one-input-file" title="Permalink to this headline">¶</a></h3>
+<p>Instead of the lists of the name of input files and the directory contain the list of the input files,
+you can use the input file (.csv).</p>
+<p>Dataset should have the format as follow:</p>
+<dl class="simple">
+<dt>input (.csv)</dt><dd><p>Example (TBD)</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>For detailed configuration, we used python dictionary as inputs for the main training function.</p>
+<div class="section" id="preparing-the-configuration-about-the-network-information-network-info">
+<h3>Preparing the configuration about the network information (<cite>network_info</cite>)<a class="headerlink" href="#preparing-the-configuration-about-the-network-information-network-info" title="Permalink to this headline">¶</a></h3>
+<p>For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to <cite>netowrk_info</cite> field.</p>
+<p>You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).</p>
+<p>Your configuration for the network training should include the information about:</p>
+<dl class="field-list simple">
+<dt class="field-odd">model_info</dt>
+<dd class="field-odd"><p>about the training method and metrics</p>
+</dd>
+<dt class="field-even">architecture_info</dt>
+<dd class="field-even"><p>about the architecture options</p>
+</dd>
+<dt class="field-odd">training_info</dt>
+<dd class="field-odd"><p>about the hyper-parameter for training</p>
+</dd>
+<dt class="field-even">validation_info</dt>
+<dd class="field-even"><p>about the hyper-parameter for validation</p>
+</dd>
+<dt class="field-odd">test_info</dt>
+<dd class="field-odd"><p>about the hyper-parameter for testing</p>
+</dd>
+<dt class="field-even">tensorboard_info</dt>
+<dd class="field-even"><p>about the tensorflow tensorboard options</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You don’t have to fill the options if it has a default value.</p>
+</div>
+<div class="section" id="network-info-model-info">
+<h4>network_info[‘model_info’]<a class="headerlink" href="#network-info-model-info" title="Permalink to this headline">¶</a></h4>
+<p>Detailed options for the <cite>model_info</cite> field are as follows.</p>
+<dl class="field-list">
+<dt class="field-odd">optimizer</dt>
+<dd class="field-odd"><p>optimization methods for training the network. We used the optimizers implemented in Keras (See <a class="reference external" href="https://keras.io/optimizers/">Optimizer</a>).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“adam”</p></td>
+<td><p>Adam optimizer</p></td>
+</tr>
+<tr class="row-odd"><td><p>“sgd”</p></td>
+<td><p>stocastic gradient decent optimizer</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-even">lr</dt>
+<dd class="field-even"><p>learning rate for the optimizor. (float between 0 ~ 1)</p>
+</dd>
+<dt class="field-odd">decay</dt>
+<dd class="field-odd"><p>learning late decay ratio for the optimizer. (float between 0 ~ 1)</p>
+</dd>
+<dt class="field-even">loss</dt>
+<dd class="field-even"><p>loss functions for training the network</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“mean_squared_error”</p></td>
+<td><p>for regression problem</p></td>
+</tr>
+<tr class="row-odd"><td><p>“binary_crossentropy”</p></td>
+<td><p>for binary classification problem</p></td>
+</tr>
+<tr class="row-even"><td><p>“categorical_crossentropy”</p></td>
+<td><p>for multi-class classification problem</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-odd">metrics</dt>
+<dd class="field-odd"><p>additional metrics to check the model performance</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“correlation_coefficient”</p></td>
+<td><p>Pearson correlation coefficient (-1 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“binary_accuracy”</p></td>
+<td><p>Accuracy for binary classification problem (0 ~ 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>“categorical_accuracy”</p></td>
+<td><p>Accuracy for multi-class classification problem (0 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“sensitivity”</p></td>
+<td><p>Sensitivity (0 ~ 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>“specificity”</p></td>
+<td><p>Specificity (0 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“gmeasure”</p></td>
+<td><p>(Sensitivity * Specificity) ^ (0.5) (0 ~ 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>“auc”</p></td>
+<td><p>Area under the receiver operating characteristics (0 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“precision”</p></td>
+<td><p>Precision (0 ~ 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>“recall”</p></td>
+<td><p>Recall (0 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“f1”</p></td>
+<td><p>F1 score (0 ~ 1)</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-even">texa_selection_metrics</dt>
+<dd class="field-even"><p>metrics for the texa selection performance</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“accuracy”</p></td>
+<td><p>Accuracy (-1 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“sensitivity”</p></td>
+<td><p>Sensitivity (0 ~ 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>“specificity”</p></td>
+<td><p>Specificity (0 ~ 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“gmeasure”</p></td>
+<td><p>(Sensitivity * Specificity) ^ (0.5) (0 ~ 1)</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+<div class="section" id="network-info-architecture-info">
+<h4>network_info[‘architecture_info’]<a class="headerlink" href="#network-info-architecture-info" title="Permalink to this headline">¶</a></h4>
+<p>Detailed options for the <cite>architecture_info</cite> field are as follows.</p>
+<p>Combination of the options below will provide you the network training method <cite>DNN</cite>, <cite>DNN+L1</cite> and <cite>Deepbiome</cite> in the reference (url. TBD)</p>
+<dl class="field-list">
+<dt class="field-odd">weight_initial</dt>
+<dd class="field-odd"><p>network weight initialization</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“glorot_uniform”</p></td>
+<td><p>Glorot uniform initializer (defualt)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“he_normal”</p></td>
+<td><p>He normal initializer</p></td>
+</tr>
+<tr class="row-even"><td><p>“phylogenetic_tree”</p></td>
+<td><p>weight within the tree connection: 1; weight without the tree connection: 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>“phylogenetic_tree_glorot_uniform”</p></td>
+<td><p>weight within the tree connection: <cite>glorot_uniform</cite>; weight without the tree connection: 0</p></td>
+</tr>
+<tr class="row-even"><td><p>“phylogenetic_tree_he_normal”</p></td>
+<td><p>weight within the tree connection: <cite>he_normal</cite>; weight without the tree connection: 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-even">weight_l1_penalty</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\lambda\)</span> for l1 penalty (float. defaut = 0)</p>
+</dd>
+<dt class="field-odd">weight_l2_penalty</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\lambda\)</span> for l2 penalty (float. defaut = 0)</p>
+</dd>
+<dt class="field-even">weight_deacy</dt>
+<dd class="field-even"><p><strong>DeepBiome with the phylogenetic tree based weight decay method</strong> (default = “”: without deepbiome weight decay method)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“phylogenetic_tree”</p></td>
+<td><p>weight decay method based on the phylogenetic tree information with small amout of noise (<span class="math notranslate nohighlight">\(\epsilon \le 1e-2\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“phylogenetic_tree_wo_noise”</p></td>
+<td><p>weight decay method based on the phylogenetic tree information without any noise outside the tree</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-odd">batch_normalization</dt>
+<dd class="field-odd"><p>options for adding the batch normalization for each convolutional layer (default = <cite>False</cite>)</p>
+</dd>
+<dt class="field-even">drop_out</dt>
+<dd class="field-even"><p>options for adding the drop out for each convolutional layer with given ratio (default = 0)</p>
+</dd>
+</dl>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Example of the combination of the options in the reference paper (url TBD):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>training method</p></th>
+<th class="head"><p>combination of the options</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DNN</p></td>
+<td><p>“weight_initial”=”glorot_uniform”</p></td>
+</tr>
+<tr class="row-odd"><td><p>DNN+L1</p></td>
+<td><p>“weight_initial”=”glorot_uniform”, “weight_l1_penalty”=”0.01”</p></td>
+</tr>
+<tr class="row-even"><td><p>Deepbiome</p></td>
+<td><p>“weight_initial”=”glorot_uniform”, “weight_deacy”=”phylogenetic_tree”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="network-info-training-info">
+<h4>network_info[‘training_info’]<a class="headerlink" href="#network-info-training-info" title="Permalink to this headline">¶</a></h4>
+<p>Detailed options for the <cite>training_info</cite> field are as follows.</p>
+<dl class="field-list">
+<dt class="field-odd">epochs</dt>
+<dd class="field-odd"><p>number of the epoch for training (integer)</p>
+</dd>
+<dt class="field-even">batch_size</dt>
+<dd class="field-even"><p>number of the batch size for each mini-batch (integer)</p>
+</dd>
+<dt class="field-odd">callbacks</dt>
+<dd class="field-odd"><p>callback class implemented in Keras (See <a class="reference external" href="https://keras.io/callbacks/">Callbacks</a>)</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“ModelCheckpoint”</p></td>
+<td><p>save the best model weight based on the monitor (See <a class="reference external" href="https://keras.io/callbacks/#modelcheckpoint">ModelCheckpoint</a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“EarlyStopping”</p></td>
+<td><p>early stopping the training before the number of epochs <cite>epochs</cite> based on the monitor (See <a class="reference external" href="https://keras.io/callbacks/#earlystopping">EarlyStopping</a>)</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-even">monitor</dt>
+<dd class="field-even"><p>monitor value for the <cite>ModelCheckpoint</cite>, <cite>EarlyStoppoing</cite> callbacks (e.g.  <cite>val_loss</cite>, <cite>val_accuray</cite>)</p>
+</dd>
+<dt class="field-odd">mode</dt>
+<dd class="field-odd"><p>how to use the monitor value for the <cite>ModelCheckpoint</cite>, <cite>EarlyStopping</cite> callbacks</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“min”</p></td>
+<td><p>for example: when using the monitor <cite>val_loss</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p>“max”</p></td>
+<td><p>for example: when using the monitor <cite>val_accuray</cite></p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="field-even">patience</dt>
+<dd class="field-even"><p>patient for the EarlyStopping callback (integer; default = 20)</p>
+</dd>
+<dt class="field-odd">min_delta</dt>
+<dd class="field-odd"><p>the minimum threshold for the ModelCheckpoint, EarlyStopping callbacks (float; default = 1e-4)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="network-info-validation-info">
+<h4>network_info[‘validation_info’]<a class="headerlink" href="#network-info-validation-info" title="Permalink to this headline">¶</a></h4>
+<p>Detailed options for the <cite>validation_info</cite> field are as follows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">validation_size</dt>
+<dd class="field-odd"><p>the ratio of the number of the sample in the validation set / the number of the sample in the training set(e.g. “0.2”)</p>
+</dd>
+<dt class="field-even">batch_size</dt>
+<dd class="field-even"><p>the batch size for each mini-batch. If “None”, use the whole number of the sample as one mini-batch. (defualt = “None”)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="network-info-test-info">
+<h4>network_info[‘test_info’]<a class="headerlink" href="#network-info-test-info" title="Permalink to this headline">¶</a></h4>
+<p>Detailed options for the <cite>test_info</cite> field are as follows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">batch_size</dt>
+<dd class="field-odd"><p>the batch size for each mini-batch. If “None”, use the whole number of the sample as one mini-batch. (defualt = “None”)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="network-info-tensorboard-info">
+<h4>network_info[‘tensorboard_info’]<a class="headerlink" href="#network-info-tensorboard-info" title="Permalink to this headline">¶</a></h4>
+<p>You can use the tensorboard provided by <cite>tensorflow</cite> library. Detailed options are similar to Keras implementation (See <a class="reference external" href="https://keras.io/callbacks/#tensorboard">Tensorboard</a>)</p>
+<p>Detailed options for the <cite>tensorboard_info</cite> field are as follows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tensorboard_dir</dt>
+<dd class="field-odd"><p>the path of the directory where to save the log files to be parsed by TensorBoard. If ‘None’, then we can disable the tensorboard option. (default=’None’)</p>
+</dd>
+<dt class="field-even">histogram_freq</dt>
+<dd class="field-even"><p>frequency (in epochs) at which to compute activation and weight histograms for the layers of the model. If set to 0, histograms won’t be computed. (defalut=’0’)</p>
+</dd>
+<dt class="field-odd">write_grads</dt>
+<dd class="field-odd"><p>whether to visualize the graph in TensorBoard. The log file can become quite large when write_graph is set to True. (default=’False’)</p>
+</dd>
+<dt class="field-even">write_graph</dt>
+<dd class="field-even"><p>whether to visualize the graph in TensorBoard. (default=’False’)</p>
+</dd>
+<dt class="field-odd">write_weights_histogram</dt>
+<dd class="field-odd"><p>whether to visualize the weight histograms in TensorBoard. (default=’False’)</p>
+</dd>
+<dt class="field-even">write_weights_images</dt>
+<dd class="field-even"><p>whether to write model weights to visualize as image in TensorBoard. (default=’False’)</p>
+</dd>
+</dl>
+<p>(TBD: <cite>write_image</cite> option for visualizing the trained tree weight graph)</p>
+</div>
+<div class="section" id="example-for-the-network-info">
+<h4>Example for the <cite>network_info</cite><a class="headerlink" href="#example-for-the-network-info" title="Permalink to this headline">¶</a></h4>
+<p>This is the example of the configuration dictionary: <cite>network_info</cite> dictionary</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;architecture_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_normalization&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;drop_out&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_initial&#39;</span><span class="p">:</span> <span class="s1">&#39;glorot_uniform&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_l1_penalty&#39;</span><span class="p">:</span><span class="s1">&#39;0.01&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="s1">&#39;phylogenetic_tree&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;decay&#39;</span><span class="p">:</span> <span class="s1">&#39;0.001&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="s1">&#39;0.01&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;binary_accuracy, sensitivity, specificity, gmeasure, auc&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;network_class&#39;</span><span class="p">:</span> <span class="s1">&#39;DeepBiomeNetwork&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;normalizer&#39;</span><span class="p">:</span> <span class="s1">&#39;normalize_minmax&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;reader_class&#39;</span><span class="p">:</span> <span class="s1">&#39;MicroBiomeClassificationReader&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;texa_selection_metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy, sensitivity, specificity, gmeasure&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;training_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">,</span> <span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;validation_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;validation_size&#39;</span><span class="p">:</span> <span class="s1">&#39;0.2&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;test_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;tensorboard_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;histogram_freq&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tensorboard_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write_grads&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write_graph&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write_image&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write_weights_histogram&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write_weights_images&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the example of the configuration file: <cite>network_info.cfg</cite></p>
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[model_info]</span>
+<span class="na">network_class</span> <span class="o">=</span> <span class="s">DeepBiomeNetwork</span>
+<span class="na">optimizer</span>   <span class="o">=</span> <span class="s">adam</span>
+<span class="na">lr</span>          <span class="o">=</span> <span class="s">0.01</span>
+<span class="na">decay</span>       <span class="o">=</span> <span class="s">0.0001</span>
+<span class="na">loss</span>        <span class="o">=</span> <span class="s">binary_crossentropy</span>
+<span class="na">metrics</span>     <span class="o">=</span> <span class="s">binary_accuracy, sensitivity, specificity, gmeasure, auc</span>
+<span class="na">texa_selection_metrics</span> <span class="o">=</span> <span class="s">accuracy, sensitivity, specificity, gmeasure</span>
+<span class="na">reader_class</span> <span class="o">=</span> <span class="s">MicroBiomeClassificationReader</span>
+<span class="na">normalizer</span>  <span class="o">=</span> <span class="s">normalize_minmax</span>
+
+<span class="k">[architecture_info]</span>
+<span class="na">weight_initial</span> <span class="o">=</span> <span class="s">glorot_uniform</span>
+<span class="na">weight_decay</span> <span class="o">=</span> <span class="s">phylogenetic_tree</span>
+<span class="na">batch_normalization</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">drop_out</span> <span class="o">=</span> <span class="s">0</span>
+
+<span class="k">[training_info]</span>
+<span class="na">epochs</span>          <span class="o">=</span> <span class="s">1000</span>
+<span class="na">batch_size</span>      <span class="o">=</span> <span class="s">200</span>
+<span class="na">callbacks</span>       <span class="o">=</span> <span class="s">ModelCheckpoint</span>
+<span class="na">monitor</span>         <span class="o">=</span> <span class="s">val_binary_accuracy</span>
+<span class="na">mode</span>            <span class="o">=</span> <span class="s">max</span>
+<span class="na">patience</span>        <span class="o">=</span> <span class="s">20</span>
+<span class="na">min_delta</span>       <span class="o">=</span> <span class="s">1e-4</span>
+
+<span class="k">[validation_info]</span>
+<span class="na">validation_size</span> <span class="o">=</span> <span class="s">0.2</span>
+<span class="na">batch_size</span> <span class="o">=</span> <span class="s">None</span>
+
+<span class="k">[test_info]</span>
+<span class="na">batch_size</span> <span class="o">=</span> <span class="s">None</span>
+
+<span class="k">[tensorboard_info]</span>
+<span class="na">tensorboard_dir</span> <span class="o">=</span> <span class="s">None</span>
+<span class="na">histogram_freq</span>  <span class="o">=</span> <span class="s">0</span>
+<span class="na">write_graph</span>     <span class="o">=</span> <span class="s">False</span>
+<span class="na">write_grads</span>     <span class="o">=</span> <span class="s">False</span>
+<span class="na">write_image</span>     <span class="o">=</span> <span class="s">False</span>
+<span class="na">write_weights_histogram</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">write_weights_images</span> <span class="o">=</span> <span class="s">False</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>See <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples">Example</a> for reference about the configuration file example for various problems.</p>
+</div>
+</div>
+</div>
+<div class="section" id="preparing-the-configuration-about-the-path-information-path-info">
+<h3>Preparing the configuration about the path information (<cite>path_info</cite>)<a class="headerlink" href="#preparing-the-configuration-about-the-path-information-path-info" title="Permalink to this headline">¶</a></h3>
+<p>For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to <cite>path_info</cite> feild.</p>
+<p>You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).</p>
+<p>Your configuration for the paths should include the information about:</p>
+<dl class="field-list simple">
+<dt class="field-odd">data_info</dt>
+<dd class="field-odd"><p>about the path information of the dataset</p>
+</dd>
+<dt class="field-even">model_info</dt>
+<dd class="field-even"><p>about the path information for saving the trained weight and the evaluation results</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every paths are the relative path based on the directory that code will run.</p>
+</div>
+<div class="section" id="path-info-data-info">
+<h4>path_info[‘data_info’]<a class="headerlink" href="#path-info-data-info" title="Permalink to this headline">¶</a></h4>
+<p>If you provide the list of inputs, you can use the option below:</p>
+<dl class="field-list simple">
+<dt class="field-odd">tree_info_path</dt>
+<dd class="field-odd"><p>tree information file (.csv)</p>
+</dd>
+<dt class="field-even">count_list_path</dt>
+<dd class="field-even"><p>lists of the name of input files (.csv)</p>
+</dd>
+<dt class="field-odd">count_path</dt>
+<dd class="field-odd"><p>directory path of the input files</p>
+</dd>
+<dt class="field-even">y_path</dt>
+<dd class="field-even"><p>y path (.csv)</p>
+</dd>
+<dt class="field-odd">idx_path</dt>
+<dd class="field-odd"><p>index path for repetation (.csv)</p>
+</dd>
+<dt class="field-even">data_path</dt>
+<dd class="field-even"><p>directory path of the index and y file</p>
+</dd>
+</dl>
+<p>If you provide the one input file, you can use the option below:</p>
+<dl class="field-list simple">
+<dt class="field-odd">tree_info_path</dt>
+<dd class="field-odd"><p>tree information file (.csv)</p>
+</dd>
+<dt class="field-even">x_path</dt>
+<dd class="field-even"><p>input path (.csv)</p>
+</dd>
+<dt class="field-odd">y_path</dt>
+<dd class="field-odd"><p>y path (.csv)</p>
+</dd>
+<dt class="field-even">data_path</dt>
+<dd class="field-even"><p>directory path of the index, x and y file</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="path-info-model-info">
+<h4>path_info[‘model_info’]<a class="headerlink" href="#path-info-model-info" title="Permalink to this headline">¶</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">weight</dt>
+<dd class="field-odd"><p>weight file name (.h5)</p>
+</dd>
+<dt class="field-even">evaluation</dt>
+<dd class="field-even"><p>evaluation file name (.npy)</p>
+</dd>
+<dt class="field-odd">model_dir</dt>
+<dd class="field-odd"><p>base directory path for the model (weight, evaluation)</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you want to use sub-directory in the path (for example, “weight”=”weight/weight.h5”, “model_dir”=”./”), you should have to make the sub-directory “./weight” before running the code.</p>
+</div>
+</div>
+<div class="section" id="example-for-the-path-info-for-the-list-of-inputs">
+<h4>Example for the <cite>path_info</cite> for the list of inputs<a class="headerlink" href="#example-for-the-path-info-for-the-list-of-inputs" title="Permalink to this headline">¶</a></h4>
+<p>This is the example of the configuration dictionary: <cite>path_info</cite> dictionary</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;data_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;count_list_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/gcount_list.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;count_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/count&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;data_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;idx_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/idx.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tree_info_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/genus48/genus48_dic.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;x_path&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;y_path&#39;</span><span class="p">:</span> <span class="s1">&#39;y.csv&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./simulation_s2/simulation_s2_deepbiome/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the example of the configuration file: <cite>path_info.cfg</cite></p>
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[data_info]</span>
+<span class="na">data_path</span> <span class="o">=</span> <span class="s">data/simulation/s2/</span>
+<span class="na">tree_info_path</span> <span class="o">=</span> <span class="s">data/genus48/genus48_dic.csv</span>
+<span class="na">idx_path</span> <span class="o">=</span> <span class="s">data/simulation/s2/idx.csv</span>
+<span class="na">count_list_path</span> <span class="o">=</span> <span class="s">data/simulation/gcount_list.csv</span>
+<span class="na">count_path</span> <span class="o">=</span> <span class="s">data/simulation/count</span>
+<span class="na">y_path</span> <span class="o">=</span> <span class="s">y.csv</span>
+
+<span class="k">[model_info]</span>
+<span class="na">model_dir</span> <span class="o">=</span> <span class="s">./simulation_s2/simulation_s2_deepbiome/</span>
+<span class="na">weight</span> <span class="o">=</span> <span class="s">weight/weight.h5</span>
+<span class="na">evaluation</span> <span class="o">=</span> <span class="s">eval.npy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-for-the-path-info-for-the-one-input-file">
+<h4>Example for the <cite>path_info</cite> for the one input file<a class="headerlink" href="#example-for-the-path-info-for-the-one-input-file" title="Permalink to this headline">¶</a></h4>
+<p>This is the example of the configuration dictionary: <cite>path_info</cite> dictionary</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;data_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;data_path&#39;</span><span class="p">:</span> <span class="s1">&#39;../../data/pulmonary/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tree_info_path&#39;</span><span class="p">:</span> <span class="s1">&#39;../../data/genus48/genus48_dic.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;x_path&#39;</span><span class="p">:</span> <span class="s1">&#39;X.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;y_path&#39;</span><span class="p">:</span> <span class="s1">&#39;y.csv&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the example of the configuration file: <cite>path_info.cfg</cite></p>
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[data_info]</span>
+<span class="na">data_path</span> <span class="o">=</span> <span class="s">../../data/pulmonary/</span>
+<span class="na">tree_info_path</span> <span class="o">=</span> <span class="s">../../data/genus48/genus48_dic.csv</span>
+<span class="na">x_path</span> <span class="o">=</span> <span class="s">X.csv</span>
+<span class="na">y_path</span> <span class="o">=</span> <span class="s">y.csv</span>
+
+<span class="k">[model_info]</span>
+<span class="na">model_dir</span> <span class="o">=</span> <span class="s">./</span>
+<span class="na">weight</span> <span class="o">=</span> <span class="s">weight/weight.h5</span>
+<span class="na">evaluation</span> <span class="o">=</span> <span class="s">eval.npy</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>See <a class="reference external" href="https://github.com/Young-won/deepbiome/tree/master/examples">Example</a> for reference about the configuration file example for various problems.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Youngwon Choi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
