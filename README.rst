@@ -14,7 +14,7 @@ Deepbiome
         :target: https://pypi.python.org/pypi/deepbiome
         :alt: Version
  
-Deep Learning package using the phylogenetic tree information for microbiome data analysis.
+Deep Learning package using the phylogenetic tree information for microbiome abandunce data analysis.
 
 * Free software: 3-clause BSD license
 * Documentation: (COMING SOON!) https://Young-won.github.io/deepbiome.

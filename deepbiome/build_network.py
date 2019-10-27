@@ -255,51 +255,51 @@ class Dense_with_tree(Dense):
         weights = K.batch_get_value(params)
         return weights[0]*K.get_value(self.tree_weight), weights[1]
     
-class Dense_with_tree_schedule(Dense):
-    def __init__(self, units,
-                 activation=None,
-                 use_bias=True,
-                 kernel_initializer='glorot_uniform',
-                 bias_initializer='zeros',
-                 kernel_regularizer=None,
-                 bias_regularizer=None,
-                 activity_regularizer=None,
-                 kernel_constraint=None,
-                 bias_constraint=None,
-                 tree_weight=None,
-                 tree_noise_weight=None,
-                 **kwargs):
-        super(Dense_with_tree_schedule, self).__init__(units, 
-                                              activation=activation,
-                                              use_bias=use_bias,
-                                              kernel_initializer=kernel_initializer,
-                                              bias_initializer=bias_initializer,
-                                              kernel_regularizer=kernel_regularizer,
-                                              bias_regularizer=bias_regularizer,
-                                              activity_regularizer=activity_regularizer,
-                                              kernel_constraint=kernel_constraint,
-                                              bias_constraint=bias_constraint,
-                                              **kwargs)
-        self.tree_weight = K.constant(tree_weight)
-        self.tree_noise_weight = K.constant(tree_noise_weight)
-        self.alpha = K.variable(1.)
+# class Dense_with_tree_schedule(Dense):
+#     def __init__(self, units,
+#                  activation=None,
+#                  use_bias=True,
+#                  kernel_initializer='glorot_uniform',
+#                  bias_initializer='zeros',
+#                  kernel_regularizer=None,
+#                  bias_regularizer=None,
+#                  activity_regularizer=None,
+#                  kernel_constraint=None,
+#                  bias_constraint=None,
+#                  tree_weight=None,
+#                  tree_noise_weight=None,
+#                  **kwargs):
+#         super(Dense_with_tree_schedule, self).__init__(units, 
+#                                               activation=activation,
+#                                               use_bias=use_bias,
+#                                               kernel_initializer=kernel_initializer,
+#                                               bias_initializer=bias_initializer,
+#                                               kernel_regularizer=kernel_regularizer,
+#                                               bias_regularizer=bias_regularizer,
+#                                               activity_regularizer=activity_regularizer,
+#                                               kernel_constraint=kernel_constraint,
+#                                               bias_constraint=bias_constraint,
+#                                               **kwargs)
+#         self.tree_weight = K.constant(tree_weight)
+#         self.tree_noise_weight = K.constant(tree_noise_weight)
+#         self.alpha = K.variable(1.)
     
-    def call(self, inputs):
-        self.scheduled_tree_weight = self.alpha * self.tree_noise_weight + (1.-self.alpha) * self.tree_weight 
-        output = K.dot(inputs, tf.multiply(self.kernel, self.scheduled_tree_weight))
-        self.alpha = self.alpha * 0.99
+#     def call(self, inputs):
+#         self.scheduled_tree_weight = self.alpha * self.tree_noise_weight + (1.-self.alpha) * self.tree_weight 
+#         output = K.dot(inputs, tf.multiply(self.kernel, self.scheduled_tree_weight))
+#         self.alpha = self.alpha * 0.99
         
-        if self.use_bias:
-            output = K.bias_add(output, self.bias, data_format='channels_last')
-        if self.activation is not None:
-            output = self.activation(output)
-        return output
+#         if self.use_bias:
+#             output = K.bias_add(output, self.bias, data_format='channels_last')
+#         if self.activation is not None:
+#             output = self.activation(output)
+#         return output
     
-    def get_weights(self):
-        # ref: https://github.com/keras-team/keras/blob/c10d24959b0ad615a21e671b180a1b2466d77a2b/keras/engine/base_layer.py#L21
-        params = self.weights
-        weights = K.batch_get_value(params)
-        return weights[0]*K.get_value(self.scheduled_tree_weight), weights[1]
+#     def get_weights(self):
+#         # ref: https://github.com/keras-team/keras/blob/c10d24959b0ad615a21e671b180a1b2466d77a2b/keras/engine/base_layer.py#L21
+#         params = self.weights
+#         weights = K.batch_get_value(params)
+#         return weights[0]*K.get_value(self.scheduled_tree_weight), weights[1]
 
 #####################################################################################################################
 class Dense_with_new_tree(Dense):
@@ -601,9 +601,9 @@ class DeepBiomeNetwork(Base_Network):
             elif weight_decay == 'phylogenetic_tree_wo_noise': 
                 l = Dense_with_tree(tree_w.shape[1], kernel_initializer=kernel_initializer, bias_initializer=bias_initializer,
                                     kernel_regularizer=kernel_regularizer, tree_weight=tree_w, name='l%d_dense'%(i+1))(l)
-            elif weight_decay == 'phylogenetic_tree_schedule': 
-                l = Dense_with_tree_schedule(tree_w.shape[1], kernel_initializer=kernel_initializer, bias_initializer=bias_initializer,
-                                    kernel_regularizer=kernel_regularizer, tree_weight=tree_w, tree_noise_weight=tree_wn, name='l%d_dense'%(i+1))(l)
+            # elif weight_decay == 'phylogenetic_tree_schedule': 
+            #     l = Dense_with_tree_schedule(tree_w.shape[1], kernel_initializer=kernel_initializer, bias_initializer=bias_initializer,
+            #                         kernel_regularizer=kernel_regularizer, tree_weight=tree_w, tree_noise_weight=tree_wn, name='l%d_dense'%(i+1))(l)
             else:
                 l = Dense_with_new_tree(tree_w.shape[1], kernel_initializer=kernel_initializer, bias_initializer=bias_initializer,
                                         kernel_regularizer=kernel_regularizer, tree_weight=tree_w, tree_thrd=tree_thrd, name='l%d_dense'%(i+1))(l)
@@ -616,12 +616,17 @@ class DeepBiomeNetwork(Base_Network):
                 
         # l = Dense(self.tree_weight_list[-1].shape[-1], kernel_initializer='he_normal', name='pre_last_h')(l)
         # l = BatchNormalization(name='pre_last_bn')(l)
-        if weight_initial == 'true_disease_weight':
-            kernel_initializer = keras.initializers.Constant(true_disease_weight_list[len(self.tree_weight_list)])
-            bias_initializer = keras.initializers.Constant(true_disease_bias_list[len(self.tree_weight_list)])
-        else: 
-            kernel_initializer = 'he_normal'
-            bias_initializer = 'zeros'
+        
+        # if weight_initial == 'true_disease_weight':
+        #     kernel_initializer = keras.initializers.Constant(true_disease_weight_list[len(self.tree_weight_list)])
+        #     bias_initializer = keras.initializers.Constant(true_disease_bias_list[len(self.tree_weight_list)])
+        # else: 
+        #     kernel_initializer = 'he_normal'
+        #     bias_initializer = 'zeros'
+        
+        kernel_initializer = 'he_normal'
+        bias_initializer = 'zeros'
+        
         last_h = Dense(max(1,self.num_classes),
                        kernel_initializer=kernel_initializer, bias_initializer=bias_initializer, name='last_dense_h')(l)
         

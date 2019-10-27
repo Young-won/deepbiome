@@ -22,45 +22,46 @@ With the list of inputs
 Dataset should have the format as follow:
 
 tree information (.csv)
+    Example of the genus dictionary
 
-    .. csv-table:: Example of genus48_dic
+    .. csv-table:: Example of genus dictionary
         :class: longtable
-        :file: ../../deepbiome/tests/data/genus48_dic.csv
+        :file: data/genus48_dic.csv
 
 lists of the name of input files (.csv)
-    Example (TBD)
-    
-..
+    Example with 4 sample, 4 repeatition (4-fold cross validation)
+  
     .. csv-table:: Example of input file name list
         :class: longtable
-        :file: ../../deepbiome/tests/data/gcount_list.csv
+        :file: data/gcount_list.csv
 
 
 directory contain the list of the input files
-    Example (TBD)
+    Example with 4 sample, 4 repeatition (4-fold cross validation)
     
-..
     .. csv-table:: Example of each input file (.csv)
         :class: longtable
-        :file: ../../deepbiome/tests/data/count/gcount_0001.csv
-    
+        :file: data/gcount_0001.csv
 
 y (.csv)
-    Example (TBD)
+    Example with 4 sample, 4 repeatition (4-fold cross validation)
     
-..
-    .. csv-table:: Example of each input file (.csv)
-        :class: longtable
-        :file: ../../deepbiome/tests/data/y.csv
+    One column for one repeatition
 
-index for repetation (.csv)
-    Example (TBD)
+    .. csv-table:: Example of y file (.csv)
+        :class: longtable
+        :file: data/y.csv
+
+index for training set for each repetation (.csv)
+    Example with 4 sample, 4 repeatition (4-fold cross validation)
     
-..
-    .. csv-table:: Example of each input file (.csv)
+    One column for one repeatition.
+    
+    .. csv-table:: Example of index file (.csv)
         :class: longtable
-        :file: ../../deepbiome/tests/data/idx.csv
+        :file: data/idx.csv
 
+In the example above, we used the first 3 row of the first column in `y.csv` for the training set in the first repeatition.
 
 
 With the one input file
@@ -72,12 +73,18 @@ you can use the input file (.csv).
 Dataset should have the format as follow:
 
 input (.csv)
-    Example (TBD)
+    Example with 4 sample
     
-..
     .. csv-table:: Example of input file (.csv)
         :class: longtable
-        :file: ../../deepbiome/tests/data/count/gcount_0001.csv
+        :file: data/X_onefile.csv
+
+y (.csv)
+    Example with 4 sample
+    
+    .. csv-table:: Example of y file (.csv)
+        :class: longtable
+        :file: data/y_onefile.csv
 
 
 Configuration

@@ -15,6 +15,7 @@ __pycache__/
 !deepbiome/tests/data/count/*
 !deepbiome/tests/data/real_train_evaluation.npy
 !deepbiome/tests/data/real_test_evaluation.npy
+!docs/source/data/*
 
 # C extensions
 *.so

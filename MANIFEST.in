@@ -14,3 +14,4 @@ include deepbiome/_version.py
 
 # If including data files in the package, add them like:
 include tests/data/*
+include docs/source/data/*
