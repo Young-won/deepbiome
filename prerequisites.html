@@ -104,7 +104,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#network-info-training-info">network_info[‘training_info’]</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#network-info-validation-info">network_info[‘validation_info’]</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#network-info-test-info">network_info[‘test_info’]</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#network-info-tensorboard-info">network_info[‘tensorboard_info’]</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example-for-the-network-info">Example for the <cite>network_info</cite></a></li>
 </ul>
 </li>
@@ -1033,9 +1032,6 @@ you can use the input file (.csv).</p>
 <dt class="field-odd">test_info</dt>
 <dd class="field-odd"><p>about the hyper-parameter for testing</p>
 </dd>
-<dt class="field-even">tensorboard_info</dt>
-<dd class="field-even"><p>about the tensorflow tensorboard options</p>
-</dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1389,32 +1385,6 @@ you can use the input file (.csv).</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="network-info-tensorboard-info">
-<h4>network_info[‘tensorboard_info’]<a class="headerlink" href="#network-info-tensorboard-info" title="Permalink to this headline">¶</a></h4>
-<p>You can use the tensorboard provided by <cite>tensorflow</cite> library. Detailed options are similar to Keras implementation (See <a class="reference external" href="https://keras.io/callbacks/#tensorboard">Tensorboard</a>)</p>
-<p>Detailed options for the <cite>tensorboard_info</cite> field are as follows.</p>
-<dl class="field-list simple">
-<dt class="field-odd">tensorboard_dir</dt>
-<dd class="field-odd"><p>the path of the directory where to save the log files to be parsed by TensorBoard. If ‘None’, then we can disable the tensorboard option. (default=’None’)</p>
-</dd>
-<dt class="field-even">histogram_freq</dt>
-<dd class="field-even"><p>frequency (in epochs) at which to compute activation and weight histograms for the layers of the model. If set to 0, histograms won’t be computed. (defalut=’0’)</p>
-</dd>
-<dt class="field-odd">write_grads</dt>
-<dd class="field-odd"><p>whether to visualize the graph in TensorBoard. The log file can become quite large when write_graph is set to True. (default=’False’)</p>
-</dd>
-<dt class="field-even">write_graph</dt>
-<dd class="field-even"><p>whether to visualize the graph in TensorBoard. (default=’False’)</p>
-</dd>
-<dt class="field-odd">write_weights_histogram</dt>
-<dd class="field-odd"><p>whether to visualize the weight histograms in TensorBoard. (default=’False’)</p>
-</dd>
-<dt class="field-even">write_weights_images</dt>
-<dd class="field-even"><p>whether to write model weights to visualize as image in TensorBoard. (default=’False’)</p>
-</dd>
-</dl>
-<p>(TBD: <cite>write_image</cite> option for visualizing the trained tree weight graph)</p>
-</div>
 <div class="section" id="example-for-the-network-info">
 <h4>Example for the <cite>network_info</cite><a class="headerlink" href="#example-for-the-network-info" title="Permalink to this headline">¶</a></h4>
 <p>This is the example of the configuration dictionary: <cite>network_info</cite> dictionary</p>
@@ -1445,15 +1415,7 @@ you can use the input file (.csv).</p>
     <span class="p">},</span>
     <span class="s1">&#39;test_info&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;tensorboard_info&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;histogram_freq&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tensorboard_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;write_grads&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;write_graph&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;write_image&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;write_weights_histogram&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;write_weights_images&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">},</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1490,15 +1452,6 @@ you can use the input file (.csv).</p>
 
 <span class="k">[test_info]</span>
 <span class="na">batch_size</span> <span class="o">=</span> <span class="s">None</span>
-
-<span class="k">[tensorboard_info]</span>
-<span class="na">tensorboard_dir</span> <span class="o">=</span> <span class="s">None</span>
-<span class="na">histogram_freq</span>  <span class="o">=</span> <span class="s">0</span>
-<span class="na">write_graph</span>     <span class="o">=</span> <span class="s">False</span>
-<span class="na">write_grads</span>     <span class="o">=</span> <span class="s">False</span>
-<span class="na">write_image</span>     <span class="o">=</span> <span class="s">False</span>
-<span class="na">write_weights_histogram</span> <span class="o">=</span> <span class="s">False</span>
-<span class="na">write_weights_images</span> <span class="o">=</span> <span class="s">False</span>
 </pre></div>
 </div>
 <div class="admonition hint">

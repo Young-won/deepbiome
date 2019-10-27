@@ -106,7 +106,6 @@ Your configuration for the network training should include the information about
 :training_info: about the hyper-parameter for training
 :validation_info: about the hyper-parameter for validation
 :test_info: about the hyper-parameter for testing
-:tensorboard_info: about the tensorflow tensorboard options
 
 .. note:: You don't have to fill the options if it has a default value.
 
@@ -274,22 +273,6 @@ Detailed options for the `test_info` field are as follows.
 
 :batch_size: the batch size for each mini-batch. If "None", use the whole number of the sample as one mini-batch. (defualt = "None")
 
-network_info['tensorboard_info']
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-You can use the tensorboard provided by `tensorflow` library. Detailed options are similar to Keras implementation (See Tensorboard_)
-
-Detailed options for the `tensorboard_info` field are as follows.
-
-:tensorboard_dir: the path of the directory where to save the log files to be parsed by TensorBoard. If 'None', then we can disable the tensorboard option. (default='None')
-:histogram_freq: frequency (in epochs) at which to compute activation and weight histograms for the layers of the model. If set to 0, histograms won't be computed. (defalut='0')
-:write_grads: whether to visualize the graph in TensorBoard. The log file can become quite large when write_graph is set to True. (default='False')
-:write_graph: whether to visualize the graph in TensorBoard. (default='False')
-:write_weights_histogram: whether to visualize the weight histograms in TensorBoard. (default='False')
-:write_weights_images: whether to write model weights to visualize as image in TensorBoard. (default='False')
-
-(TBD: `write_image` option for visualizing the trained tree weight graph)
-
 Example for the `network_info`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -325,15 +308,7 @@ This is the example of the configuration dictionary: `network_info` dictionary
         },
         'test_info': {
             'batch_size': 'None'
-        },
-        'tensorboard_info': {
-            'histogram_freq': '0',
-            'tensorboard_dir': 'None',
-            'write_grads': 'False',
-            'write_graph': 'False',
-            'write_image': 'False',
-            'write_weights_histogram': 'False',
-            'write_weights_images': 'False'},
+        }
     }
 
 
@@ -373,16 +348,6 @@ This is the example of the configuration file: `network_info.cfg`
 
     [test_info]
     batch_size = None
-
-    [tensorboard_info]
-    tensorboard_dir = None
-    histogram_freq  = 0
-    write_graph     = False
-    write_grads     = False
-    write_image     = False
-    write_weights_histogram = False
-    write_weights_images = False
-
 
 .. hint::  See Example_ for reference about the configuration file example for various problems.
 
