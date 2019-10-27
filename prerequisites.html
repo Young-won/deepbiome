@@ -626,8 +626,36 @@ you can use the input file (.csv).</p>
 <h4>network_info[‘model_info’]<a class="headerlink" href="#network-info-model-info" title="Permalink to this headline">¶</a></h4>
 <p>Detailed options for the <cite>model_info</cite> field are as follows.</p>
 <dl class="field-list">
+<dt class="field-odd">network_clas</dt>
+<dd class="field-odd"><p>deepbiome network class (default=’DeepBiomeNetwork’).</p>
+</dd>
+<dt class="field-even">reader_class</dt>
+<dd class="field-even"><p>reader classes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>possible options</p></th>
+<th class="head"><p>explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“MicroBiomeRegressionReader”</p></td>
+<td><p>Microbiome adandunce data reader for regression problem</p></td>
+</tr>
+<tr class="row-odd"><td><p>“MicroBiomeClassificationReader”</p></td>
+<td><p>Microbiome adandunce data reader for classification problem</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
 <dt class="field-odd">optimizer</dt>
 <dd class="field-odd"><p>optimization methods for training the network. We used the optimizers implemented in Keras (See <a class="reference external" href="https://keras.io/optimizers/">Optimizer</a>).</p>
+</dd>
+<dt class="field-even">optimizer</dt>
+<dd class="field-even"><p>optimization methods for training the network. We used the optimizers implemented in Keras (See <a class="reference external" href="https://keras.io/optimizers/">Optimizer</a>).</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -648,14 +676,14 @@ you can use the input file (.csv).</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-even">lr</dt>
-<dd class="field-even"><p>learning rate for the optimizor. (float between 0 ~ 1)</p>
+<dt class="field-odd">lr</dt>
+<dd class="field-odd"><p>learning rate for the optimizor. (float between 0 ~ 1)</p>
 </dd>
-<dt class="field-odd">decay</dt>
-<dd class="field-odd"><p>learning late decay ratio for the optimizer. (float between 0 ~ 1)</p>
+<dt class="field-even">decay</dt>
+<dd class="field-even"><p>learning late decay ratio for the optimizer. (float between 0 ~ 1)</p>
 </dd>
-<dt class="field-even">loss</dt>
-<dd class="field-even"><p>loss functions for training the network</p>
+<dt class="field-odd">loss</dt>
+<dd class="field-odd"><p>loss functions for training the network</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -679,8 +707,8 @@ you can use the input file (.csv).</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-odd">metrics</dt>
-<dd class="field-odd"><p>additional metrics to check the model performance</p>
+<dt class="field-even">metrics</dt>
+<dd class="field-even"><p>additional metrics to check the model performance</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -725,8 +753,8 @@ you can use the input file (.csv).</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-even">texa_selection_metrics</dt>
-<dd class="field-even"><p>metrics for the texa selection performance</p>
+<dt class="field-odd">texa_selection_metrics</dt>
+<dd class="field-odd"><p>metrics for the texa selection performance</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -752,6 +780,9 @@ you can use the input file (.csv).</p>
 </tr>
 </tbody>
 </table>
+</dd>
+<dt class="field-even">normalizer</dt>
+<dd class="field-even"><p>normalizer for the input data (default=`normalize_minmax`)</p>
 </dd>
 </dl>
 </div>
