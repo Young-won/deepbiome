@@ -237,8 +237,10 @@
         <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">()</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">allow_growth</span><span class="o">=</span><span class="kc">True</span>
-        
+        <span class="n">gpus</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">visible_device_list</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">gpus</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">allow_growth</span><span class="o">=</span><span class="kc">True</span>
+            
     <span class="c1">### Argument #########################################################################################</span>
     <span class="n">model_save_dir</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;model_dir&#39;</span><span class="p">]</span>
     <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_dir</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
