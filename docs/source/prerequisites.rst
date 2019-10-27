@@ -109,6 +109,21 @@ network_info['model_info']
 
 Detailed options for the `model_info` field are as follows.
 
+:network_clas: deepbiome network class (default='DeepBiomeNetwork').
+
+:reader_class: reader classes
+
+    ===================================  ================================================================================
+    possible options                     explanation
+    ===================================  ================================================================================
+    "MicroBiomeRegressionReader"         Microbiome adandunce data reader for regression problem
+    "MicroBiomeClassificationReader"     Microbiome adandunce data reader for classification problem
+    ===================================  ================================================================================
+
+
+:optimizer: optimization methods for training the network. We used the optimizers implemented in Keras (See Optimizer_).
+
+
 :optimizer: optimization methods for training the network. We used the optimizers implemented in Keras (See Optimizer_).
 
     ====================  ================================================================================
@@ -158,6 +173,7 @@ Detailed options for the `model_info` field are as follows.
     "gmeasure"                    (Sensitivity * Specificity) ^ (0.5) (0 ~ 1)
     ============================  ================================================================================
     
+:normalizer: normalizer for the input data (default=`normalize_minmax`)
 
 
 network_info['architecture_info']
