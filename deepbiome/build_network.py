@@ -513,10 +513,10 @@ class DeepBiomeNetwork(Base_Network):
         self.log.info('Phylogenetic tree level list: %s' % self.tree_level_list)
         self.log.info('------------------------------------------------------------------------------------------')
         self.phylogenetic_tree_dict = {'Number':{}}
-        lvl_category_dict = np.load('%s/lvl_category.npy' % '/'.join(tree_path.split('/')[:-1]), allow_pickle=True)
+        # lvl_category_dict = np.load('%s/lvl_category.npy' % '/'.join(tree_path.split('/')[:-1]), allow_pickle=True)
         for i, tree_lvl in enumerate(self.tree_level_list):
-            # lvl_category = self.phylogenetic_tree_info[tree_lvl].unique()
-            lvl_category = lvl_category_dict[i]
+            lvl_category = self.phylogenetic_tree_info[tree_lvl].unique()
+            # lvl_category = lvl_category_dict[i]
             lvl_num = lvl_category.shape[0]
             self.log.info('    %6s: %d' % (tree_lvl, lvl_num))
             self.phylogenetic_tree_dict[tree_lvl] = dict(zip(lvl_category, np.arange(lvl_num)))
