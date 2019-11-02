@@ -19,6 +19,7 @@ import gc
 import warnings
 warnings.filterwarnings("ignore")
 import logging
+from sklearn.model_selection import KFold
 
 from . import logging_daily
 from . import configuration
@@ -76,9 +77,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         try: tf.config.experimental.set_memory_growth(gpus, True)
         except: pass
     else:
-        config = tf.ConfigProto()
-        if tf.test.is_gpu_available(): config.gpu_options.allow_growth=True
-            
+        config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
+    
     ### Argument #########################################################################################
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
@@ -100,13 +100,17 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     
     ############################################
     # Set the cross-validation
-    # if number_of_fold == None:
     try:
         idxs = np.array(pd.read_csv(path_info['data_info']['idx_path'])-1, dtype=np.int)
+        if number_of_fold == None:
+            number_of_fold = idxs.shape[1] 
     except:
-        raise NotImplementError()
-    number_of_fold = idxs.shape[1]        
-    # else:   
+        nsample = pd.read_csv(y_path).shape[0]
+        if number_of_fold == None:
+            number_of_fold = nsample
+        kf = KFold(n_splits=number_of_fold, shuffle=True, random_state=12)
+        cv_gen = kf.split(range(nsample))
+        idxs = np.array([train_idx for train_idx, test_idx in cv_gen]).T
     ############################################
     
     try:
@@ -229,4 +233,4 @@ if __name__ == "__main__":
 
     path_info = config_data.get_config_map()
     network_info = config_network.get_config_map()
-    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info, number_of_fold=2)
+    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info, number_of_fold=20)
