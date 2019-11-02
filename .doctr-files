@@ -1,9 +1,13 @@
+./_images/DeepBiome.pdf
+./_images/tree.pdf
+./_images/tree_fev1_deepbiome2.pdf
 ./_modules/deepbiome/deepbiome.html
 ./_modules/index.html
 ./_sources/authors.rst.txt
 ./_sources/contributing.rst.txt
 ./_sources/index.rst.txt
 ./_sources/installation.rst.txt
+./_sources/introduction.rst.txt
 ./_sources/min_versions.rst.txt
 ./_sources/prerequisites.rst.txt
 ./_sources/release-history.rst.txt
@@ -69,6 +73,7 @@
 ./genindex.html
 ./index.html
 ./installation.html
+./introduction.html
 ./min_versions.html
 ./objects.inv
 ./prerequisites.html

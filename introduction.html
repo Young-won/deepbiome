@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; deepbiome 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="deepbiome Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> deepbiome
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deepbiome-a-phylogenetic-tree-regularized-deep-neural-network-for-microbiome-data-analysis">DeepBiome: a phylogenetic tree regularized deep neural network for microbiome data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#microbiome-data-structure">Microbiome data structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deepbiome">DeepBiome</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deepbiome-architecture">DeepBiome architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phylogeny-regularized-weight-decay">Phylogeny regularized weight decay</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#selection-of-disease-associated-microbiome-taxa">Selection of disease associated microbiome taxa</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">deepbiome</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="deepbiome-a-phylogenetic-tree-regularized-deep-neural-network-for-microbiome-data-analysis">
+<h2>DeepBiome: a phylogenetic tree regularized deep neural network for microbiome data analysis<a class="headerlink" href="#deepbiome-a-phylogenetic-tree-regularized-deep-neural-network-for-microbiome-data-analysis" title="Permalink to this headline">¶</a></h2>
+<p>DeepBiome uncover the microbiome-phenotype association network and visualize its path to disease. DeepBiome takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
+A phylogeny regularized weight decay technique regularize the DeepBiome model to avoid overfitting.</p>
+</div>
+<div class="section" id="microbiome-data-structure">
+<h2>Microbiome data structure<a class="headerlink" href="#microbiome-data-structure" title="Permalink to this headline">¶</a></h2>
+<img alt="microbiome data structure" class="align-center" src="_images/tree.pdf" />
+<p>A phylogenetic tree depicts the evolutionary relationship among microbes.
+The figure displays an example phylogenetic tree.
+A tip node on the phylogenetic tree representing groups of descendent taxa and each internal node is a taxonomic unit representing a common ancestor of those descendent.</p>
+</div>
+<div class="section" id="deepbiome">
+<h2>DeepBiome<a class="headerlink" href="#deepbiome" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deepbiome-architecture">
+<h3>DeepBiome architecture<a class="headerlink" href="#deepbiome-architecture" title="Permalink to this headline">¶</a></h3>
+<img alt="the deepbiome architecture" class="align-center" src="_images/DeepBiome.pdf" />
+<p>The figure illustrates a DeepBiome architecture.
+DeepBiome prespecify the network architecture according to the phylogenetic tree.
+Each hidden layer represents one phylogenetic level (i.e., family, order, class, and phylum).
+The number of taxonomic levels decides the number of hidden layers. The number of taxa at each taxonomic level decides the number of neurons in the corresponding layer.</p>
+</div>
+<div class="section" id="phylogeny-regularized-weight-decay">
+<h3>Phylogeny regularized weight decay<a class="headerlink" href="#phylogeny-regularized-weight-decay" title="Permalink to this headline">¶</a></h3>
+<p>We constructed a weight decay matrix to regularize weights in the neural network using evolutionary relationship carried by the phylogenetic tree.</p>
+</div>
+</div>
+<div class="section" id="selection-of-disease-associated-microbiome-taxa">
+<h2>Selection of disease associated microbiome taxa<a class="headerlink" href="#selection-of-disease-associated-microbiome-taxa" title="Permalink to this headline">¶</a></h2>
+<img alt="selection of disease associated microbiome taxa" class="align-center" src="_images/tree_fev1_deepbiome2.pdf" />
+<p>DeepBiome analyzes the whole microbiome profile and its path to disease and identifies taxa associated with outcome at each taxonomic level.
+The red nodes indicate taxa have positive coefficient estimation and blue nodes indicate taxa have negative estimation.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="deepbiome Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Youngwon Choi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
