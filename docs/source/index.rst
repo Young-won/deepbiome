@@ -10,6 +10,7 @@ deepbiome Documentation
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
    installation
    prerequisites
    usage

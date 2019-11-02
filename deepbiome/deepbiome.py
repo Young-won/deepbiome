@@ -77,9 +77,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         except: pass
     else:
         config = tf.ConfigProto()
-        gpus = len(config.gpu_options.visible_device_list)
-        if gpus:
-            config.gpu_options.allow_growth=True
+        if tf.test.is_gpu_available(): config.gpu_options.allow_growth=True
             
     ### Argument #########################################################################################
     model_save_dir = path_info['model_info']['model_dir']
@@ -98,15 +96,25 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     reader = reader_class(log, verbose=True)
 
     data_path = path_info['data_info']['data_path']
-    # TODO: fix
-    idxs = np.array(pd.read_csv(path_info['data_info']['idx_path'])-1, dtype=np.int)
+    y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
+    
+    ############################################
+    # Set the cross-validation
+    # if number_of_fold == None:
+    try:
+        idxs = np.array(pd.read_csv(path_info['data_info']['idx_path'])-1, dtype=np.int)
+    except:
+        raise NotImplementError()
+    number_of_fold = idxs.shape[1]        
+    # else:   
+    ############################################
+    
     try:
         count_path = path_info['data_info']['count_path']
         x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
         x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(idxs.shape[1])])
     except:
         x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(idxs.shape[1])])
-    y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
 
     ### Simulations #################################################################################
     # history = []
@@ -114,8 +122,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     test_evaluation = []
     # train_tot_idxs = []
     # test_tot_idxs = []
-    if number_of_fold == None:
-        number_of_fold = idxs.shape[1]
     starttime = time.time()
     for fold in range(number_of_fold):
         log.info('-------%d simulation start!----------------------------------' % (fold+1))
