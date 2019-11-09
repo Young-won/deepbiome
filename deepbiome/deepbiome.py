@@ -82,11 +82,17 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     ### Argument #########################################################################################
     model_save_dir = path_info['model_info']['model_dir']
     model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
-    # hist_path = os.path.join(model_save_dir, path_info['model_info']['history'
-
-    # TODO : Warm start
-    # warm_start= network_info['training_info']['warm_start'] == 'True'
-    # warm_start_model = network_info['training_info']['warm_start_model']
+    try:
+        hist_path = os.path.join(model_save_dir, path_info['model_info']['history'])
+        is_save_hist = True
+    except:
+        is_save_hist = False
+        
+    try:
+        warm_start = network_info['training_info']['warm_start'] == 'True'
+        warm_start_model = network_info['training_info']['warm_start_model']
+    except:
+        warm_start = False
     # try: save_frequency=int(network_info['training_info']['save_frequency'])
     # except: save_frequency=None
 
@@ -111,7 +117,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         kf = KFold(n_splits=number_of_fold, shuffle=True, random_state=12)
         cv_gen = kf.split(range(nsample))
         idxs = np.array([train_idx for train_idx, test_idx in cv_gen]).T
-    ############################################
+     ############################################
     
     try:
         count_path = path_info['data_info']['count_path']
@@ -121,7 +127,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(idxs.shape[1])])
 
     ### Simulations #################################################################################
-    # history = []
+    # if is_save_hist: history = []
     train_evaluation = []
     test_evaluation = []
     # train_tot_idxs = []
@@ -143,6 +149,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info['data_info'], log, fold, num_classes=num_classes)
         network.model_compile() ## TODO : weight clear only (no recompile)
+        if warm_start:
+            network.load_weights(file_path_fold(warm_start_model, fold))
         sys.stdout.flush()
 
         ### Training #########################################################################################
@@ -151,13 +159,14 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         hist = network.fit(x_train, y_train, 
                            max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing,
                            model_path=file_path_fold(model_path, fold))
-        # history.append(hist.history)
+        # if is_save_hist: history.append(hist.history)
         sys.stdout.flush()
 
         network.save_weights(file_path_fold(model_path, fold))
         log.debug('Save weight at {}'.format(file_path_fold(model_path, fold)))
-        # network.save_history(file_path_fold(hist_path, fold), history)
-        # log.debug('Save history at {}'.format(file_path_fold(hist_path, fold)))
+        if is_save_hist: 
+            network.save_history(file_path_fold(hist_path, fold), hist.history)
+            log.debug('Save history at {}'.format(file_path_fold(hist_path, fold)))
         sys.stdout.flush()
 
         # Evaluation
@@ -199,6 +208,130 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     gc.collect()
     return test_evaluation, train_evaluation, network
 
+
+def deepbiome_test(log, network_info, path_info, number_of_fold=None,
+                   max_queue_size=10, workers=1, use_multiprocessing=False):
+    """
+    Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer.
+
+    See ref url (TODO: update)
+
+    Parameters
+    ----------
+    log (logging instance) :
+        python logging instance for logging
+    network_info (dictionary) :
+        python dictionary with network_information
+    path_info (dictionary):
+        python dictionary with path_information
+    number_of_fold (int):
+        default=None
+    max_queue_size (int):
+        default=10
+    workers (int):
+        default=1
+    use_multiprocessing (boolean):
+        default=False
+    
+    Returns
+    -------
+    evaluation (numpy array):
+        numpy array of the evaluation using testset 
+    
+    Examples
+    --------
+    Training the deep neural network with phylogenetic tree weight regularizer.
+
+    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info)
+    """
+    if tf.__version__.startswith('2'):
+        gpus = tf.config.experimental.get_visible_devices(device_type='GPU')
+        try: tf.config.experimental.set_memory_growth(gpus, True)
+        except: pass
+    else:
+        config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
+    
+    ### Argument #########################################################################################
+    model_save_dir = path_info['model_info']['model_dir']
+    model_path = os.path.join(model_save_dir, path_info['model_info']['weight'])
+    
+    ### Reader ###########################################################################################
+    log.info('-----------------------------------------------------------------')
+    reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
+    reader = reader_class(log, verbose=True)
+
+    data_path = path_info['data_info']['data_path']
+    y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
+    
+    ############################################
+    # Set the cross-validation
+    try:
+        idxs = np.array(pd.read_csv(path_info['data_info']['idx_path'])-1, dtype=np.int)
+        if number_of_fold == None:
+            number_of_fold = idxs.shape[1] 
+    except:
+        nsample = pd.read_csv(y_path).shape[0]
+        try: idxs = np.array([np.arange(nsample) for i in range(y_path.shape[1])]).T
+        except: idxs = np.array([np.arange(nsample)]).T
+     ############################################
+    
+    try:
+        count_path = path_info['data_info']['count_path']
+        x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
+        x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(idxs.shape[1])])
+    except:
+        x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(idxs.shape[1])])
+
+    ### Simulations #################################################################################
+    train_evaluation = []
+    test_evaluation = []
+    starttime = time.time()
+    log.info('Test Evaluation : %s' % np.array(['loss']+[metric.strip() for metric in network_info['model_info']['metrics'].split(',')]))
+    for fold in range(number_of_fold):
+        log.info('-------%d fold test start!----------------------------------' % (fold+1))
+        foldstarttime = time.time()
+
+        ### Read datasets ####################################################################################
+        reader.read_dataset(x_path[fold], y_path, fold)
+        x_train, x_test, y_train, y_test = reader.get_dataset(idxs[:,fold])
+        num_classes = reader.get_num_classes()
+
+        ### Bulid network ####################################################################################
+        if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
+        log.info('-----------------------------------------------------------------')
+        log.info('Build network for %d fold testing' % (fold+1))
+        network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
+        network = network_class(network_info, path_info['data_info'], log, fold, num_classes=num_classes)
+        network.model_compile() ## TODO : weight clear only (no recompile)
+        network.fold = fold
+        network.load_weights(file_path_fold(model_path, fold), verbose=False)
+        sys.stdout.flush()
+
+        ### Training #########################################################################################
+        log.info('-----------------------------------------------------------------')
+        log.info('%d fold computing start!----------------------------------' % (fold+1))
+        test_eval_res = network.evaluate(x_test, y_test)
+        test_evaluation.append(test_eval_res)
+        log.info('' % test_eval_res)
+        if not tf.__version__.startswith('2'): k.clear_session()
+        log.info('Compute time : {}'.format(time.time()-foldstarttime))
+        log.info('%d fold computing end!---------------------------------------------' % (fold+1))
+
+    ### Summary #########################################################################################
+    log.info('-----------------------------------------------------------------')
+    test_evaluation = np.vstack(test_evaluation)
+    log.info('Test Evaluation : %s' % np.array(['loss']+[metric.strip() for metric in network_info['model_info']['metrics'].split(',')]))
+    mean = np.mean(test_evaluation, axis=0)
+    std = np.std(test_evaluation, axis=0)
+    log.info('      mean : %s',mean)
+    log.info('       std : %s',std)
+    log.info('-----------------------------------------------------------------')
+
+    ### Exit #########################################################################################
+    log.info('Total Computing Ended')
+    log.info('-----------------------------------------------------------------')
+    gc.collect()
+    return test_evaluation
 
 #########################################################################################################################
 if __name__ == "__main__":  

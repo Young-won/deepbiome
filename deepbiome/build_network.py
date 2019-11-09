@@ -89,8 +89,13 @@ class Base_Network(abc.ABC):
         np.save(pred_path, prediction)
             
     def save_history(self, hist_path, history):
-        with open(hist_path, 'w') as f:
-            json.dump(history, f)      
+        try:
+            with open(hist_path, 'w+') as f:
+                json.dump(history, f)
+        except:
+            with open(hist_path, 'w+') as f:
+                hist = dict([(ky, np.array(val).astype(np.float).tolist()) for (ky, val) in history.items()])
+                json.dump(hist, f)     
             
     def get_callbacks(self, validation_data=None, model_path=None):
         # Callback
