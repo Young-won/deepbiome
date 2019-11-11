@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -112,7 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#For-preparing-the-configuration-about-the-path-information-(path_info)">For preparing the configuration about the path information (<code class="docutils literal notranslate"><span class="pre">path_info</span></code>)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#4.-Deepbiome-Training">4. Deepbiome Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-DeepBiome-Training">4. DeepBiome Training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#5.-Load-the-pre-trained-network-for-training">5. Load the pre-trained network for training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#6.-Load-the-pre-trained-network-for-testing">6. Load the pre-trained network for testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#7.-Load-the-pre-trained-network-for-prediction">7. Load the pre-trained network for prediction</a></li>
@@ -411,9 +411,9 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-:-k-times-repetition-with-the-list-of-k-input-files">
 <h1>Example : k times repetition with the list of k input files<a class="headerlink" href="#Example-:-k-times-repetition-with-the-list-of-k-input-files" title="Permalink to this headline">¶</a></h1>
-<p>Deepbiome packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
-<p>To use deepbiome, you can experiment (1) <strong>k times repeatition</strong> or (2) <strong>k fold cross-validation</strong>. For each experiment, we asuume that the dataset is given by - <strong>A list of k input files for k times repeatition.</strong> - <strong>One input file for k fold cross-validation.</strong></p>
-<p>This notebook contains an example of (1) <strong>k times repeatition</strong> for the deep neural netowrk using deepbiome.</p>
+<p>DeepBiome package takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
+<p>To use DeepBiome, you can experiment (1) <strong>k times repetition</strong> or (2) <strong>k fold cross-validation</strong>. For each experiment, we asuume that the dataset is given by - <strong>A list of k input files for k times repetition.</strong> - <strong>One input file for k fold cross-validation.</strong></p>
+<p>This notebook contains an example of (1) <strong>k times repetition</strong> for the deep neural netowrk using deepbiome.</p>
 <div class="section" id="1.-Load-library">
 <h2>1. Load library<a class="headerlink" href="#1.-Load-library" title="Permalink to this headline">¶</a></h2>
 <p>First, we have to load deepbiome package. The deepbiome package is build on the tensorflow and keras library</p>
@@ -446,9 +446,9 @@ Using TensorFlow backend.
 </div>
 <div class="section" id="2.-Prepare-the-dataset">
 <h2>2. Prepare the dataset<a class="headerlink" href="#2.-Prepare-the-dataset" title="Permalink to this headline">¶</a></h2>
-<p>In this example, we assume that we have <strong>a list of k input files for k times repeatition.</strong></p>
-<p>Deepbiome needs 4 data as follow: 1. <strong>the tree information</strong> 1. <strong>the lists of the input files</strong> (each file has all sample’s information for one repeatition) 1. <strong>the list of the name of input files</strong> 1. <strong>y</strong></p>
-<p>In addition, we can set <strong>the training index for each repeatition</strong>. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.</p>
+<p>In this example, we assume that we have <strong>a list of k input files for k times repetition.</strong></p>
+<p>DeepBiome needs 4 data files as follows: 1. <strong>the tree information</strong> 1. <strong>the lists of the input files</strong> (each file has all sample’s information for one repetition) 1. <strong>the list of the names of input files</strong> 1. <strong>y</strong></p>
+<p>In addition, we can set <strong>the training index for each repetition</strong>. If we set the index file, DeepBiome builds the training set for each repetition based on each fold index in the index file. If not, DeepBiome will generate the index file locally.</p>
 <p>Eath data should have the csv format. Below is the example of each file.</p>
 <div class="section" id="Example-of-the-tree-information">
 <h3>Example of the tree information<a class="headerlink" href="#Example-of-the-tree-information" title="Permalink to this headline">¶</a></h3>
@@ -934,7 +934,7 @@ Using TensorFlow backend.
 </div>
 <div class="section" id="Example-of-the-list-of-the-name-of-input-files">
 <h3>Example of the list of the name of input files<a class="headerlink" href="#Example-of-the-list-of-the-name-of-input-files" title="Permalink to this headline">¶</a></h3>
-<p>In this example. we assume that input is given by the lists of files. Each file has all sample’s information for one repeatition. If we want to use the list of the input files, we need the make a list of the name of each input file. Below is an example file for <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repeatition.</p>
+<p>In this example. we assume that input is given by the lists of files. Each file has all sample’s information for one repeatition. If we want to use the list of the input files, we need to make a list of the names of each input file. Below is an example file for <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repetition.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -1059,7 +1059,7 @@ Using TensorFlow backend.
 </div>
 <div class="section" id="Example-of-the-lists-of-the-input-files">
 <h3>Example of the lists of the input files<a class="headerlink" href="#Example-of-the-lists-of-the-input-files" title="Permalink to this headline">¶</a></h3>
-<p>Below is an example of the each input file. This example has 1000 samples for each row, and abandunt of each microbiome for each column. Below is an example file for <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repeatition. This example is <code class="docutils literal notranslate"><span class="pre">gcount_0001.csv</span></code> for the first repeatition in the list of the names of input files above. This file has the 4 samples’ microbiome abandunce.</p>
+<p>Below is an example of each input file. This example has 1000 samples as rows, and the abandunce of each microbiome as columns. Below is an example file for <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repetition. This example is <code class="docutils literal notranslate"><span class="pre">gcount_0001.csv</span></code> for the first repetition in the list of the names of input files above. This file has the 4 samples’ microbiome abandunce.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -1426,7 +1426,7 @@ Using TensorFlow backend.
 </div>
 <div class="section" id="Example-of-the-Y-(regression)">
 <h3>Example of the Y (regression)<a class="headerlink" href="#Example-of-the-Y-(regression)" title="Permalink to this headline">¶</a></h3>
-<p>This is an example of the output file for regression problem. One column contains y samples for one repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition. Below example file has 1000 samples in row, <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repeatition in column.</p>
+<p>This is an example of the output file for regression problem. One column contains y samples for one repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition. Below example file has 1000 samples in row, <code class="docutils literal notranslate"><span class="pre">k=1000</span></code> repetition in column.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -1840,7 +1840,7 @@ Name: x1, dtype: float64
 </div>
 <div class="section" id="Example-of-the-Y-(classification)">
 <h3>Example of the Y (classification)<a class="headerlink" href="#Example-of-the-Y-(classification)" title="Permalink to this headline">¶</a></h3>
-<p>This is an example of the output file for classification problem. Below example file has 1000 samples in row, 1000 repeatition in column.</p>
+<p>This is an example of the output file for classification problem. Below example file has 1000 samples in rows, 1000 repetitions in columns.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -2618,7 +2618,7 @@ Name: V1, dtype: float64
 <p>5 rows × 1000 columns</p>
 </div></div>
 </div>
-<p>Below is the index set for 1st repeatition. From 1000 samples above, it uses 750 samples for training.</p>
+<p>Below is the index set for 1st repetition. From 1000 samples above, it uses 750 samples for training.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -2674,7 +2674,7 @@ Name: V1, dtype: int64
 <p>Please check the detailed information about each options in the <a class="reference external" href="https://young-won.github.io/deepbiome/prerequisites.html#configuration">documantation</a></p>
 <div class="section" id="For-preparing-the-configuration-about-the-network-information-(network_info)">
 <h3>For preparing the configuration about the network information (<code class="docutils literal notranslate"><span class="pre">network_info</span></code>)<a class="headerlink" href="#For-preparing-the-configuration-about-the-network-information-(network_info)" title="Permalink to this headline">¶</a></h3>
-<p>For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to netowrk_info field. Your configuration for the network training should include the information about:</p>
+<p>For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to the <code class="docutils literal notranslate"><span class="pre">netowrk_info</span></code> field. Your configuration for the network training should include the information about:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -2717,7 +2717,7 @@ Name: V1, dtype: int64
 </div>
 <div class="section" id="For-preparing-the-configuration-about-the-path-information-(path_info)">
 <h3>For preparing the configuration about the path information (<code class="docutils literal notranslate"><span class="pre">path_info</span></code>)<a class="headerlink" href="#For-preparing-the-configuration-about-the-path-information-(path_info)" title="Permalink to this headline">¶</a></h3>
-<p>For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to path_info feild. Your configuration for the path information should include the information about:</p>
+<p>To give the information about the path of dataset, paths for saving the trained weights and the evaluation results, we provide the dictionary for configuration to the <code class="docutils literal notranslate"><span class="pre">path_info</span></code> feild. Your configuration for the path information should include the information about:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -2745,10 +2745,10 @@ Name: V1, dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="4.-Deepbiome-Training">
-<h2>4. Deepbiome Training<a class="headerlink" href="#4.-Deepbiome-Training" title="Permalink to this headline">¶</a></h2>
-<p>Now we can train the deepbiome network base on the configurations.</p>
-<p>For logging, we used the python logging library.</p>
+<div class="section" id="4.-DeepBiome-Training">
+<h2>4. DeepBiome Training<a class="headerlink" href="#4.-DeepBiome-Training" title="Permalink to this headline">¶</a></h2>
+<p>Now we can train the DeepBiome network based on the configurations.</p>
+<p>For logging, we use the python logging library.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
@@ -3838,7 +3838,7 @@ Epoch 100/100
 [root    |INFO|deepbiome.py:207] -----------------------------------------------------------------
 </pre></div></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">deepbiome_train</span></code> save the trained model weights, evaluation results and history based on the path information from the configuration.</p>
+<p><code class="docutils literal notranslate"><span class="pre">deepbiome_train</span></code> saves the trained model weights, evaluation results and history based on the path information from the configuration.</p>
 <p>From the example above, we can check that <code class="docutils literal notranslate"><span class="pre">hist_*.json</span></code>, <code class="docutils literal notranslate"><span class="pre">weight_*.h5</span></code>, <code class="docutils literal notranslate"><span class="pre">test_eval.npy</span></code>, <code class="docutils literal notranslate"><span class="pre">train_eval.npy</span></code> files were saved.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
@@ -5428,7 +5428,7 @@ _________________________________________________________________
 [root    |INFO|deepbiome.py:337] -----------------------------------------------------------------
 </pre></div></div>
 </div>
-<p>This function provide the evaluation result as a numpy array with a shape of (number of fold, number of evaluation measures).</p>
+<p>This function provides the evaluation result as a numpy array with a shape of (number of fold, number of evaluation measures).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
@@ -5453,7 +5453,7 @@ Std :           0.0265          0.0214          0.0009          0.0590          
 </div>
 <div class="section" id="7.-Load-the-pre-trained-network-for-prediction">
 <h2>7. Load the pre-trained network for prediction<a class="headerlink" href="#7.-Load-the-pre-trained-network-for-prediction" title="Permalink to this headline">¶</a></h2>
-<p>If you want to predict using the pre-trained model, you can use the <code class="docutils literal notranslate"><span class="pre">deepbiome_prediction</span></code> function. If <code class="docutils literal notranslate"><span class="pre">number_of_fold</span></code> is setted as <code class="docutils literal notranslate"><span class="pre">k</span></code>, the function will predict only with first <code class="docutils literal notranslate"><span class="pre">k</span></code> folds sample’s outputs.</p>
+<p>For prediction using the pre-trained model, we can use the <code class="docutils literal notranslate"><span class="pre">deepbiome_prediction</span></code> function. If <code class="docutils literal notranslate"><span class="pre">number_of_fold</span></code> is set to <code class="docutils literal notranslate"><span class="pre">k</span></code>, the function will predict only with first <code class="docutils literal notranslate"><span class="pre">k</span></code> folds sample’s outputs.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>

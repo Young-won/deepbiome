@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -204,7 +204,7 @@
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="deepbiome-a-phylogenetic-tree-regularized-deep-neural-network-for-microbiome-data-analysis">
 <h2>DeepBiome: a phylogenetic tree regularized deep neural network for microbiome data analysis<a class="headerlink" href="#deepbiome-a-phylogenetic-tree-regularized-deep-neural-network-for-microbiome-data-analysis" title="Permalink to this headline">¶</a></h2>
-<p>DeepBiome uncover the microbiome-phenotype association network and visualize its path to disease. DeepBiome takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
+<p>DeepBiome uncovers the microbiome-phenotype association network and visualizes its path to disease. DeepBiome takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
 A phylogeny regularized weight decay technique regularize the DeepBiome model to avoid overfitting.</p>
 </div>
 <div class="section" id="microbiome-data-structure">
@@ -212,7 +212,7 @@ A phylogeny regularized weight decay technique regularize the DeepBiome model to
 <img alt="microbiome data structure" class="align-center" src="_images/tree.pdf" />
 <p>A phylogenetic tree depicts the evolutionary relationship among microbes.
 The figure displays an example phylogenetic tree.
-A tip node on the phylogenetic tree representing groups of descendent taxa and each internal node is a taxonomic unit representing a common ancestor of those descendent.</p>
+A tip node on the phylogenetic tree represents groups of descendent taxa and each internal node is a taxonomic unit representing a common ancestor of those descendent.</p>
 </div>
 <div class="section" id="deepbiome">
 <h2>DeepBiome<a class="headerlink" href="#deepbiome" title="Permalink to this headline">¶</a></h2>
@@ -220,7 +220,7 @@ A tip node on the phylogenetic tree representing groups of descendent taxa and e
 <h3>DeepBiome architecture<a class="headerlink" href="#deepbiome-architecture" title="Permalink to this headline">¶</a></h3>
 <img alt="the deepbiome architecture" class="align-center" src="_images/DeepBiome.pdf" />
 <p>The figure illustrates a DeepBiome architecture.
-DeepBiome prespecify the network architecture according to the phylogenetic tree.
+DeepBiome prespecifies the network architecture according to the phylogenetic tree.
 Each hidden layer represents one phylogenetic level (i.e., family, order, class, and phylum).
 The number of taxonomic levels decides the number of hidden layers. The number of taxa at each taxonomic level decides the number of neurons in the corresponding layer.</p>
 </div>

@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -96,8 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Prerequisites</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-preprocessing">Data preprocessing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#with-a-list-of-k-inputs-for-k-times-repeatition">With a list of k inputs for k times repeatition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-one-input-file-for-k-fold-cross-validation">With one input file for k fold cross-validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-a-list-of-k-inputs-for-k-times-repetition">With a list of <cite>k</cite> inputs for <cite>k</cite> times repetition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-one-input-file-for-k-fold-cross-validation">With one input file for <cite>k</cite> fold cross-validation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
@@ -220,25 +220,25 @@
 <h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="data-preprocessing">
 <h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h2>
-<p><cite>deepbiome</cite> packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
-<p>To use deepbiome, you can experiment (1) <strong>`k` times repeatition</strong> or (2) <strong>`k` fold cross-validation</strong>.
+<p>DeepBiome package takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
+<p>To use DeepBiome, you can experiment (1) <strong>`k` times repetition</strong> or (2) <strong>`k` fold cross-validation</strong>.
 For each experiment, we asuume that the dataset is given by</p>
 <blockquote>
-<div><p>1. <strong>A list of `k` input files for `k` times repeatition.</strong>
+<div><p>1. <strong>A list of `k` input files for `k` times repetition.</strong>, or
 1. <strong>One input file for `k` fold cross-validation.</strong></p>
 </div></blockquote>
-<div class="section" id="with-a-list-of-k-inputs-for-k-times-repeatition">
-<h3>With a list of k inputs for k times repeatition<a class="headerlink" href="#with-a-list-of-k-inputs-for-k-times-repeatition" title="Permalink to this headline">¶</a></h3>
-<p>Deepbiome needs 4 data as follow:</p>
+<div class="section" id="with-a-list-of-k-inputs-for-k-times-repetition">
+<h3>With a list of <cite>k</cite> inputs for <cite>k</cite> times repetition<a class="headerlink" href="#with-a-list-of-k-inputs-for-k-times-repetition" title="Permalink to this headline">¶</a></h3>
+<p>DeepBiome needs 4 data files as follows:</p>
 <blockquote>
 <div><p>1. <strong>the tree information</strong>
-1. <strong>the lists of the input files</strong> (each file has all sample’s information for one repeatition)
-1. <strong>the list of the name of input files</strong>
+1. <strong>the list of the input files</strong> (each file has all sample’s information for one repetition)
+1. <strong>the list of the names of input files</strong>
 1. <strong>y</strong></p>
 </div></blockquote>
-<p>For <cite>k</cite> times repeatition, we can use the list of <cite>k</cite> input files. Each file has all sample’s information for one repeatition.
-In addition, we can set <strong>the training index for each repeatition</strong>. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.</p>
-<p>Eath data should have the csv format as follow:</p>
+<p>For <cite>k</cite> times repetition, we can use the list of <cite>k</cite> input files. Each file has all sample’s information for one repetition.
+In addition, we can set <strong>the training index for each repetition</strong>. If we set the index file, DeepBiome builds the training set for each repetition based on each fold index in the index file. If not, DeepBiome will generate the index file locally.</p>
+<p>Eath data should have the csv format as follows:</p>
 <dl>
 <dt>tree information (.csv)</dt><dd><p>A file about the phylogenetic tree information.
 Below is an example file of the phylogenetic tree information dictionary</p>
@@ -320,7 +320,7 @@ Below is an example file of the phylogenetic tree information dictionary</p>
 </table>
 </dd>
 <dt>list of the names of <cite>k</cite> input files (.csv)</dt><dd><p>If we want to use the list of the input files, we need the make a list of the names of each input file.
-Below is an example file for <cite>k=4</cite> repeatition.</p>
+Below is an example file for <cite>k=4</cite> repetition.</p>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Example of the list of <cite>k</cite> input file names</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -338,8 +338,8 @@ Below is an example file for <cite>k=4</cite> repeatition.</p>
 </tbody>
 </table>
 </dd>
-<dt>list of <cite>k</cite> input files</dt><dd><p>Each file should have each repeatition’s sample microbiome abandunce.
-Below is an example file for <cite>k=4</cite> repeatition. This example is <cite>gcount_0001.csv</cite> for the first repeatition in the list of the names of input files above. This file has the 4 samples’ microbiome abandunce.</p>
+<dt>list of <cite>k</cite> input files</dt><dd><p>Each file should have each repetition’s sample microbiome abandunce.
+Below is an example file for <cite>k=4</cite> repetition. This example is <cite>gcount_0001.csv</cite> for the first repetition in the list of the names of input files above. This file has the 4 samples’ microbiome abandunce.</p>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Example of one input file (.csv) of <cite>k</cite> inputs.</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -641,8 +641,8 @@ Below is an example file for <cite>k=4</cite> repeatition. This example is <cite
 </tbody>
 </table>
 </dd>
-<dt>y (.csv)</dt><dd><p>One column contains y samples for one repeatition.
-Below is an example file for <cite>k=4</cite> repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition.</p>
+<dt>y (.csv)</dt><dd><p>One column contains y samples for one repetition.
+Below is an example file for <cite>k=4</cite> repetition. For each repetition (column) has outputs of 4 samples for each repeatition.</p>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -680,7 +680,7 @@ Below is an example file for <cite>k=4</cite> repeatition. For each repeatition 
 </tbody>
 </table>
 </dd>
-<dt>index for training set for each repetation (.csv)</dt><dd><p>For each repeatition, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each repeatition. The deepbiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> repeatition</p>
+<dt>index for training set for each repetition (.csv)</dt><dd><p>For each repetition, we have to set the training and test set. If the index file is given, DeepBiome sets the training set and test set based on the index file. Below is the example of the index file. Each column has the training indices for each repetition. DeepBiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> repetition</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Example of index file (.csv)</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -714,19 +714,19 @@ Below is an example file for <cite>k=4</cite> repeatition. For each repeatition 
 </table>
 </dd>
 </dl>
-<p>In the example above, we used the first 3 row of the first column in <cite>y.csv</cite> for the training set in the first repeatition.</p>
+<p>In the example above, we used the first 3 rows of the first column in <cite>y.csv</cite> for the training set in the first repetition.</p>
 </div>
 <div class="section" id="with-one-input-file-for-k-fold-cross-validation">
-<h3>With one input file for k fold cross-validation<a class="headerlink" href="#with-one-input-file-for-k-fold-cross-validation" title="Permalink to this headline">¶</a></h3>
-<p>Deepbiome needs 3 data as follow:</p>
+<h3>With one input file for <cite>k</cite> fold cross-validation<a class="headerlink" href="#with-one-input-file-for-k-fold-cross-validation" title="Permalink to this headline">¶</a></h3>
+<p>DeepBiome needs 3 data files as follows:</p>
 <blockquote>
 <div><p>1. <strong>the tree information</strong>
 1. <strong>the input file</strong>
 1. <strong>y</strong></p>
 </div></blockquote>
 <p>For <cite>k</cite> fold cross-validation, we can use an input file.
-In addition, we can set <strong>the training index for each fold</strong>. If we set the index file, deepbiome build the training set for each fold based on each fold index in the index file. If not, deepbiome will generate the index file locally.</p>
-<p>Eath data should have the csv format as follow:</p>
+In addition, we can set <strong>the training index for each fold</strong>. If we set the index file, DeepBiome builds the training set for each fold based on each fold index in the index file. If not, DeepBiome will generate the index file locally.</p>
+<p>Eath data should have the csv format as follows:</p>
 <dl>
 <dt>tree information (.csv)</dt><dd><p>A file about the phylogenetic tree information.
 Below is an example file of the phylogenetic tree information dictionary</p>
@@ -807,7 +807,7 @@ Below is an example file of the phylogenetic tree information dictionary</p>
 </tbody>
 </table>
 </dd>
-<dt>input file</dt><dd><p>Input file has the microbiome abandunce of each samples.
+<dt>input file</dt><dd><p>Input file has the microbiome abandunce of each sample.
 Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <table class="longtable docutils align-default" id="id7">
 <caption><span class="caption-text">Example of input file (.csv)</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
@@ -1130,7 +1130,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </tbody>
 </table>
 </dd>
-<dt>index for training set for each fold (.csv)</dt><dd><p>For each fold, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each fold. The deepbiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> fold</p>
+<dt>index for training set for each fold (.csv)</dt><dd><p>For each fold, we have to set the training and test set. If the index file is given, DeepBiome sets the training set and test set based on the index file. Below is an example of the index file. Each column has the training indices for each fold. DeepBiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> fold</p>
 <table class="longtable docutils align-default" id="id9">
 <caption><span class="caption-text">Example of index file (.csv)</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -1164,7 +1164,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </table>
 </dd>
 </dl>
-<p>In the example above, we used the first 3 row of the first column in <cite>y.csv</cite> for the training set in the first fold.</p>
+<p>In the example above, we used the first 3 rows of the first column in <cite>y.csv</cite> for the training set in the first fold.</p>
 </div>
 </div>
 <div class="section" id="configuration">
@@ -1172,9 +1172,8 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <p>For detailed configuration, we used python dictionary as inputs for the main training function.</p>
 <div class="section" id="preparing-the-configuration-about-the-network-information-network-info">
 <h3>Preparing the configuration about the network information (<cite>network_info</cite>)<a class="headerlink" href="#preparing-the-configuration-about-the-network-information-network-info" title="Permalink to this headline">¶</a></h3>
-<p>For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to <cite>netowrk_info</cite> field.</p>
-<p>You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).</p>
-<p>Your configuration for the network training should include the information about:</p>
+<p>To give the information about the training hyper-parameter, we provide a dictionary of configuration to the <cite>netowrk_info</cite> field. Alternatively  we can use the configufation file (.cfg).</p>
+<p>Configuration for the network training should include the information about:</p>
 <dl class="field-list simple">
 <dt class="field-odd">model_info</dt>
 <dd class="field-odd"><p>about the training method and metrics</p>
@@ -1201,7 +1200,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <p>Detailed options for the <cite>model_info</cite> field are as follows.</p>
 <dl class="field-list">
 <dt class="field-odd">network_clas</dt>
-<dd class="field-odd"><p>deepbiome network class (default=’DeepBiomeNetwork’).</p>
+<dd class="field-odd"><p>DeepBiome network class (default=’DeepBiomeNetwork’).</p>
 </dd>
 <dt class="field-even">reader_class</dt>
 <dd class="field-even"><p>reader classes</p>
@@ -1227,9 +1226,6 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </dd>
 <dt class="field-odd">optimizer</dt>
 <dd class="field-odd"><p>optimization methods for training the network. We used the optimizers implemented in Keras (See <a class="reference external" href="https://keras.io/optimizers/">Optimizer</a>).</p>
-</dd>
-<dt class="field-even">optimizer</dt>
-<dd class="field-even"><p>optimization methods for training the network. We used the optimizers implemented in Keras (See <a class="reference external" href="https://keras.io/optimizers/">Optimizer</a>).</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -1250,14 +1246,14 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-odd">lr</dt>
-<dd class="field-odd"><p>learning rate for the optimizor. (float between 0 ~ 1)</p>
+<dt class="field-even">lr</dt>
+<dd class="field-even"><p>learning rate for the optimizor. (float between 0 ~ 1)</p>
 </dd>
-<dt class="field-even">decay</dt>
-<dd class="field-even"><p>learning late decay ratio for the optimizer. (float between 0 ~ 1)</p>
+<dt class="field-odd">decay</dt>
+<dd class="field-odd"><p>learning late decay ratio for the optimizer. (float between 0 ~ 1)</p>
 </dd>
-<dt class="field-odd">loss</dt>
-<dd class="field-odd"><p>loss functions for training the network</p>
+<dt class="field-even">loss</dt>
+<dd class="field-even"><p>loss functions for training the network</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -1281,8 +1277,8 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-even">metrics</dt>
-<dd class="field-even"><p>additional metrics to check the model performance</p>
+<dt class="field-odd">metrics</dt>
+<dd class="field-odd"><p>additional metrics to check the model performance</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -1327,8 +1323,8 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-odd">texa_selection_metrics</dt>
-<dd class="field-odd"><p>metrics for the texa selection performance</p>
+<dt class="field-even">taxa_selection_metrics</dt>
+<dd class="field-even"><p>metrics for the texa selection performance</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -1355,8 +1351,8 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </tbody>
 </table>
 </dd>
-<dt class="field-even">normalizer</dt>
-<dd class="field-even"><p>normalizer for the input data (default=`normalize_minmax`)</p>
+<dt class="field-odd">normalizer</dt>
+<dd class="field-odd"><p>normalizer for the input data (default=`normalize_minmax`)</p>
 </dd>
 </dl>
 </div>
@@ -1402,7 +1398,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <dt class="field-odd">weight_l2_penalty</dt>
 <dd class="field-odd"><p><span class="math notranslate nohighlight">\(\lambda\)</span> for l2 penalty (float. defaut = 0)</p>
 </dd>
-<dt class="field-even">weight_deacy</dt>
+<dt class="field-even">weight_decay</dt>
 <dd class="field-even"><p><strong>DeepBiome with the phylogenetic tree based weight decay method</strong> (default = “”: without deepbiome weight decay method)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1451,7 +1447,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <tr class="row-odd"><td><p>DNN+L1</p></td>
 <td><p>“weight_initial”=”glorot_uniform”, “weight_l1_penalty”=”0.01”</p></td>
 </tr>
-<tr class="row-even"><td><p>Deepbiome</p></td>
+<tr class="row-even"><td><p>DeepBiome</p></td>
 <td><p>“weight_initial”=”glorot_uniform”, “weight_deacy”=”phylogenetic_tree”</p></td>
 </tr>
 </tbody>
@@ -1516,7 +1512,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </table>
 </dd>
 <dt class="field-even">patience</dt>
-<dd class="field-even"><p>patient for the EarlyStopping callback (integer; default = 20)</p>
+<dd class="field-even"><p>patience for the EarlyStopping callback (integer; default = 20)</p>
 </dd>
 <dt class="field-odd">min_delta</dt>
 <dd class="field-odd"><p>the minimum threshold for the ModelCheckpoint, EarlyStopping callbacks (float; default = 1e-4)</p>
@@ -1528,7 +1524,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <p>Detailed options for the <cite>validation_info</cite> field are as follows.</p>
 <dl class="field-list simple">
 <dt class="field-odd">validation_size</dt>
-<dd class="field-odd"><p>the ratio of the number of the sample in the validation set / the number of the sample in the training set(e.g. “0.2”)</p>
+<dd class="field-odd"><p>the ratio of the number of the samples in the validation set / the number of the samples in the training set(e.g. “0.2”)</p>
 </dd>
 <dt class="field-even">batch_size</dt>
 <dd class="field-even"><p>the batch size for each mini-batch. If “None”, use the whole number of the sample as one mini-batch. (defualt = “None”)</p>
@@ -1564,7 +1560,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
         <span class="s1">&#39;normalizer&#39;</span><span class="p">:</span> <span class="s1">&#39;normalize_minmax&#39;</span><span class="p">,</span>
         <span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span>
         <span class="s1">&#39;reader_class&#39;</span><span class="p">:</span> <span class="s1">&#39;MicroBiomeClassificationReader&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;texa_selection_metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy, sensitivity, specificity, gmeasure&#39;</span>
+        <span class="s1">&#39;taxa_selection_metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy, sensitivity, specificity, gmeasure&#39;</span>
     <span class="p">},</span>
     <span class="s1">&#39;training_info&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">,</span> <span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span>
@@ -1621,24 +1617,23 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 </div>
 <div class="section" id="preparing-the-configuration-about-the-path-information-path-info">
 <h3>Preparing the configuration about the path information (<cite>path_info</cite>)<a class="headerlink" href="#preparing-the-configuration-about-the-path-information-path-info" title="Permalink to this headline">¶</a></h3>
-<p>For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to <cite>path_info</cite> feild.</p>
-<p>You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).</p>
+<p>To give the information about the path to dataset, paths for saving the trained weights and the evaluation results, we provide a dictionary of configurations to the <cite>path_info</cite> feild. Alternatively we can also use the configufation file (.cfg).</p>
 <p>Your configuration for the paths should include the information about:</p>
 <dl class="field-list simple">
 <dt class="field-odd">data_info</dt>
 <dd class="field-odd"><p>about the path information of the dataset</p>
 </dd>
 <dt class="field-even">model_info</dt>
-<dd class="field-even"><p>about the path information for saving the trained weight and the evaluation results</p>
+<dd class="field-even"><p>about the path information for saving the trained weights and the evaluation results</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Every paths are the relative path based on the directory that code will run.</p>
+<p>All paths are the relative path based on the directory where code will run.</p>
 </div>
 <div class="section" id="path-info-data-info">
 <h4>path_info[‘data_info’]<a class="headerlink" href="#path-info-data-info" title="Permalink to this headline">¶</a></h4>
-<p>If you provide the list of inputs, you can use the option below:</p>
+<p>To provide the dictionary as input, we can use the option below:</p>
 <dl class="field-list simple">
 <dt class="field-odd">tree_info_path</dt>
 <dd class="field-odd"><p>tree information file (.csv)</p>
@@ -1659,7 +1654,7 @@ Below is an example file with the 4 samples’ microbiome abandunce.</p>
 <dd class="field-even"><p>directory path of the index and y file</p>
 </dd>
 </dl>
-<p>If you provide the one input file, you can use the option below:</p>
+<p>To provide one configuration file, we can use the options below:</p>
 <dl class="field-list simple">
 <dt class="field-odd">tree_info_path</dt>
 <dd class="field-odd"><p>tree information file (.csv)</p>
