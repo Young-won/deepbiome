@@ -38,6 +38,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'nbsphinx',
     'IPython.sphinxext.ipython_directive',
     'IPython.sphinxext.ipython_console_highlighting',
     'matplotlib.sphinxext.plot_directive',
@@ -94,7 +95,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = []
+exclude_patterns = ['_build', '**.ipynb_checkpoints', 'example_result', '*.h5', '*.npy', '*.json']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
