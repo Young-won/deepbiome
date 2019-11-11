@@ -1,5 +1,5 @@
 =========
-Deepbiome
+DeepBiome
 =========
 
 .. image:: https://img.shields.io/travis/Young-won/deepbiome.svg
@@ -28,7 +28,7 @@ Prerequisites
 * Tensorflow
 * Keras
 
-Install Deepbiome
+Install DeepBiome
 ^^^^^^^^^^^^^^^^
 
 At the command line:
