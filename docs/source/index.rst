@@ -15,6 +15,7 @@ deepbiome Documentation
    prerequisites
    usage
    example_with_the_list_of_inputs
+   example_with_one_input_file
    release-history
    min_versions
    authors

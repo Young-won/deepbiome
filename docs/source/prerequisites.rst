@@ -12,6 +12,7 @@ Data preprocessing
 
 To use deepbiome, you can experiment (1) **`k` times repeatition** or (2) **`k` fold cross-validation**.
 For each experiment, we asuume that the dataset is given by
+
     1. **A list of `k` input files for `k` times repeatition.**
     1. **One input file for `k` fold cross-validation.**
 
@@ -19,10 +20,11 @@ With a list of k inputs for k times repeatition
 ------------------------------------------------------
 
 Deepbiome needs 4 data as follow:
-1. **the tree information**
-1. **the lists of the input files** (each file has all sample's information for one repeatition)
-1. **the list of the name of input files**
-1. **y**
+
+    1. **the tree information**
+    1. **the lists of the input files** (each file has all sample's information for one repeatition)
+    1. **the list of the name of input files**
+    1. **y**
 
 For `k` times repeatition, we can use the list of `k` input files. Each file has all sample's information for one repeatition.
 In addition, we can set **the training index for each repeatition**. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.
@@ -77,9 +79,10 @@ With one input file for k fold cross-validation
 ------------------------------------------------------
 
 Deepbiome needs 3 data as follow:
-1. **the tree information**
-1. **the input file**
-1. **y**
+
+    1. **the tree information**
+    1. **the input file**
+    1. **y**
 
 For `k` fold cross-validation, we can use an input file.
 In addition, we can set **the training index for each fold**. If we set the index file, deepbiome build the training set for each fold based on each fold index in the index file. If not, deepbiome will generate the index file locally.
