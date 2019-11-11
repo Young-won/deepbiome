@@ -10,52 +10,60 @@ Data preprocessing
 `deepbiome` packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
 
 
-To use `deepbiome`, you can use the microbiome abundance data with the form:
+To use deepbiome, you can experiment (1) **`k` times repeatition** or (2) **`k` fold cross-validation**.
+For each experiment, we asuume that the dataset is given by
+    1. **A list of `k` input files for `k` times repeatition.**
+    1. **One input file for `k` fold cross-validation.**
 
-    1. A list of input files for `k` times repeatition or `k`-fold cross validation.
-    2. One input file for `k` times cross validation.
-
-
-With the list of inputs
+With a list of k inputs for k times repeatition
 ------------------------------------------------------
 
-Dataset should have the format as follow:
+Deepbiome needs 4 data as follow:
+1. **the tree information**
+1. **the lists of the input files** (each file has all sample's information for one repeatition)
+1. **the list of the name of input files**
+1. **y**
+
+For `k` times repeatition, we can use the list of `k` input files. Each file has all sample's information for one repeatition.
+In addition, we can set **the training index for each repeatition**. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.
+
+
+Eath data should have the csv format as follow:
 
 tree information (.csv)
-    Example of the genus dictionary
+    A file about the phylogenetic tree information.
+    Below is an example file of the phylogenetic tree information dictionary
 
     .. csv-table:: Example of genus dictionary
         :class: longtable
         :file: data/genus48_dic.csv
 
-lists of the name of input files (.csv)
-    Example with 4 sample, 4 repeatition (4-fold cross validation)
+list of the names of `k` input files (.csv)
+    If we want to use the list of the input files, we need the make a list of the names of each input file.
+    Below is an example file for `k=4` repeatition. 
   
-    .. csv-table:: Example of input file name list
+    .. csv-table:: Example of the list of `k` input file names
         :class: longtable
         :file: data/gcount_list.csv
 
-
-directory contain the list of the input files
-    Example with 4 sample, 4 repeatition (4-fold cross validation)
+list of `k` input files
+    Each file should have each repeatition's sample microbiome abandunce.
+    Below is an example file for `k=4` repeatition. This example is `gcount_0001.csv` for the first repeatition in the list of the names of input files above. This file has the 4 samples' microbiome abandunce.
     
-    .. csv-table:: Example of each input file (.csv)
+    .. csv-table:: Example of one input file (.csv) of `k` inputs.
         :class: longtable
         :file: data/gcount_0001.csv
 
 y (.csv)
-    Example with 4 sample, 4 repeatition (4-fold cross validation)
-    
-    One column for one repeatition
+    One column contains y samples for one repeatition. 
+    Below is an example file for `k=4` repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition.
 
     .. csv-table:: Example of y file (.csv)
         :class: longtable
         :file: data/y.csv
 
 index for training set for each repetation (.csv)
-    Example with 4 sample, 4 repeatition (4-fold cross validation)
-    
-    One column for one repeatition.
+    For each repeatition, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each repeatition. The deepbiome will only use the samples in this index set for training. Below is an example for `k=4` repeatition
     
     .. csv-table:: Example of index file (.csv)
         :class: longtable
@@ -64,27 +72,52 @@ index for training set for each repetation (.csv)
 In the example above, we used the first 3 row of the first column in `y.csv` for the training set in the first repeatition.
 
 
-With the one input file
+
+With one input file for k fold cross-validation
 ------------------------------------------------------
 
-Instead of the lists of the name of input files and the directory contain the list of the input files, 
-you can use the input file (.csv).
+Deepbiome needs 3 data as follow:
+1. **the tree information**
+1. **the input file**
+1. **y**
 
-Dataset should have the format as follow:
+For `k` fold cross-validation, we can use an input file.
+In addition, we can set **the training index for each fold**. If we set the index file, deepbiome build the training set for each fold based on each fold index in the index file. If not, deepbiome will generate the index file locally.
+        
+Eath data should have the csv format as follow:
 
-input (.csv)
-    Example with 4 sample
+tree information (.csv)
+    A file about the phylogenetic tree information.
+    Below is an example file of the phylogenetic tree information dictionary
+
+    .. csv-table:: Example of genus dictionary
+        :class: longtable
+        :file: data/genus48_dic.csv
+
+input file
+    Input file has the microbiome abandunce of each samples.
+    Below is an example file with the 4 samples' microbiome abandunce.
     
     .. csv-table:: Example of input file (.csv)
         :class: longtable
         :file: data/X_onefile.csv
 
 y (.csv)
-    Example with 4 sample
-    
+    Below is an example file of the outputs of 4 samples.
+
     .. csv-table:: Example of y file (.csv)
         :class: longtable
         :file: data/y_onefile.csv
+
+index for training set for each fold (.csv)
+    For each fold, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each fold. The deepbiome will only use the samples in this index set for training. Below is an example for `k=4` fold
+    
+    .. csv-table:: Example of index file (.csv)
+        :class: longtable
+        :file: data/idx.csv
+
+In the example above, we used the first 3 row of the first column in `y.csv` for the training set in the first fold.
+
 
 
 Configuration
@@ -103,8 +136,8 @@ Your configuration for the network training should include the information about
 
 :model_info: about the training method and metrics
 :architecture_info: about the architecture options
-:training_info: about the hyper-parameter for training
-:validation_info: about the hyper-parameter for validation
+:training_info: about the hyper-parameter for training (not required for testing and prediction)
+:validation_info: about the hyper-parameter for validation (not required for testing and prediction)
 :test_info: about the hyper-parameter for testing
 
 .. note:: You don't have to fill the options if it has a default value.
@@ -376,7 +409,7 @@ If you provide the list of inputs, you can use the option below:
 :tree_info_path: tree information file (.csv)
 :count_list_path: lists of the name of input files (.csv)
 :count_path: directory path of the input files
-:y_path: y path (.csv)
+:y_path: y path (.csv)  (not required for prediction)
 :idx_path: index path for repetation (.csv)
 :data_path: directory path of the index and y file
 
@@ -384,7 +417,7 @@ If you provide the one input file, you can use the option below:
 
 :tree_info_path: tree information file (.csv)
 :x_path: input path (.csv)
-:y_path: y path (.csv)
+:y_path: y path (.csv)  (not required for prediction)
 :data_path: directory path of the index, x and y file
 
 
@@ -392,10 +425,11 @@ path_info['model_info']
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :weight: weight file name (.h5)
-:evaluation: evaluation file name (.npy)
+:evaluation: evaluation file name (.npy)  (not required for prediction)
 :model_dir: base directory path for the model (weight, evaluation)
-
-.. warning:: If you want to use sub-directory in the path (for example, "weight"="weight/weight.h5", "model_dir"="./"), you should have to make the sub-directory "./weight" before running the code.
+:history: history file name for the history value of each evaluation metric from the training (.json). If not setted, `deepbiome` will not save the history of the network training.
+        
+.. warning:: If you want to use sub-directories in the path (for example, "weight"="weight/weight.h5", "history"="history/hist.h5", "model_dir"="./"), you should have to make the sub-directories "./weight" and "./history" before running the code.
 
 
 Example for the `path_info` for the list of inputs
@@ -419,6 +453,7 @@ This is the example of the configuration dictionary: `path_info` dictionary
         'model_info': {
             'model_dir': './simulation_s2/simulation_s2_deepbiome/',
             'weight': 'weight/weight.h5',
+            'history': 'hist.json',
             'evaluation': 'eval.npy'
         }
     }
@@ -439,6 +474,7 @@ This is the example of the configuration file: `path_info.cfg`
     [model_info]
     model_dir = ./simulation_s2/simulation_s2_deepbiome/
     weight = weight/weight.h5
+    history = historys/hist.json
     evaluation = eval.npy
 
 
@@ -460,6 +496,7 @@ This is the example of the configuration dictionary: `path_info` dictionary
         'model_info': {
             'model_dir': './',
             'weight': 'weight/weight.h5',
+            'history':'history/hist.json',
             'evaluation': 'eval.npy',
         }
     }
@@ -478,6 +515,7 @@ This is the example of the configuration file: `path_info.cfg`
     [model_info]
     model_dir = ./
     weight = weight/weight.h5
+    history = history/hist.json
     evaluation = eval.npy
 
 

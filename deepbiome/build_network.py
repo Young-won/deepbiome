@@ -59,7 +59,7 @@ class Base_Network(abc.ABC):
         self.log.info('Loss = {}'.format(self.network_info['model_info']['loss']))
         self.log.info('Metrics = {}'.format(self.network_info['model_info']['metrics']))
         
-    # Just load and save model and weight togather?
+    # TODO: Load and save model and weight togather
     def load_model(self, model_yaml_path, verbose=0):
         # load model from YAML
         yaml_file = open(model_yaml_path, 'r')

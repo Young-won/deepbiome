@@ -61,7 +61,7 @@ class MicroBiomeReader(BaseReader):
         self.log.info('Load data')
         
         x = pd.read_csv(x_path)
-        y = pd.read_csv(y_path)
+        if y_path != None: y = pd.read_csv(y_path)
         
         # Normalize X with min-max normalization
         mat = np.matrix(x)
@@ -71,12 +71,12 @@ class MicroBiomeReader(BaseReader):
         x = pd.DataFrame(prepro.transform(mat), columns = list(x.columns))
         self.x = np.array(x, dtype=np.float32)
         
-        try:
-            y = pd.DataFrame(y.iloc[:, sim]) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
-        except:
-            y = pd.DataFrame(y) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
-        
-        self.num_classes, self.y = self._set_problem(y)
+        if y_path != None: 
+            try:
+                y = pd.DataFrame(y.iloc[:, sim]) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
+            except:
+                y = pd.DataFrame(y) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
+            self.num_classes, self.y = self._set_problem(y)
    
     def _set_problem(self, y):
         raise NotImplementedError()
@@ -105,6 +105,9 @@ class MicroBiomeReader(BaseReader):
         else:
             self.num_classes = 0
             self.y = np.array(y, dtype=np.float32)[:,0]
+    
+    def get_input(self):
+        return self.x
             
 ########################################################################################################
 # Regression
