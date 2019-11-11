@@ -7,30 +7,30 @@ Prerequisites
 Data preprocessing
 ==========================================
 
-`deepbiome` packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
+DeepBiome package takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
 
 
-To use deepbiome, you can experiment (1) **`k` times repeatition** or (2) **`k` fold cross-validation**.
+To use DeepBiome, you can experiment (1) **`k` times repetition** or (2) **`k` fold cross-validation**.
 For each experiment, we asuume that the dataset is given by
 
-    1. **A list of `k` input files for `k` times repeatition.**
+    1. **A list of `k` input files for `k` times repetition.**, or  
     1. **One input file for `k` fold cross-validation.**
 
-With a list of k inputs for k times repeatition
+With a list of `k` inputs for `k` times repetition
 ------------------------------------------------------
 
-Deepbiome needs 4 data as follow:
+DeepBiome needs 4 data files as follows:
 
-    1. **the tree information**
-    1. **the lists of the input files** (each file has all sample's information for one repeatition)
-    1. **the list of the name of input files**
+    1. **the tree information**  
+    1. **the list of the input files** (each file has all sample's information for one repetition)  
+    1. **the list of the names of input files**  
     1. **y**
 
-For `k` times repeatition, we can use the list of `k` input files. Each file has all sample's information for one repeatition.
-In addition, we can set **the training index for each repeatition**. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.
+For `k` times repetition, we can use the list of `k` input files. Each file has all sample's information for one repetition.
+In addition, we can set **the training index for each repetition**. If we set the index file, DeepBiome builds the training set for each repetition based on each fold index in the index file. If not, DeepBiome will generate the index file locally.
 
 
-Eath data should have the csv format as follow:
+Eath data should have the csv format as follows:
 
 tree information (.csv)
     A file about the phylogenetic tree information.
@@ -42,52 +42,52 @@ tree information (.csv)
 
 list of the names of `k` input files (.csv)
     If we want to use the list of the input files, we need the make a list of the names of each input file.
-    Below is an example file for `k=4` repeatition. 
+    Below is an example file for `k=4` repetition. 
   
     .. csv-table:: Example of the list of `k` input file names
         :class: longtable
         :file: data/gcount_list.csv
 
 list of `k` input files
-    Each file should have each repeatition's sample microbiome abandunce.
-    Below is an example file for `k=4` repeatition. This example is `gcount_0001.csv` for the first repeatition in the list of the names of input files above. This file has the 4 samples' microbiome abandunce.
+    Each file should have each repetition's sample microbiome abandunce.
+    Below is an example file for `k=4` repetition. This example is `gcount_0001.csv` for the first repetition in the list of the names of input files above. This file has the 4 samples' microbiome abandunce.
     
     .. csv-table:: Example of one input file (.csv) of `k` inputs.
         :class: longtable
         :file: data/gcount_0001.csv
 
 y (.csv)
-    One column contains y samples for one repeatition. 
-    Below is an example file for `k=4` repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition.
+    One column contains y samples for one repetition. 
+    Below is an example file for `k=4` repetition. For each repetition (column) has outputs of 4 samples for each repeatition.
 
     .. csv-table:: Example of y file (.csv)
         :class: longtable
         :file: data/y.csv
 
-index for training set for each repetation (.csv)
-    For each repeatition, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each repeatition. The deepbiome will only use the samples in this index set for training. Below is an example for `k=4` repeatition
+index for training set for each repetition (.csv)
+    For each repetition, we have to set the training and test set. If the index file is given, DeepBiome sets the training set and test set based on the index file. Below is the example of the index file. Each column has the training indices for each repetition. DeepBiome will only use the samples in this index set for training. Below is an example for `k=4` repetition
     
     .. csv-table:: Example of index file (.csv)
         :class: longtable
         :file: data/idx.csv
 
-In the example above, we used the first 3 row of the first column in `y.csv` for the training set in the first repeatition.
+In the example above, we used the first 3 rows of the first column in `y.csv` for the training set in the first repetition.
 
 
 
-With one input file for k fold cross-validation
+With one input file for `k` fold cross-validation
 ------------------------------------------------------
 
-Deepbiome needs 3 data as follow:
+DeepBiome needs 3 data files as follows:
 
-    1. **the tree information**
-    1. **the input file**
+    1. **the tree information**  
+    1. **the input file**  
     1. **y**
 
 For `k` fold cross-validation, we can use an input file.
-In addition, we can set **the training index for each fold**. If we set the index file, deepbiome build the training set for each fold based on each fold index in the index file. If not, deepbiome will generate the index file locally.
+In addition, we can set **the training index for each fold**. If we set the index file, DeepBiome builds the training set for each fold based on each fold index in the index file. If not, DeepBiome will generate the index file locally.
         
-Eath data should have the csv format as follow:
+Eath data should have the csv format as follows:
 
 tree information (.csv)
     A file about the phylogenetic tree information.
@@ -98,7 +98,7 @@ tree information (.csv)
         :file: data/genus48_dic.csv
 
 input file
-    Input file has the microbiome abandunce of each samples.
+    Input file has the microbiome abandunce of each sample.
     Below is an example file with the 4 samples' microbiome abandunce.
     
     .. csv-table:: Example of input file (.csv)
@@ -113,13 +113,13 @@ y (.csv)
         :file: data/y_onefile.csv
 
 index for training set for each fold (.csv)
-    For each fold, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each fold. The deepbiome will only use the samples in this index set for training. Below is an example for `k=4` fold
+    For each fold, we have to set the training and test set. If the index file is given, DeepBiome sets the training set and test set based on the index file. Below is an example of the index file. Each column has the training indices for each fold. DeepBiome will only use the samples in this index set for training. Below is an example for `k=4` fold
     
     .. csv-table:: Example of index file (.csv)
         :class: longtable
         :file: data/idx.csv
 
-In the example above, we used the first 3 row of the first column in `y.csv` for the training set in the first fold.
+In the example above, we used the first 3 rows of the first column in `y.csv` for the training set in the first fold.
 
 
 
@@ -131,11 +131,9 @@ For detailed configuration, we used python dictionary as inputs for the main tra
 Preparing the configuration about the network information (`network_info`)
 ----------------------------------------------------------------------------
 
-For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to `netowrk_info` field. 
+To give the information about the training hyper-parameter, we provide a dictionary of configuration to the `netowrk_info` field. Alternatively  we can use the configufation file (.cfg).
 
-You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).
-
-Your configuration for the network training should include the information about:
+Configuration for the network training should include the information about:
 
 :model_info: about the training method and metrics
 :architecture_info: about the architecture options
@@ -151,7 +149,7 @@ network_info['model_info']
 
 Detailed options for the `model_info` field are as follows.
 
-:network_clas: deepbiome network class (default='DeepBiomeNetwork').
+:network_clas: DeepBiome network class (default='DeepBiomeNetwork').
 
 :reader_class: reader classes
 
@@ -161,9 +159,6 @@ Detailed options for the `model_info` field are as follows.
     "MicroBiomeRegressionReader"         Microbiome adandunce data reader for regression problem
     "MicroBiomeClassificationReader"     Microbiome adandunce data reader for classification problem
     ===================================  ================================================================================
-
-
-:optimizer: optimization methods for training the network. We used the optimizers implemented in Keras (See Optimizer_).
 
 
 :optimizer: optimization methods for training the network. We used the optimizers implemented in Keras (See Optimizer_).
@@ -204,7 +199,7 @@ Detailed options for the `model_info` field are as follows.
     "f1"                          F1 score (0 ~ 1)
     ============================  ================================================================================
          
-:texa_selection_metrics: metrics for the texa selection performance
+:taxa_selection_metrics: metrics for the texa selection performance
 
     ============================  ================================================================================
     possible options              explanation
@@ -240,7 +235,7 @@ Combination of the options below will provide you the network training method `D
     
 :weight_l1_penalty: :math:`\lambda` for l1 penalty (float. defaut = 0)
 :weight_l2_penalty: :math:`\lambda` for l2 penalty (float. defaut = 0)
-:weight_deacy: **DeepBiome with the phylogenetic tree based weight decay method** (default = "": without deepbiome weight decay method)
+:weight_decay: **DeepBiome with the phylogenetic tree based weight decay method** (default = "": without deepbiome weight decay method)
 
     ==================================  ===========================================================================================================
     possible options                    explanation
@@ -259,7 +254,7 @@ Combination of the options below will provide you the network training method `D
     ==================================  ===========================================================================================================
     DNN                                 "weight_initial"="glorot_uniform"
     DNN+L1                              "weight_initial"="glorot_uniform", "weight_l1_penalty"="0.01"
-    Deepbiome                           "weight_initial"="glorot_uniform", "weight_deacy"="phylogenetic_tree"
+    DeepBiome                           "weight_initial"="glorot_uniform", "weight_deacy"="phylogenetic_tree"
     ==================================  ===========================================================================================================
 
 
@@ -289,7 +284,7 @@ Detailed options for the `training_info` field are as follows.
     "max"                         for example: when using the monitor `val_accuray`
     ============================  ================================================================================
     
-:patience: patient for the EarlyStopping callback (integer; default = 20)
+:patience: patience for the EarlyStopping callback (integer; default = 20)
 :min_delta: the minimum threshold for the ModelCheckpoint, EarlyStopping callbacks (float; default = 1e-4)
 
 
@@ -299,7 +294,7 @@ network_info['validation_info']
 
 Detailed options for the `validation_info` field are as follows.
 
-:validation_size: the ratio of the number of the sample in the validation set / the number of the sample in the training set(e.g. "0.2") 
+:validation_size: the ratio of the number of the samples in the validation set / the number of the samples in the training set(e.g. "0.2") 
 :batch_size: the batch size for each mini-batch. If "None", use the whole number of the sample as one mini-batch. (defualt = "None")
 
 network_info['test_info']
@@ -334,7 +329,7 @@ This is the example of the configuration dictionary: `network_info` dictionary
             'normalizer': 'normalize_minmax',
             'optimizer': 'adam',
             'reader_class': 'MicroBiomeClassificationReader',
-            'texa_selection_metrics': 'accuracy, sensitivity, specificity, gmeasure'
+            'taxa_selection_metrics': 'accuracy, sensitivity, specificity, gmeasure'
         },
         'training_info': {
             'batch_size': '200', 'epochs': '10'
@@ -392,22 +387,20 @@ This is the example of the configuration file: `network_info.cfg`
 Preparing the configuration about the path information (`path_info`)
 ------------------------------------------------------------------------
 
-For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to `path_info` feild.
-
-You can build the configuration information for the network training by dictionary format or the configufation file (.cfg).
+To give the information about the path to dataset, paths for saving the trained weights and the evaluation results, we provide a dictionary of configurations to the `path_info` feild. Alternatively we can also use the configufation file (.cfg).
 
 Your configuration for the paths should include the information about:
 
 :data_info: about the path information of the dataset
-:model_info: about the path information for saving the trained weight and the evaluation results
+:model_info: about the path information for saving the trained weights and the evaluation results
 
-.. note:: Every paths are the relative path based on the directory that code will run.
+.. note:: All paths are the relative path based on the directory where code will run.
 
 
 path_info['data_info']
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you provide the list of inputs, you can use the option below:
+To provide the dictionary as input, we can use the option below:
 
 :tree_info_path: tree information file (.csv)
 :count_list_path: lists of the name of input files (.csv)
@@ -416,7 +409,7 @@ If you provide the list of inputs, you can use the option below:
 :idx_path: index path for repetation (.csv)
 :data_path: directory path of the index and y file
 
-If you provide the one input file, you can use the option below:
+To provide one configuration file, we can use the options below:
 
 :tree_info_path: tree information file (.csv)
 :x_path: input path (.csv)
