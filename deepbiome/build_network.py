@@ -100,38 +100,30 @@ class Base_Network(abc.ABC):
     def get_callbacks(self, validation_data=None, model_path=None):
         # Callback
         if 'callbacks' in self.network_info['training_info']:
-            callbacks = [cb.strip() for cb in self.network_info['training_info']['callbacks'].split(',')]
-            for idx, callback in enumerate(callbacks):
+            callback_names = [cb.strip() for cb in self.network_info['training_info']['callbacks'].split(',')]
+            callbacks = []
+            for idx, callback in enumerate(callback_names):
                 if 'EarlyStopping' in callback:
-                    callbacks[idx] = getattr(keras.callbacks, callback)(monitor=self.network_info['training_info']['monitor'],
+                    callbacks.append(getattr(keras.callbacks, callback)(monitor=self.network_info['training_info']['monitor'],
                                                                         mode=self.network_info['training_info']['mode'],
                                                                         patience=int(self.network_info['training_info']['patience']),
                                                                         min_delta=float(self.network_info['training_info']['min_delta']),
-                                                                        verbose=1)
+                                                                        verbose=1))
                 elif 'ModelCheckpoint' in callback:
                     self.best_model_save = True
-                    callbacks[idx] = getattr(keras.callbacks, callback)(filepath=model_path,
+                    callbacks.append(getattr(keras.callbacks, callback)(filepath=model_path,
                                                                         monitor=self.network_info['training_info']['monitor'],
                                                                         mode=self.network_info['training_info']['mode'],
                                                                         save_best_only=True, save_weights_only=False,
-                                                                        verbose=0)
+                                                                        verbose=0))
                 else:
-                    callbacks[idx] = getattr(keras.callbacks, callback)()
+                    try: callbacks.append(getattr(keras.callbacks, callback)())
+                    except: pass
+                        
         else:
             callbacks = []
         try: batch_size = int(self.network_info['validation_info']['batch_size'])
         except: batch_size = None
-        # if 'None' not in self.network_info['tensorboard_info']['tensorboard_dir']: ## TODO : exist로 fix
-        #         histogram_freq=int(self.network_info['tensorboard_info']['histogram_freq'])
-        #         callbacks.append(self.TB(log_dir='%s/%s' % (self.network_info['tensorboard_info']['tensorboard_dir'],self.fold),
-        #                                  validation_data = validation_data,
-        #                                  histogram_freq=histogram_freq,
-        #                                  batch_size=batch_size,
-        #                                  write_graph=self.network_info['tensorboard_info']['write_graph']=='True',
-        #                                  write_grads=self.network_info['tensorboard_info']['write_grads']=='True',
-        #                                  write_weights_histogram=self.network_info['tensorboard_info']['write_weights_histogram']=='True', 
-        #                                  write_weights_images=self.network_info['tensorboard_info']['write_weights_images']=='True',
-        #                                  tb_data_steps=batch_size))
         return callbacks
     
     def fit(self, x, y, max_queue_size=50, workers=1, use_multiprocessing=False, model_path = None):
