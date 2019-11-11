@@ -224,17 +224,21 @@
 <p>To use DeepBiome, you can experiment (1) <strong>`k` times repetition</strong> or (2) <strong>`k` fold cross-validation</strong>.
 For each experiment, we asuume that the dataset is given by</p>
 <blockquote>
-<div><p>1. <strong>A list of `k` input files for `k` times repetition.</strong>, or
-1. <strong>One input file for `k` fold cross-validation.</strong></p>
+<div><ol class="arabic simple">
+<li><p><strong>A list of `k` input files for `k` times repetition.</strong>, or</p></li>
+<li><p><strong>One input file for `k` fold cross-validation.</strong></p></li>
+</ol>
 </div></blockquote>
 <div class="section" id="with-a-list-of-k-inputs-for-k-times-repetition">
 <h3>With a list of <cite>k</cite> inputs for <cite>k</cite> times repetition<a class="headerlink" href="#with-a-list-of-k-inputs-for-k-times-repetition" title="Permalink to this headline">¶</a></h3>
 <p>DeepBiome needs 4 data files as follows:</p>
 <blockquote>
-<div><p>1. <strong>the tree information</strong>
-1. <strong>the list of the input files</strong> (each file has all sample’s information for one repetition)
-1. <strong>the list of the names of input files</strong>
-1. <strong>y</strong></p>
+<div><ol class="arabic simple">
+<li><p><strong>the tree information</strong></p></li>
+<li><p><strong>the list of the input files</strong> (each file has all sample’s information for one repetition)</p></li>
+<li><p><strong>the list of the names of input files</strong></p></li>
+<li><p><strong>y</strong></p></li>
+</ol>
 </div></blockquote>
 <p>For <cite>k</cite> times repetition, we can use the list of <cite>k</cite> input files. Each file has all sample’s information for one repetition.
 In addition, we can set <strong>the training index for each repetition</strong>. If we set the index file, DeepBiome builds the training set for each repetition based on each fold index in the index file. If not, DeepBiome will generate the index file locally.</p>
@@ -720,9 +724,11 @@ Below is an example file for <cite>k=4</cite> repetition. For each repetition (c
 <h3>With one input file for <cite>k</cite> fold cross-validation<a class="headerlink" href="#with-one-input-file-for-k-fold-cross-validation" title="Permalink to this headline">¶</a></h3>
 <p>DeepBiome needs 3 data files as follows:</p>
 <blockquote>
-<div><p>1. <strong>the tree information</strong>
-1. <strong>the input file</strong>
-1. <strong>y</strong></p>
+<div><ol class="arabic simple">
+<li><p><strong>the tree information</strong></p></li>
+<li><p><strong>the input file</strong></p></li>
+<li><p><strong>y</strong></p></li>
+</ol>
 </div></blockquote>
 <p>For <cite>k</cite> fold cross-validation, we can use an input file.
 In addition, we can set <strong>the training index for each fold</strong>. If we set the index file, DeepBiome builds the training set for each fold based on each fold index in the index file. If not, DeepBiome will generate the index file locally.</p>

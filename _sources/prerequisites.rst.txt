@@ -13,8 +13,8 @@ DeepBiome package takes microbiome abundance data as input and uses the phylogen
 To use DeepBiome, you can experiment (1) **`k` times repetition** or (2) **`k` fold cross-validation**.
 For each experiment, we asuume that the dataset is given by
 
-    1. **A list of `k` input files for `k` times repetition.**, or  
-    1. **One input file for `k` fold cross-validation.**
+    1. **A list of `k` input files for `k` times repetition.**, or
+    2. **One input file for `k` fold cross-validation.**
 
 With a list of `k` inputs for `k` times repetition
 ------------------------------------------------------
@@ -22,9 +22,9 @@ With a list of `k` inputs for `k` times repetition
 DeepBiome needs 4 data files as follows:
 
     1. **the tree information**  
-    1. **the list of the input files** (each file has all sample's information for one repetition)  
-    1. **the list of the names of input files**  
-    1. **y**
+    2. **the list of the input files** (each file has all sample's information for one repetition)  
+    3. **the list of the names of input files**  
+    4. **y**
 
 For `k` times repetition, we can use the list of `k` input files. Each file has all sample's information for one repetition.
 In addition, we can set **the training index for each repetition**. If we set the index file, DeepBiome builds the training set for each repetition based on each fold index in the index file. If not, DeepBiome will generate the index file locally.
@@ -81,8 +81,8 @@ With one input file for `k` fold cross-validation
 DeepBiome needs 3 data files as follows:
 
     1. **the tree information**  
-    1. **the input file**  
-    1. **y**
+    2. **the input file**  
+    3. **y**
 
 For `k` fold cross-validation, we can use an input file.
 In addition, we can set **the training index for each fold**. If we set the index file, DeepBiome builds the training set for each fold based on each fold index in the index file. If not, DeepBiome will generate the index file locally.
