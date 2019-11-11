@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
@@ -373,10 +374,12 @@
     <span class="k">return</span> <span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span></div>
 
 
-<span class="k">def</span> <span class="nf">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="deepbiome_test"><a class="viewcode-back" href="../../usage.html#deepbiome.deepbiome.deepbiome_test">[docs]</a><span class="k">def</span> <span class="nf">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer.</span>
+<span class="sd">    Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer. </span>
+<span class="sd">    </span>
+<span class="sd">    If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.</span>
 
 <span class="sd">    See ref url (TODO: update)</span>
 
@@ -389,6 +392,7 @@
 <span class="sd">    path_info (dictionary):</span>
 <span class="sd">        python dictionary with path_information</span>
 <span class="sd">    number_of_fold (int):</span>
+<span class="sd">        If `number_of_fold` is setted as `k`, the function will test the model only with first `k` folds.</span>
 <span class="sd">        default=None</span>
 <span class="sd">    max_queue_size (int):</span>
 <span class="sd">        default=10</span>
@@ -400,13 +404,13 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    evaluation (numpy array):</span>
-<span class="sd">        numpy array of the evaluation using testset </span>
+<span class="sd">        evaluation result using testset as a numpy array with a shape of (number of fold, number of evaluation measures)</span>
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Training the deep neural network with phylogenetic tree weight regularizer.</span>
-
-<span class="sd">    test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info)</span>
+<span class="sd">    Test the pre-trained deep neural network with phylogenetic tree weight regularizer.</span>
+<span class="sd">    </span>
+<span class="sd">    evaluation = deepbiome_test(log, network_info, path_info)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span>
         <span class="n">gpus</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">get_visible_devices</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s1">&#39;GPU&#39;</span><span class="p">)</span>
@@ -435,7 +439,9 @@
             <span class="n">number_of_fold</span> <span class="o">=</span> <span class="n">idxs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
     <span class="k">except</span><span class="p">:</span>
         <span class="n">nsample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">y_path</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span> <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nsample</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_path</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">if</span> <span class="n">number_of_fold</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">number_of_fold</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">y_path</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nsample</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_fold</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
         <span class="k">except</span><span class="p">:</span> <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nsample</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
      <span class="c1">############################################</span>
     
@@ -495,7 +501,121 @@
     <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Total Computing Ended&#39;</span><span class="p">)</span>
     <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">test_evaluation</span>
+    <span class="k">return</span> <span class="n">test_evaluation</span></div>
+
+
+<div class="viewcode-block" id="deepbiome_prediction"><a class="viewcode-back" href="../../usage.html#deepbiome.deepbiome.deepbiome_prediction">[docs]</a><span class="k">def</span> <span class="nf">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. </span>
+<span class="sd">    </span>
+<span class="sd">    See ref url (TODO: update)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log (logging instance) :</span>
+<span class="sd">        python logging instance for logging</span>
+<span class="sd">    network_info (dictionary) :</span>
+<span class="sd">        python dictionary with network_information</span>
+<span class="sd">    path_info (dictionary):</span>
+<span class="sd">        python dictionary with path_information</span>
+<span class="sd">    num_classes (int):</span>
+<span class="sd">        number of classes for the network. 0 for regression, 1 for binary classificatin.</span>
+<span class="sd">    number_of_fold (int):</span>
+<span class="sd">        If `number_of_fold` is setted as `k`, the function will predict the output of the first `k` repeatitions.</span>
+<span class="sd">        default=None</span>
+<span class="sd">    max_queue_size (int):</span>
+<span class="sd">        default=10</span>
+<span class="sd">    workers (int):</span>
+<span class="sd">        default=1</span>
+<span class="sd">    use_multiprocessing (boolean):</span>
+<span class="sd">        default=False</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    prediction (numpy array):</span>
+<span class="sd">        prediction using whole dataset in the data path</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Prediction by the pre-trained deep neural network with phylogenetic tree weight regularizer.</span>
+<span class="sd">    </span>
+<span class="sd">    prediction = deepbiome_predictoin(log, network_info, path_info, num_classes)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span>
+        <span class="n">gpus</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">get_visible_devices</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s1">&#39;GPU&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">set_memory_growth</span><span class="p">(</span><span class="n">gpus</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">gpu_options</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">GPUOptions</span><span class="p">(</span><span class="n">allow_growth</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    
+    <span class="c1">### Argument #########################################################################################</span>
+    <span class="n">model_save_dir</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;model_dir&#39;</span><span class="p">]</span>
+    <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_dir</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
+    
+    <span class="c1">### Reader ###########################################################################################</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">reader_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">readers</span><span class="p">,</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;reader_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">reader_class</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;data_path&#39;</span><span class="p">]</span>
+    
+    <span class="c1">############################################</span>
+    <span class="c1"># Set the cross-validation</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">count_path</span> <span class="o">=</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;count_path&#39;</span><span class="p">]</span>
+        <span class="n">x_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;count_list_path&#39;</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">number_of_fold</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">number_of_fold</span> <span class="o">=</span> <span class="n">x_list</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">count_path</span><span class="p">,</span> <span class="n">x_list</span><span class="p">[</span><span class="n">fold</span><span class="p">])</span> <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_fold</span><span class="p">)])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">base_x_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;x_path&#39;</span><span class="p">])</span>
+        <span class="n">nsample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_x_path</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">number_of_fold</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">number_of_fold</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">y_path</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nsample</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_fold</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">except</span><span class="p">:</span> <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nsample</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">x_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">][</span><span class="s1">&#39;x_path&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idxs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+    <span class="c1">############################################</span>
+    
+    <span class="n">starttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_fold</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-------</span><span class="si">%d</span><span class="s1"> th repeatition prediction start!----------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">foldstarttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1">### Read datasets ####################################################################################</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">read_dataset</span><span class="p">(</span><span class="n">x_path</span><span class="p">[</span><span class="n">fold</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fold</span><span class="p">)</span>
+        <span class="n">x_test</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_input</span><span class="p">()</span>
+
+        <span class="c1">### Bulid network ####################################################################################</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span> <span class="n">k</span><span class="o">.</span><span class="n">set_session</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Build network for </span><span class="si">%d</span><span class="s1"> fold testing&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        
+        <span class="n">network_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">build_network</span><span class="p">,</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;network_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
+        <span class="n">network</span> <span class="o">=</span> <span class="n">network_class</span><span class="p">(</span><span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">],</span> <span class="n">log</span><span class="p">,</span> <span class="n">fold</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">)</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">model_compile</span><span class="p">()</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">fold</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="c1">### Training #########################################################################################</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+        <span class="n">prediction</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span> <span class="n">k</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Compute time : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">foldstarttime</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> fold computing end!---------------------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1">### Exit #########################################################################################</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Total Computing Ended&#39;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">prediction</span></div>
+
 
 <span class="c1">#########################################################################################################################</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  

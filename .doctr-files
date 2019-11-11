@@ -1,4 +1,6 @@
 ./_images/DeepBiome.pdf
+./_images/example_with_one_input_file_40_0.png
+./_images/example_with_one_input_file_48_0.png
 ./_images/example_with_the_list_of_inputs_43_0.png
 ./_images/example_with_the_list_of_inputs_51_0.png
 ./_images/tree.pdf
@@ -7,6 +9,7 @@
 ./_modules/index.html
 ./_sources/authors.rst.txt
 ./_sources/contributing.rst.txt
+./_sources/example_with_one_input_file.ipynb.txt
 ./_sources/example_with_the_list_of_inputs.ipynb.txt
 ./_sources/index.rst.txt
 ./_sources/installation.rst.txt
@@ -73,6 +76,7 @@
 ./_static/underscore.js
 ./authors.html
 ./contributing.html
+./example_with_one_input_file.html
 ./example_with_the_list_of_inputs.html
 ./genindex.html
 ./index.html

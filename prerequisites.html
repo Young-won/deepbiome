@@ -96,8 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Prerequisites</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-preprocessing">Data preprocessing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#with-the-list-of-inputs">With the list of inputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-the-one-input-file">With the one input file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-a-list-of-k-inputs-for-k-times-repeatition">With a list of k inputs for k times repeatition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-one-input-file-for-k-fold-cross-validation">With one input file for k fold cross-validation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
@@ -123,6 +123,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
@@ -220,18 +221,27 @@
 <div class="section" id="data-preprocessing">
 <h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h2>
 <p><cite>deepbiome</cite> packages takes microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
-<p>To use <cite>deepbiome</cite>, you can use the microbiome abundance data with the form:</p>
+<p>To use deepbiome, you can experiment (1) <strong>`k` times repeatition</strong> or (2) <strong>`k` fold cross-validation</strong>.
+For each experiment, we asuume that the dataset is given by</p>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>A list of input files for <cite>k</cite> times repeatition or <cite>k</cite>-fold cross validation.</p></li>
-<li><p>One input file for <cite>k</cite> times cross validation.</p></li>
-</ol>
+<div><p>1. <strong>A list of `k` input files for `k` times repeatition.</strong>
+1. <strong>One input file for `k` fold cross-validation.</strong></p>
 </div></blockquote>
-<div class="section" id="with-the-list-of-inputs">
-<h3>With the list of inputs<a class="headerlink" href="#with-the-list-of-inputs" title="Permalink to this headline">¶</a></h3>
-<p>Dataset should have the format as follow:</p>
+<div class="section" id="with-a-list-of-k-inputs-for-k-times-repeatition">
+<h3>With a list of k inputs for k times repeatition<a class="headerlink" href="#with-a-list-of-k-inputs-for-k-times-repeatition" title="Permalink to this headline">¶</a></h3>
+<p>Deepbiome needs 4 data as follow:</p>
+<blockquote>
+<div><p>1. <strong>the tree information</strong>
+1. <strong>the lists of the input files</strong> (each file has all sample’s information for one repeatition)
+1. <strong>the list of the name of input files</strong>
+1. <strong>y</strong></p>
+</div></blockquote>
+<p>For <cite>k</cite> times repeatition, we can use the list of <cite>k</cite> input files. Each file has all sample’s information for one repeatition.
+In addition, we can set <strong>the training index for each repeatition</strong>. If we set the index file, deepbiome build the training set for each repeatition based on each fold index in the index file. If not, deepbiome will generate the index file locally.</p>
+<p>Eath data should have the csv format as follow:</p>
 <dl>
-<dt>tree information (.csv)</dt><dd><p>Example of the genus dictionary</p>
+<dt>tree information (.csv)</dt><dd><p>A file about the phylogenetic tree information.
+Below is an example file of the phylogenetic tree information dictionary</p>
 <table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Example of genus dictionary</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -309,9 +319,10 @@
 </tbody>
 </table>
 </dd>
-<dt>lists of the name of input files (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<dt>list of the names of <cite>k</cite> input files (.csv)</dt><dd><p>If we want to use the list of the input files, we need the make a list of the names of each input file.
+Below is an example file for <cite>k=4</cite> repeatition.</p>
 <table class="longtable docutils align-default" id="id2">
-<caption><span class="caption-text">Example of input file name list</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Example of the list of <cite>k</cite> input file names</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 100%" />
 </colgroup>
@@ -327,9 +338,10 @@
 </tbody>
 </table>
 </dd>
-<dt>directory contain the list of the input files</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
+<dt>list of <cite>k</cite> input files</dt><dd><p>Each file should have each repeatition’s sample microbiome abandunce.
+Below is an example file for <cite>k=4</cite> repeatition. This example is <cite>gcount_0001.csv</cite> for the first repeatition in the list of the names of input files above. This file has the 4 samples’ microbiome abandunce.</p>
 <table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-text">Example of each input file (.csv)</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Example of one input file (.csv) of <cite>k</cite> inputs.</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 2%" />
 <col style="width: 2%" />
@@ -629,8 +641,8 @@
 </tbody>
 </table>
 </dd>
-<dt>y (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
-<p>One column for one repeatition</p>
+<dt>y (.csv)</dt><dd><p>One column contains y samples for one repeatition.
+Below is an example file for <cite>k=4</cite> repeatition. For each repeatition (column) has outputs of 4 samples for each repeatition.</p>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -668,8 +680,7 @@
 </tbody>
 </table>
 </dd>
-<dt>index for training set for each repetation (.csv)</dt><dd><p>Example with 4 sample, 4 repeatition (4-fold cross validation)</p>
-<p>One column for one repeatition.</p>
+<dt>index for training set for each repetation (.csv)</dt><dd><p>For each repeatition, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each repeatition. The deepbiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> repeatition</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Example of index file (.csv)</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -705,15 +716,101 @@
 </dl>
 <p>In the example above, we used the first 3 row of the first column in <cite>y.csv</cite> for the training set in the first repeatition.</p>
 </div>
-<div class="section" id="with-the-one-input-file">
-<h3>With the one input file<a class="headerlink" href="#with-the-one-input-file" title="Permalink to this headline">¶</a></h3>
-<p>Instead of the lists of the name of input files and the directory contain the list of the input files,
-you can use the input file (.csv).</p>
-<p>Dataset should have the format as follow:</p>
+<div class="section" id="with-one-input-file-for-k-fold-cross-validation">
+<h3>With one input file for k fold cross-validation<a class="headerlink" href="#with-one-input-file-for-k-fold-cross-validation" title="Permalink to this headline">¶</a></h3>
+<p>Deepbiome needs 3 data as follow:</p>
+<blockquote>
+<div><p>1. <strong>the tree information</strong>
+1. <strong>the input file</strong>
+1. <strong>y</strong></p>
+</div></blockquote>
+<p>For <cite>k</cite> fold cross-validation, we can use an input file.
+In addition, we can set <strong>the training index for each fold</strong>. If we set the index file, deepbiome build the training set for each fold based on each fold index in the index file. If not, deepbiome will generate the index file locally.</p>
+<p>Eath data should have the csv format as follow:</p>
 <dl>
-<dt>input (.csv)</dt><dd><p>Example with 4 sample</p>
+<dt>tree information (.csv)</dt><dd><p>A file about the phylogenetic tree information.
+Below is an example file of the phylogenetic tree information dictionary</p>
 <table class="longtable docutils align-default" id="id6">
-<caption><span class="caption-text">Example of input file (.csv)</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Example of genus dictionary</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Genus</p></td>
+<td><p>Family</p></td>
+<td><p>Order</p></td>
+<td><p>Class</p></td>
+<td><p>Phylum</p></td>
+<td><p>Domain</p></td>
+</tr>
+<tr class="row-even"><td><p>Streptococcus</p></td>
+<td><p>Streptococcaceae</p></td>
+<td><p>Lactobacillales</p></td>
+<td><p>Bacilli</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tropheryma</p></td>
+<td><p>Cellulomonadaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Veillonella</p></td>
+<td><p>Veillonellaceae</p></td>
+<td><p>Selenomonadales</p></td>
+<td><p>Negativicutes</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Actinomyces</p></td>
+<td><p>Actinomycetaceae</p></td>
+<td><p>Actinomycetales</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Actinobacteria</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Flavobacterium</p></td>
+<td><p>Flavobacteriaceae</p></td>
+<td><p>Flavobacteriales</p></td>
+<td><p>Flavobacteria</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prevotella</p></td>
+<td><p>Prevotellaceae</p></td>
+<td><p>Bacteroidales</p></td>
+<td><p>Bacteroidia</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-even"><td><p>Porphyromonas</p></td>
+<td><p>Porphyromonadaceae</p></td>
+<td><p>Bacteroidales</p></td>
+<td><p>Bacteroidia</p></td>
+<td><p>Bacteroidetes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+<tr class="row-odd"><td><p>Parvimonas</p></td>
+<td><p>Clostridiales_Incertae_Sedis_XI</p></td>
+<td><p>Clostridiales</p></td>
+<td><p>Clostridia</p></td>
+<td><p>Firmicutes</p></td>
+<td><p>Bacteria</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>input file</dt><dd><p>Input file has the microbiome abandunce of each samples.
+Below is an example file with the 4 samples’ microbiome abandunce.</p>
+<table class="longtable docutils align-default" id="id7">
+<caption><span class="caption-text">Example of input file (.csv)</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 2%" />
 <col style="width: 2%" />
@@ -1013,9 +1110,9 @@ you can use the input file (.csv).</p>
 </tbody>
 </table>
 </dd>
-<dt>y (.csv)</dt><dd><p>Example with 4 sample</p>
-<table class="longtable docutils align-default" id="id7">
-<caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<dt>y (.csv)</dt><dd><p>Below is an example file of the outputs of 4 samples.</p>
+<table class="longtable docutils align-default" id="id8">
+<caption><span class="caption-text">Example of y file (.csv)</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 100%" />
 </colgroup>
@@ -1033,7 +1130,41 @@ you can use the input file (.csv).</p>
 </tbody>
 </table>
 </dd>
+<dt>index for training set for each fold (.csv)</dt><dd><p>For each fold, we have to set the training and test set. If the index file is given, the deepbiome library set the training set and test set based on the index file. Below is the example of the index file. Each column has the training indexs for each fold. The deepbiome will only use the samples in this index set for training. Below is an example for <cite>k=4</cite> fold</p>
+<table class="longtable docutils align-default" id="id9">
+<caption><span class="caption-text">Example of index file (.csv)</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>V1</p></td>
+<td><p>V2</p></td>
+<td><p>V3</p></td>
+<td><p>V4</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
 </dl>
+<p>In the example above, we used the first 3 row of the first column in <cite>y.csv</cite> for the training set in the first fold.</p>
 </div>
 </div>
 <div class="section" id="configuration">
@@ -1052,10 +1183,10 @@ you can use the input file (.csv).</p>
 <dd class="field-even"><p>about the architecture options</p>
 </dd>
 <dt class="field-odd">training_info</dt>
-<dd class="field-odd"><p>about the hyper-parameter for training</p>
+<dd class="field-odd"><p>about the hyper-parameter for training (not required for testing and prediction)</p>
 </dd>
 <dt class="field-even">validation_info</dt>
-<dd class="field-even"><p>about the hyper-parameter for validation</p>
+<dd class="field-even"><p>about the hyper-parameter for validation (not required for testing and prediction)</p>
 </dd>
 <dt class="field-odd">test_info</dt>
 <dd class="field-odd"><p>about the hyper-parameter for testing</p>
@@ -1519,7 +1650,7 @@ you can use the input file (.csv).</p>
 <dd class="field-odd"><p>directory path of the input files</p>
 </dd>
 <dt class="field-even">y_path</dt>
-<dd class="field-even"><p>y path (.csv)</p>
+<dd class="field-even"><p>y path (.csv)  (not required for prediction)</p>
 </dd>
 <dt class="field-odd">idx_path</dt>
 <dd class="field-odd"><p>index path for repetation (.csv)</p>
@@ -1537,7 +1668,7 @@ you can use the input file (.csv).</p>
 <dd class="field-even"><p>input path (.csv)</p>
 </dd>
 <dt class="field-odd">y_path</dt>
-<dd class="field-odd"><p>y path (.csv)</p>
+<dd class="field-odd"><p>y path (.csv)  (not required for prediction)</p>
 </dd>
 <dt class="field-even">data_path</dt>
 <dd class="field-even"><p>directory path of the index, x and y file</p>
@@ -1551,15 +1682,18 @@ you can use the input file (.csv).</p>
 <dd class="field-odd"><p>weight file name (.h5)</p>
 </dd>
 <dt class="field-even">evaluation</dt>
-<dd class="field-even"><p>evaluation file name (.npy)</p>
+<dd class="field-even"><p>evaluation file name (.npy)  (not required for prediction)</p>
 </dd>
 <dt class="field-odd">model_dir</dt>
 <dd class="field-odd"><p>base directory path for the model (weight, evaluation)</p>
 </dd>
+<dt class="field-even">history</dt>
+<dd class="field-even"><p>history file name for the history value of each evaluation metric from the training (.json). If not setted, <cite>deepbiome</cite> will not save the history of the network training.</p>
+</dd>
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you want to use sub-directory in the path (for example, “weight”=”weight/weight.h5”, “model_dir”=”./”), you should have to make the sub-directory “./weight” before running the code.</p>
+<p>If you want to use sub-directories in the path (for example, “weight”=”weight/weight.h5”, “history”=”history/hist.h5”, “model_dir”=”./”), you should have to make the sub-directories “./weight” and “./history” before running the code.</p>
 </div>
 </div>
 <div class="section" id="example-for-the-path-info-for-the-list-of-inputs">
@@ -1578,6 +1712,7 @@ you can use the input file (.csv).</p>
     <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./simulation_s2/simulation_s2_deepbiome/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="s1">&#39;hist.json&#39;</span><span class="p">,</span>
         <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1595,6 +1730,7 @@ you can use the input file (.csv).</p>
 <span class="k">[model_info]</span>
 <span class="na">model_dir</span> <span class="o">=</span> <span class="s">./simulation_s2/simulation_s2_deepbiome/</span>
 <span class="na">weight</span> <span class="o">=</span> <span class="s">weight/weight.h5</span>
+<span class="na">history</span> <span class="o">=</span> <span class="s">historys/hist.json</span>
 <span class="na">evaluation</span> <span class="o">=</span> <span class="s">eval.npy</span>
 </pre></div>
 </div>
@@ -1612,6 +1748,7 @@ you can use the input file (.csv).</p>
     <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
         <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span><span class="s1">&#39;history/hist.json&#39;</span><span class="p">,</span>
         <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1627,6 +1764,7 @@ you can use the input file (.csv).</p>
 <span class="k">[model_info]</span>
 <span class="na">model_dir</span> <span class="o">=</span> <span class="s">./</span>
 <span class="na">weight</span> <span class="o">=</span> <span class="s">weight/weight.h5</span>
+<span class="na">history</span> <span class="o">=</span> <span class="s">history/hist.json</span>
 <span class="na">evaluation</span> <span class="o">=</span> <span class="s">eval.npy</span>
 </pre></div>
 </div>

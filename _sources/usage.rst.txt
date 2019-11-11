@@ -105,6 +105,41 @@ By defaults, `number_of_fold==None`. Then, the code will run for the leave-one-o
 If you use one input file, it will run the LOOCV using all data in that file. If you use the list of the input files, it will repeat the training for every files.
 
 
+Testing
+===================================
+
+If you want to test the pre-trained model, you can use the `deepbiome.deepbiome_test` function. 
+
+.. code-block:: python
+
+    # for python 3.x
+    from deepbiome import deepbiome
+    
+    evaluation = deepbiome.deepbiome_test(log, network_info, path_info, number_of_fold=None)
+
+If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples. 
+If `number_of_fold` is setted as `k`, the function will test the model only with first `k` folds.
+
+This function provide the evaluation result as a numpy array with a shape of (number of fold, number of evaluation measures).
+
+
+Prediction
+===================================
+
+If you want to predict the output using the pre-trained model, you can use the `deepbiome.deepbiome_prediction` function. 
+
+.. code-block:: python
+
+    # for python 3.x
+    from deepbiome import deepbiome
+    
+    evaluation = deepbiome.deepbiome_prediction(log, network_info, path_info, num_classes = 1, number_of_fold=None)
+
+If `number_of_fold` is setted as `k`, the function will predict the output of the first `k` folds' samples.
+
+This function provide the prediction result as a numpy array with a shape of (number of fold, number of samples).
+
+
 Cheatsheet for running the project on console
 =============================================
 1. Preprocessing the data (convert raw data to the format readable for python): (See :ref:`Prerequisites:Data preprocessing`.)
@@ -203,6 +238,10 @@ To use deepbiome in a project::
     from deepbiome import deepbiome
 
 .. autofunction:: deepbiome.deepbiome.deepbiome_train
+
+.. autofunction:: deepbiome.deepbiome.deepbiome_test
+
+.. autofunction:: deepbiome.deepbiome.deepbiome_prediction
 
 .. autosummary::
    :toctree: generated/

@@ -104,11 +104,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prediction">Prediction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cheatsheet-for-running-the-project-on-console">Cheatsheet for running the project on console</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
@@ -274,6 +277,31 @@
 <p>By defaults, <cite>number_of_fold==None</cite>. Then, the code will run for the leave-one-out-cross-validation (LOOCV).</p>
 <p>If you use one input file, it will run the LOOCV using all data in that file. If you use the list of the input files, it will repeat the training for every files.</p>
 </div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>If you want to test the pre-trained model, you can use the <cite>deepbiome.deepbiome_test</cite> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.
+If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will test the model only with first <cite>k</cite> folds.</p>
+<p>This function provide the evaluation result as a numpy array with a shape of (number of fold, number of evaluation measures).</p>
+</div>
+<div class="section" id="prediction">
+<h2>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h2>
+<p>If you want to predict the output using the pre-trained model, you can use the <cite>deepbiome.deepbiome_prediction</cite> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
+<span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will predict the output of the first <cite>k</cite> folds’ samples.</p>
+<p>This function provide the prediction result as a numpy array with a shape of (number of fold, number of samples).</p>
+</div>
 <div class="section" id="cheatsheet-for-running-the-project-on-console">
 <h2>Cheatsheet for running the project on console<a class="headerlink" href="#cheatsheet-for-running-the-project-on-console" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
@@ -424,6 +452,83 @@ python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --p
 <p class="rubric">Examples</p>
 <p>Training the deep neural network with phylogenetic tree weight regularizer.</p>
 <p>test_evaluation, train_evaluation, network = deepbiome_train(log, network_info, path_info)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="deepbiome.deepbiome.deepbiome_test">
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_test</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.</p>
+<p>See ref url (TODO: update)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
+</dd>
+<dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
+</dd>
+<dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
+</dd>
+<dt><strong>number_of_fold (int):</strong></dt><dd><p>If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will test the model only with first <cite>k</cite> folds.
+default=None</p>
+</dd>
+<dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
+</dd>
+<dt><strong>workers (int):</strong></dt><dd><p>default=1</p>
+</dd>
+<dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>evaluation (numpy array):</dt><dd><p>evaluation result using testset as a numpy array with a shape of (number of fold, number of evaluation measures)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Test the pre-trained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>evaluation = deepbiome_test(log, network_info, path_info)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="deepbiome.deepbiome.deepbiome_prediction">
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_prediction</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>See ref url (TODO: update)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
+</dd>
+<dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
+</dd>
+<dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
+</dd>
+<dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
+</dd>
+<dt><strong>number_of_fold (int):</strong></dt><dd><p>If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will predict the output of the first <cite>k</cite> repeatitions.
+default=None</p>
+</dd>
+<dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
+</dd>
+<dt><strong>workers (int):</strong></dt><dd><p>default=1</p>
+</dd>
+<dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>prediction (numpy array):</dt><dd><p>prediction using whole dataset in the data path</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Prediction by the pre-trained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>prediction = deepbiome_predictoin(log, network_info, path_info, num_classes)</p>
 </dd></dl>
 
 <table class="longtable docutils align-default">
