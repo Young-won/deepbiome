@@ -13,4 +13,3 @@ numpydoc
 sphinx-copybutton
 sphinx_rtd_theme
 nbsphinx
-pandoc
