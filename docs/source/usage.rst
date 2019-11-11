@@ -15,12 +15,7 @@ See :ref:`Prerequisites:Data preprocessing`.
 Preparing the configufation
 ===================================
 
-For detailed configuration, we used python dictionary as inputs for the main training function.
-
-For giving the information about the training hyper-parameter, you have to provide the dictionary for configuration to `netowrk_info` field. 
-
-For giving the information about the path of dataset, paths for saving the trained weight and the evaluation results, you have to provide the dictionary for configuration to `path_info` feild.
-
+To provide configurations for the training process and path information, we can use either dictionaries as input to functions or configuration files.
 
 Using the configuration dictionary
 ----------------------------------------
@@ -59,7 +54,7 @@ If then, you can get the dictionaries from the config files by:
 Logging
 --------------------------------
 
-For logging, you have to use the logging instance. For example:
+For logging, we can use the logging instance. For example:
 
 .. code-block:: python
 
@@ -71,14 +66,14 @@ For logging, you have to use the logging instance. For example:
                     
     log = logging.getLogger()
 
-You can use the logging instance `log` as an input of the main training fuction below.
+We can use the logging instance `log` as an input of the main training fuction below.
 
 For more information about `logging` module, please check the documentation logging_.
 
 Training
 ===================================
 
-To use deepbiome:
+To use DeepBiome:
 
 .. code-block:: python
 
@@ -88,7 +83,7 @@ To use deepbiome:
     test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info)
 
 
-If you want to train the network with specific number `k` of cross-validation repeatition, you can set the `number_of_fold`. For example, if you want to run the 5-fold cross-validation:
+If you want to train the network with specific number `k` of cross-validation, you can set the `number_of_fold`. For example, if you want to run the 5-fold cross-validation:
 
 .. code-block:: python
 
@@ -100,9 +95,9 @@ If you want to train the network with specific number `k` of cross-validation re
 If you use one input file, it will run the 5-fold cross validation using all data in that file. If you use the list of the input files, it will run the training by the first `k` files.
 
 
-By defaults, `number_of_fold==None`. Then, the code will run for the leave-one-out-cross-validation (LOOCV).
+By defaults, `number_of_fold=None`. Then, the code will run for the leave-one-out-cross-validation (LOOCV).
 
-If you use one input file, it will run the LOOCV using all data in that file. If you use the list of the input files, it will repeat the training for every files.
+If you use one input file, it will run the LOOCV using all data in that file. If you use the list of the input files, it will repeat the training for every file.
 
 
 Testing
@@ -117,10 +112,10 @@ If you want to test the pre-trained model, you can use the `deepbiome.deepbiome_
     
     evaluation = deepbiome.deepbiome_test(log, network_info, path_info, number_of_fold=None)
 
-If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples. 
+If you use the index file, this function provides the evaluation using test index (index set not included in the index file) for each fold. If not, this function provides the evaluation using the whole sample. 
 If `number_of_fold` is setted as `k`, the function will test the model only with first `k` folds.
 
-This function provide the evaluation result as a numpy array with a shape of (number of fold, number of evaluation measures).
+This function provides the evaluation result as a numpy array with a shape of (number of folds, number of evaluation measures).
 
 
 Prediction
@@ -135,9 +130,9 @@ If you want to predict the output using the pre-trained model, you can use the `
     
     evaluation = deepbiome.deepbiome_prediction(log, network_info, path_info, num_classes = 1, number_of_fold=None)
 
-If `number_of_fold` is setted as `k`, the function will predict the output of the first `k` folds' samples.
+If `number_of_fold` is set as `k`, the function will predict the output of the first `k` folds' samples.
 
-This function provide the prediction result as a numpy array with a shape of (number of fold, number of samples).
+This function provides the prediction result as a numpy array with a shape of (number of folds, number of samples).
 
 
 Cheatsheet for running the project on console
