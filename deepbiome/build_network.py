@@ -82,11 +82,11 @@ class Base_Network(abc.ABC):
         self.model.load_weights(model_path)
         if verbose: self.log.info('Load trained model weight at {} '.format(model_path))
 
-    def save_evaluation(self, eval_path, evaluation):
-        np.save(eval_path, evaluation)
+#     def save_evaluation(self, eval_path, evaluation):
+#         np.save(eval_path, evaluation)
         
-    def save_prediction(self, pred_path, prediction):
-        np.save(pred_path, prediction)
+#     def save_prediction(self, pred_path, prediction):
+#         np.save(pred_path, prediction)
             
     def save_history(self, hist_path, history):
         try:
