@@ -50,6 +50,16 @@ Features
 
     See ref url (TODO: update)
 
+* deepbiome.deepbiome_test(log, network_info, path_info, number_of_fold=None, max_queue_size=10, workers=1, use_multiprocessing=False)
+
+    Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer.
+
+    If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.
+    
+* deepbiome.deepbiome.deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fold=None, max_queue_size=10, workers=1, use_multiprocessing=False)
+    
+    Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.
+
 Credits
 --------
 This package was builded on the Keras_ and the Tensorflow_ packages.
