@@ -4192,13 +4192,7 @@
       "600/600 [==============================] - ETA: 0s - loss: 0.5929 - binary_accuracy: 0.6857 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.88 - 0s 207us/step - loss: 0.5900 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8836 - val_loss: 0.5812 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8453\n",
       "Epoch 23/100\n",
       "600/600 [==============================] - 0s 208us/step - loss: 0.5794 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8837 - val_loss: 0.5706 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8436\n",
-      "Epoch 24/100\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
+      "Epoch 24/100\n",
       "600/600 [==============================] - 0s 208us/step - loss: 0.5652 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8823 - val_loss: 0.5572 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8429\n",
       "Epoch 25/100\n",
       "600/600 [==============================] - 0s 211us/step - loss: 0.5462 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8857 - val_loss: 0.5406 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8426\n",
@@ -4900,13 +4894,7 @@
       "600/600 [==============================] - 0s 226us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5310 - val_loss: 0.6478 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5335\n",
       "Epoch 23/100\n",
       "600/600 [==============================] - 0s 207us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5123 - val_loss: 0.6477 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5336\n",
-      "Epoch 24/100\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
+      "Epoch 24/100\n",
       "600/600 [==============================] - 0s 213us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5027 - val_loss: 0.6478 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5277\n",
       "Epoch 25/100\n",
       "600/600 [==============================] - 0s 212us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5057 - val_loss: 0.6480 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5132\n",
@@ -5060,13 +5048,7 @@
       "600/600 [==============================] - 0s 217us/step - loss: 0.6208 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5248 - val_loss: 0.6477 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5546\n",
       "Epoch 94/100\n",
       "600/600 [==============================] - 0s 214us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5197 - val_loss: 0.6480 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5187\n",
-      "Epoch 95/100\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
+      "Epoch 95/100\n",
       "600/600 [==============================] - 0s 215us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5212 - val_loss: 0.6485 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5306\n",
       "Epoch 96/100\n",
       "600/600 [==============================] - 0s 219us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5223 - val_loss: 0.6484 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5311\n",
