@@ -21,6 +21,8 @@ from keras.callbacks import TensorBoard
 import keras.backend as k
 import tensorflow as tf
 
+from . import loss_and_metric
+
 import matplotlib
 import matplotlib.cm
 
@@ -47,27 +49,69 @@ def file_path_fold(path, fold):
     path = path.split('.')
     return '.'+''.join(path[:-1])+'_'+str(fold)+'.'+path[-1]
 
-def convert_bytes(num, x='MB'):
-    for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
-        if num < 1024.0:
-            return "%3.1f %s" % (num, x)
-        num /= 1024.0
+# def convert_bytes(num, x='MB'):
+#     for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+#         if num < 1024.0:
+#             return "%3.1f %s" % (num, x)
+#         num /= 1024.0
 
-def file_size(file_path, scale='MB'):
-    if os.path.isfile(file_path):
-        file_info = os.stat(file_path)
-        return convert_bytes(file_info.st_size, scale)
+# def file_size(file_path, scale='MB'):
+#     if os.path.isfile(file_path):
+#         file_info = os.stat(file_path)
+#         return convert_bytes(file_info.st_size, scale)
     
-def print_sysinfo():
-    print('\nPython version  : {}'.format(platform.python_version()))
-    print('compiler        : {}'.format(platform.python_compiler()))
-    print('\nsystem     : {}'.format(platform.system()))
-    print('release    : {}'.format(platform.release()))
-    print('machine    : {}'.format(platform.machine()))
-    print('processor  : {}'.format(platform.processor()))
-    print('CPU count  : {}'.format(mp.cpu_count()))
-    print('interpreter: {}'.format(platform.architecture()[0]))
-    print('\n\n')
+# def print_sysinfo():
+#     print('\nPython version  : {}'.format(platform.python_version()))
+#     print('compiler        : {}'.format(platform.python_compiler()))
+#     print('\nsystem     : {}'.format(platform.system()))
+#     print('release    : {}'.format(platform.release()))
+#     print('machine    : {}'.format(platform.machine()))
+#     print('processor  : {}'.format(platform.processor()))
+#     print('CPU count  : {}'.format(mp.cpu_count()))
+#     print('interpreter: {}'.format(platform.architecture()[0]))
+#     print('\n\n')
+
+def metric_taxa_test(y_true, y_pred, taxa_metric=['sensitivity','specificity','gmeasure','accuracy']):
+    test_ftn_dict = {'sensitivity':loss_and_metric.np_sensitivity,
+                     'specificity':loss_and_metric.np_specificity,
+                     'gmeasure':loss_and_metric.np_gmeasure,
+                     'accuracy':loss_and_metric.np_binary_accuracy}
+    
+    y_true = y_true.astype(np.int32)
+    y_pred = (y_pred>=0.5).astype(np.int32)
+    
+    results = [test_ftn_dict[ky](y_true, y_pred) for ky in taxa_metric]
+    return results
+
+# def taxa_selection_accuracy(tree_weight_list, true_tree_weight_list, taxa_metric=['sensitivity','specificity','gmeasure','accuracy']):
+#     accuracy_list = []
+#     for i in range(len(true_tree_weight_list)):
+#         tree_tw = true_tree_weight_list[i].astype(np.int32)
+#         tree_w = np.zeros_like(tree_tw, dtype=np.int32)
+#         tree_w_abs = np.abs(tree_weight_list[i])
+#         for row, maxcol in enumerate(np.argmax(tree_w_abs, axis=1)):
+#             tree_w[row,maxcol] = tree_w_abs[row,maxcol]
+# #         tree_w = (tree_w > 1e-2).astype(np.int32)
+#         tree_w = (tree_w > 0).astype(np.int32)
+#         num_selected_texa = np.sum(np.sum(tree_w, axis=1)>0)
+#         taxa_results = metric_texa_test(tree_tw.flatten(), tree_w.flatten(), taxa_metric)
+#         accuracy_list.append([num_selected_texa] + taxa_results)
+#     return accuracy_list
+
+def taxa_selection_accuracy(tree_weight_list, true_tree_weight_list, taxa_metric=['sensitivity','specificity','gmeasure','accuracy']):
+    accuracy_list = []
+    for i in range(len(true_tree_weight_list)):
+        tree_tw = true_tree_weight_list[i].astype(np.int32)
+        tree_w = np.zeros_like(tree_tw, dtype=np.int32)
+        tree_w_abs = np.abs(tree_weight_list[i])
+#         tree_w = (tree_w_abs>1e-2).astype(np.int32)
+        for row in range(tree_w_abs.shape[0]):
+#             tree_w[row,:] = (tree_w_abs[row,:]> 0).astype(np.int32)
+            tree_w[row,:] = (tree_w_abs[row,:]> 1e-2).astype(np.int32)
+        num_selected_texa = np.sum(np.sum(tree_w, axis=1)>0)
+        taxa_results = metric_taxa_test(tree_tw.flatten(), tree_w.flatten(), taxa_metric)
+        accuracy_list.append([num_selected_texa] + taxa_results)
+    return accuracy_list
     
 
 # def set_ax_plot(ax, models=['base_model'], models_aka=['base_model'], y_name = 'val_dice', x_name = 'epochs', mode='summary', niters=None):

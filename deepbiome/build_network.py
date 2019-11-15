@@ -492,35 +492,38 @@ def he_normal_with_tree(tree_weight, seed=None):
 #     DeepBiome Networks
 #####################################################################################################################
 class DeepBiomeNetwork(Base_Network):
-    def __init__(self, network_info, tree_info_path, log, fold=None, num_classes = 1):
+    def __init__(self, network_info, tree_info_path, log, fold=None, num_classes = 1, verbose=True):
         super(DeepBiomeNetwork,self).__init__(network_info, log)
         if fold != None: self.fold = fold
         else: self.fold = ''
         # self.TB = TensorBoardWrapper_DeepBiome
         # self.TB = TensorBoardWrapper
         self.num_classes = num_classes
-        self.build_model(tree_info_path=tree_info_path, verbose=True)
+        self.build_model(tree_info_path=tree_info_path, verbose=verbose)
     
-    def set_phylogenetic_tree_info(self, tree_path):
-        self.log.info('------------------------------------------------------------------------------------------')
-        self.log.info('Read phylogenetic tree information from %s' % tree_path)
+    def set_phylogenetic_tree_info(self, tree_path, verbose=True):
+        if verbose: 
+            self.log.info('------------------------------------------------------------------------------------------')
+            self.log.info('Read phylogenetic tree information from %s' % tree_path)
         self.phylogenetic_tree_info = pd.read_csv('%s' % tree_path)
         # self.tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum']
         self.tree_level_list = self.phylogenetic_tree_info.columns[:-1].tolist()
-        self.log.info('Phylogenetic tree level list: %s' % self.tree_level_list)
-        self.log.info('------------------------------------------------------------------------------------------')
+        if verbose: 
+            self.log.info('Phylogenetic tree level list: %s' % self.tree_level_list)
+            self.log.info('------------------------------------------------------------------------------------------')
         self.phylogenetic_tree_dict = {'Number':{}}
         # lvl_category_dict = np.load('%s/lvl_category.npy' % '/'.join(tree_path.split('/')[:-1]), allow_pickle=True)
         for i, tree_lvl in enumerate(self.tree_level_list):
             lvl_category = self.phylogenetic_tree_info[tree_lvl].unique()
             # lvl_category = lvl_category_dict[i]
             lvl_num = lvl_category.shape[0]
-            self.log.info('    %6s: %d' % (tree_lvl, lvl_num))
+            if verbose: self.log.info('    %6s: %d' % (tree_lvl, lvl_num))
             self.phylogenetic_tree_dict[tree_lvl] = dict(zip(lvl_category, np.arange(lvl_num)))
             self.phylogenetic_tree_dict['Number'][tree_lvl]=lvl_num
-        self.log.info('------------------------------------------------------------------------------------------')
-        self.log.info('Phylogenetic_tree_dict info: %s' % list(self.phylogenetic_tree_dict.keys()))
-        self.log.info('------------------------------------------------------------------------------------------')
+        if verbose: 
+            self.log.info('------------------------------------------------------------------------------------------')
+            self.log.info('Phylogenetic_tree_dict info: %s' % list(self.phylogenetic_tree_dict.keys()))
+            self.log.info('------------------------------------------------------------------------------------------')
         self.phylogenetic_tree = self.phylogenetic_tree_info.iloc[:,:-1]
         for tree_lvl in self.tree_level_list:
             self.phylogenetic_tree[tree_lvl] = self.phylogenetic_tree[tree_lvl].map(self.phylogenetic_tree_dict[tree_lvl])
@@ -530,7 +533,7 @@ class DeepBiomeNetwork(Base_Network):
         self.tree_weight_noise_list = []
         num_dict = self.phylogenetic_tree_dict['Number']
         for i in range(len(self.tree_level_list)-1):
-            self.log.info('Build edge weights between [%6s, %6s]'%(self.tree_level_list[i],self.tree_level_list[i+1]))
+            if verbose: self.log.info('Build edge weights between [%6s, %6s]'%(self.tree_level_list[i],self.tree_level_list[i+1]))
             lower = self.phylogenetic_tree[:,i]
             upper = self.phylogenetic_tree[:,i+1]
             n_lower = num_dict[self.tree_level_list[i]]
@@ -543,26 +546,18 @@ class DeepBiomeNetwork(Base_Network):
                 tree_w_n[lower[j==upper],j] = 1.
             self.tree_weight_list.append(tree_w)
             self.tree_weight_noise_list.append(tree_w_n)
-        self.log.info('------------------------------------------------------------------------------------------')
-    
-    def load_true_tree_weight_list(self, data_path):
-        true_tree_weight_list = [np.load('%s/tw_%d.npy'%(data_path,i))[self.fold] for i in range(1,len(self.tree_level_list))]
-        return true_tree_weight_list
-    
-    def load_true_disease_weight_list(self, data_path):
-        true_disease_weight_list = [np.load('%s/solw_%d.npy'%(data_path,i))[self.fold] for i in range(len(self.tree_level_list))]
-        true_disease_bias_list = [np.load('%s/solb_%d.npy'%(data_path,i))[self.fold] for i in range(len(self.tree_level_list))]
-        return true_disease_weight_list, true_disease_bias_list
-        
+        if verbose: self.log.info('------------------------------------------------------------------------------------------')
+            
     def build_model(self, tree_info_path, verbose=True):
         # Load Tree Weights
-        self.set_phylogenetic_tree_info(tree_info_path['tree_info_path'])
+        self.set_phylogenetic_tree_info(tree_info_path['tree_info_path'], verbose)
         
-        # Build model        
-        self.log.info('------------------------------------------------------------------------------------------')
-        self.log.info('Build network based on phylogenetic tree information')
-        self.log.info('------------------------------------------------------------------------------------------')
-        
+        # Build model
+        if verbose: 
+            self.log.info('------------------------------------------------------------------------------------------')
+            self.log.info('Build network based on phylogenetic tree information')
+            self.log.info('------------------------------------------------------------------------------------------')
+
         weight_initial = self.network_info['architecture_info']['weight_initial'].strip()
         bn = self.network_info['architecture_info']['batch_normalization'].strip()=='True'
         dropout_p = float(self.network_info['architecture_info']['drop_out'].strip())
@@ -576,8 +571,8 @@ class DeepBiomeNetwork(Base_Network):
         if self.network_info['architecture_info'].get('tree_thrd', 'False').strip() == 'True': tree_thrd = True
         else: tree_thrd = False
         
-        if weight_initial == 'true_disease_weight': 
-            true_disease_weight_list, true_disease_bias_list = self.load_true_disease_weight_list(tree_info_path['disease_weight_path'])
+        # if weight_initial == 'true_disease_weight': 
+        #     true_disease_weight_list, true_disease_bias_list = self.load_true_disease_weight_list(tree_info_path['disease_weight_path'])
             
         weight_decay = self.network_info['architecture_info'].get('weight_decay', None)
         if weight_decay != None: weight_decay = weight_decay.strip()
@@ -589,9 +584,9 @@ class DeepBiomeNetwork(Base_Network):
             bias_initializer='zeros'
             if weight_initial == 'phylogenetic_tree_glorot_uniform': kernel_initializer = glorot_uniform_with_tree(tree_w, seed=123)
             elif weight_initial == 'phylogenetic_tree_he_normal': kernel_initializer = he_normal_with_tree(tree_w, seed=123)
-            elif weight_initial == 'true_disease_weight': 
-                kernel_initializer = keras.initializers.Constant(true_disease_weight_list[i])
-                bias_initializer = keras.initializers.Constant(true_disease_bias_list[i])
+            # elif weight_initial == 'true_disease_weight': 
+            #     kernel_initializer = keras.initializers.Constant(true_disease_weight_list[i])
+            #     bias_initializer = keras.initializers.Constant(true_disease_bias_list[i])
             else: kernel_initializer = weight_initial
                 
             if weight_decay == 'phylogenetic_tree': 
@@ -636,8 +631,9 @@ class DeepBiomeNetwork(Base_Network):
         else: 
             p_hat = Activation('softmax', name='p_hat')(last_h)
         self.model = Model(inputs=x_input, outputs=p_hat)
-        if verbose: self.model.summary()
-        self.log.info('------------------------------------------------------------------------------------------')
+        if verbose: 
+            self.model.summary()
+            self.log.info('------------------------------------------------------------------------------------------')
     
     def get_trained_weight(self):
         kernel_lists =  [l.get_weights()[0] for l in self.model.layers if 'dense' in l.name]
@@ -649,3 +645,13 @@ class DeepBiomeNetwork(Base_Network):
     
     def get_tree_weight(self):
         return self.tree_weight_list
+    
+#     def load_true_tree_weight_list(self, data_path):
+#         true_tree_weight_list = [np.load('%s/tw_%d.npy'%(data_path,i))[self.fold] for i in range(1,len(self.tree_level_list))]
+#         return true_tree_weight_list
+    
+#     def load_true_disease_weight_list(self, data_path):
+#         true_disease_weight_list = [np.load('%s/solw_%d.npy'%(data_path,i))[self.fold] for i in range(len(self.tree_level_list))]
+#         true_disease_bias_list = [np.load('%s/solb_%d.npy'%(data_path,i))[self.fold] for i in range(len(self.tree_level_list))]
+#         return true_disease_weight_list, true_disease_bias_list
+        

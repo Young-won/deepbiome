@@ -128,11 +128,14 @@ If you want to predict the output using the pre-trained model, you can use the `
     # for python 3.x
     from deepbiome import deepbiome
     
-    evaluation = deepbiome.deepbiome_prediction(log, network_info, path_info, num_classes = 1, number_of_fold=None)
+    evaluation = deepbiome.deepbiome_prediction(log, network_info, path_info, num_classes = 1, number_of_fold=None, change_weight_for_each_fold=False)
 
 If `number_of_fold` is set as `k`, the function will predict the output of the first `k` folds' samples.
 
-This function provides the prediction result as a numpy array with a shape of (number of folds, number of samples).
+If `change_weight_for_each_fold` is set as `False`, the function will predict the output of every repeatition by same weight from the given path.
+If `change_weight_for_each_fold` is set as `True`, the function will predict the output of by each fold weight.
+
+If 'get_y=True', the function will provide a list of tuples (prediction, true output) as a numpy array output with the shape of `(n_samples, 2, n_classes)`. If 'get_y=False', the function will provide a numpy array of predictions only. The numpy array output will have the shape of `(n_samples, n_classes)`.
 
 
 Cheatsheet for running the project on console
@@ -237,6 +240,10 @@ To use deepbiome in a project::
 .. autofunction:: deepbiome.deepbiome.deepbiome_test
 
 .. autofunction:: deepbiome.deepbiome.deepbiome_prediction
+
+.. autofunction:: deepbiome.deepbiome.deepbiome_get_trained_weight
+
+.. autofunction:: deepbiome.deepbiome.deepbiome_taxa_selection_performance
 
 .. autosummary::
    :toctree: generated/

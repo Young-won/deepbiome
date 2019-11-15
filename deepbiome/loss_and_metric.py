@@ -169,11 +169,6 @@ def metric_test(y_true, y_pred):
             np_gmeasure(y_true, y_pred), np_binary_accuracy(y_true, y_pred),
             np_roc_auc(y_true, y_pred))
 
-def metric_texa_test(y_true, y_pred):
-    y_true = y_true.astype(np.int32)
-    y_pred = (y_pred>=0.5).astype(np.int32)
-    return (np_sensitivity(y_true, y_pred), np_specificity(y_true, y_pred),
-            np_gmeasure(y_true, y_pred), np_binary_accuracy(y_true, y_pred))
 ###############################################################################################################################
         
 # if __name__ == "__main__":

@@ -10,8 +10,12 @@ Stable release
 
 To install deepbiome, run this command in your terminal:
 
+.. warning:: This installation not works yet. I will update pypi after finishing release version of our package.- Youngwon
+
 .. code-block:: console
 
+    # for python 3.x
+    
     $ pip install deepbiome
 
 This is the preferred method to install deepbiome, as it will always install the most recent stable release.
@@ -22,7 +26,7 @@ If you want to install the latest version:
 
     # for python 3.x
     
-    $ pip3 install git+https://github.com/Young-won/deepbiome.git
+    $ pip install git+https://github.com/Young-won/deepbiome.git
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -45,6 +49,8 @@ You can either clone the public repository:
 Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
+
+    # for python 3.x
 
     $ python setup.py install
 

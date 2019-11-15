@@ -24,7 +24,6 @@ from keras.utils import to_categorical
 # from keras.utils import to_categorical
 
 from . import logging_daily
-from .utils import file_size, convert_bytes, print_sysinfo
 
 ########################################################################################################
 # Base reader
@@ -84,30 +83,31 @@ class MicroBiomeReader(BaseReader):
     def get_num_classes(self):
         return self.num_classes
     
-    def get_dataset(self, idxs):
-        tot_idxs = np.arange(self.x.shape[0])
-        remain_idxs = np.setdiff1d(tot_idxs, idxs)
-        
-        x_train = self.x[idxs]
-        x_test = self.x[remain_idxs]
-        
-        y_train = self.y[idxs]
-        y_test = self.y[remain_idxs]
-        return x_train, x_test, y_train, y_test
+    def get_dataset(self, idxs = None):
+        if not np.all(idxs == None):
+            tot_idxs = np.arange(self.x.shape[0])
+            remain_idxs = np.setdiff1d(tot_idxs, idxs)
 
-        # self.y_label = ['y1','y2']
-        if np.array(y).dtype == np.int and np.max(np.array(y)) > 1:
-            self.num_classes = np.max(np.array(y))+1
-            self.y = to_categorical(y, num_classes=np.max(np.array(y))+1, dtype=np.int32)
-        elif np.array(y).dtype == np.int and np.max(np.array(y)) <= 1:
-            self.num_classes = 1
-            self.y = np.array(y, dtype=np.int32)[:,0]
+            x_train = self.x[idxs]
+            x_test = self.x[remain_idxs]
+
+            y_train = self.y[idxs]
+            y_test = self.y[remain_idxs]
+            return x_train, x_test, y_train, y_test
         else:
-            self.num_classes = 0
-            self.y = np.array(y, dtype=np.float32)[:,0]
+            return self.x, None, self.y, None
+        
     
-    def get_input(self):
-        return self.x
+    def get_input(self, idxs = None):
+        if not np.all(idxs == None):
+            tot_idxs = np.arange(self.x.shape[0])
+            remain_idxs = np.setdiff1d(tot_idxs, idxs)
+
+            x_train = self.x[idxs]
+            x_test = self.x[remain_idxs]
+            return x_train, x_test
+        else:
+            return self.x, None
             
 ########################################################################################################
 # Regression
@@ -129,7 +129,7 @@ class MicroBiomeClassificationReader(MicroBiomeReader):
         if np.max(np.array(y)) <= 1:
             # binary
             num_classes = 1
-            try: y = np.array(y, dtype=np.int32)[:,0]
+            try: y = np.array(y, dtype=np.int32)[:,:1]
             except: y = np.array(y, dtype=np.int32)
         else:
             # multiclass
