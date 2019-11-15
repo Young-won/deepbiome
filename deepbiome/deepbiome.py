@@ -359,10 +359,12 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
         number of classes for the network. 0 for regression, 1 for binary classificatin.
     number_of_fold (int):
         1) For the list of input files for repeatitions, the function will predict the output of the first `number_of_fold` repetitions. If `number_of_fold` is None, then the function will predict the output of the whole repetitions.
+        
         2) For the one input file for cross-validation, the function will predict the output of the `k`-fold cross validatoin. If `number_of_fold` is None, then the function will predict the output of the LOOCV.
+        
         default=None
     change_weight_for_each_fold (boolean):
-        If `True`, weight will be changed for each fold (repetition). For example, if the given weight's name is 'weight.h5' then 'weight_0.h5' will loaded for the first fold (repetition). If 'False', weight path in the path_info will used for whole prediction. For example, if the given weight's name is `weight_0.h5' then 'weight_0.h5' will used for whole fold (repetition).
+        If `True`, weight will be changed for each fold (repetition). For example, if the given weight's name is `weight.h5` then `weight_0.h5` will loaded for the first fold (repetition). If `False`, weight path in the path_info will used for whole prediction. For example, if the given weight's name is `weight_0.h5` then `weight_0.h5` will used for whole fold (repetition).
         default=False
     get_y (boolean):
         If 'True', the function will provide a list of tuples (prediction, true output) as a output.
