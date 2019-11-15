@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "math|output_area", "processEscapes": true, "ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html#Below:-TBD.">Below: TBD.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
@@ -199,14 +200,20 @@
 <div class="section" id="stable-release">
 <h2>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this headline">¶</a></h2>
 <p>To install deepbiome, run this command in your terminal:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install deepbiome
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This installation not works yet. I will update pypi after finishing release version of our package.- Youngwon</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="k">for</span> python <span class="m">3</span>.x
+
+<span class="gp">$</span> pip install deepbiome
 </pre></div>
 </div>
 <p>This is the preferred method to install deepbiome, as it will always install the most recent stable release.</p>
 <p>If you want to install the latest version:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="k">for</span> python <span class="m">3</span>.x
 
-<span class="gp">$</span> pip3 install git+https://github.com/Young-won/deepbiome.git
+<span class="gp">$</span> pip install git+https://github.com/Young-won/deepbiome.git
 </pre></div>
 </div>
 <p>If you don’t have <a class="reference external" href="https://pip.pypa.io">pip</a> installed, this <a class="reference external" href="http://docs.python-guide.org/en/latest/starting/installation/">Python installation guide</a> can guide
@@ -220,7 +227,9 @@ you through the process.</p>
 </pre></div>
 </div>
 <p>Once you have a copy of the source, you can install it with:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python setup.py install
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> <span class="k">for</span> python <span class="m">3</span>.x
+
+<span class="gp">$</span> python setup.py install
 </pre></div>
 </div>
 </div>

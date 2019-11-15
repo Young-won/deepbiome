@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "math|output_area", "processEscapes": true, "ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -107,6 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html#Below:-TBD.">Below: TBD.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
@@ -209,7 +210,9 @@ A phylogeny regularized weight decay technique regularize the DeepBiome model to
 </div>
 <div class="section" id="microbiome-data-structure">
 <h2>Microbiome data structure<a class="headerlink" href="#microbiome-data-structure" title="Permalink to this headline">¶</a></h2>
-<img alt="microbiome data structure" class="align-center" src="_images/tree.pdf" />
+<div class="figure align-center">
+<img alt="microbiome data structure" src="_images/tree.pdf" />
+</div>
 <p>A phylogenetic tree depicts the evolutionary relationship among microbes.
 The figure displays an example phylogenetic tree.
 A tip node on the phylogenetic tree represents groups of descendent taxa and each internal node is a taxonomic unit representing a common ancestor of those descendent.</p>
@@ -218,7 +221,9 @@ A tip node on the phylogenetic tree represents groups of descendent taxa and eac
 <h2>DeepBiome<a class="headerlink" href="#deepbiome" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deepbiome-architecture">
 <h3>DeepBiome architecture<a class="headerlink" href="#deepbiome-architecture" title="Permalink to this headline">¶</a></h3>
-<img alt="the deepbiome architecture" class="align-center" src="_images/DeepBiome.pdf" />
+<div class="figure align-center">
+<img alt="the deepbiome architecture" src="_images/DeepBiome.pdf" />
+</div>
 <p>The figure illustrates a DeepBiome architecture.
 DeepBiome prespecifies the network architecture according to the phylogenetic tree.
 Each hidden layer represents one phylogenetic level (i.e., family, order, class, and phylum).
@@ -231,7 +236,9 @@ The number of taxonomic levels decides the number of hidden layers. The number o
 </div>
 <div class="section" id="selection-of-disease-associated-microbiome-taxa">
 <h2>Selection of disease associated microbiome taxa<a class="headerlink" href="#selection-of-disease-associated-microbiome-taxa" title="Permalink to this headline">¶</a></h2>
-<img alt="selection of disease associated microbiome taxa" class="align-center" src="_images/tree_fev1_deepbiome2.pdf" />
+<div class="figure align-center">
+<img alt="selection of disease associated microbiome taxa" src="_images/tree_fev1_deepbiome2.pdf" />
+</div>
 <p>DeepBiome analyzes the whole microbiome profile and its path to disease and identifies taxa associated with outcome at each taxonomic level.
 The red nodes indicate taxa have positive coefficient estimation and blue nodes indicate taxa have negative estimation.</p>
 </div>
