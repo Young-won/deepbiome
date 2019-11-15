@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "math|output_area", "processEscapes": true, "ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -111,6 +111,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html#Below:-TBD.">Below: TBD.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
@@ -294,11 +295,13 @@ If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will te
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
 <span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
 
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">change_weight_for_each_fold</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If <cite>number_of_fold</cite> is set as <cite>k</cite>, the function will predict the output of the first <cite>k</cite> folds’ samples.</p>
-<p>This function provides the prediction result as a numpy array with a shape of (number of folds, number of samples).</p>
+<p>If <cite>change_weight_for_each_fold</cite> is set as <cite>False</cite>, the function will predict the output of every repeatition by same weight from the given path.
+If <cite>change_weight_for_each_fold</cite> is set as <cite>True</cite>, the function will predict the output of by each fold weight.</p>
+<p>If ‘get_y=True’, the function will provide a list of tuples (prediction, true output) as a numpy array output with the shape of <cite>(n_samples, 2, n_classes)</cite>. If ‘get_y=False’, the function will provide a numpy array of predictions only. The numpy array output will have the shape of <cite>(n_samples, n_classes)</cite>.</p>
 </div>
 <div class="section" id="cheatsheet-for-running-the-project-on-console">
 <h2>Cheatsheet for running the project on console<a class="headerlink" href="#cheatsheet-for-running-the-project-on-console" title="Permalink to this headline">¶</a></h2>
@@ -467,7 +470,7 @@ python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --p
 </dd>
 <dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
 </dd>
-<dt><strong>number_of_fold (int):</strong></dt><dd><p>If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will test the model only with first <cite>k</cite> folds.
+<dt><strong>number_of_fold (int):</strong></dt><dd><p>If <cite>number_of_fold</cite> is set as <cite>k</cite>, the function will test the model only with first <cite>k</cite> folds.
 default=None</p>
 </dd>
 <dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
@@ -492,12 +495,12 @@ default=None</p>
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_prediction">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_prediction</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_prediction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_prediction</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">change_weight_for_each_fold=False</em>, <em class="sig-param">get_y=False</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_prediction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>See ref url (TODO: update)</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
 </dd>
 <dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
@@ -506,8 +509,17 @@ default=None</p>
 </dd>
 <dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
 </dd>
-<dt><strong>number_of_fold (int):</strong></dt><dd><p>If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will predict the output of the first <cite>k</cite> repeatitions.
-default=None</p>
+<dt><strong>number_of_fold (int):</strong></dt><dd><ol class="arabic simple">
+<li><p>For the list of input files for repeatitions, the function will predict the output of the first <cite>number_of_fold</cite> repetitions. If <cite>number_of_fold</cite> is None, then the function will predict the output of the whole repetitions.</p></li>
+<li><p>For the one input file for cross-validation, the function will predict the output of the <cite>k</cite>-fold cross validatoin. If <cite>number_of_fold</cite> is None, then the function will predict the output of the LOOCV.</p></li>
+</ol>
+<p>default=None</p>
+</dd>
+<dt><strong>change_weight_for_each_fold (boolean):</strong></dt><dd><p>If <cite>True</cite>, weight will be changed for each fold (repetition). For example, if the given weight’s name is <cite>weight.h5</cite> then <cite>weight_0.h5</cite> will loaded for the first fold (repetition). If <cite>False</cite>, weight path in the path_info will used for whole prediction. For example, if the given weight’s name is <cite>weight_0.h5</cite> then <cite>weight_0.h5</cite> will used for whole fold (repetition).
+default=False</p>
+</dd>
+<dt><strong>get_y (boolean):</strong></dt><dd><p>If ‘True’, the function will provide a list of tuples (prediction, true output) as a output.
+degault=False</p>
 </dd>
 <dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
 </dd>
@@ -527,6 +539,81 @@ default=None</p>
 <p class="rubric">Examples</p>
 <p>Prediction by the pre-trained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>prediction = deepbiome_predictoin(log, network_info, path_info, num_classes)</p>
+<p>For LOOCV prediction, we can use this options.
+prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, number_of_fold=None, change_weight_for_each_fold=True)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="deepbiome.deepbiome.deepbiome_get_trained_weight">
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_get_trained_weight</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">weight_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_get_trained_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_get_trained_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>See ref url (TODO: update)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
+</dd>
+<dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
+</dd>
+<dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
+</dd>
+<dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
+</dd>
+<dt><strong>weight_path (string):</strong></dt><dd><p>path of the model weight</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list of numpy array:</dt><dd><p>the trained model’s weight</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Trained weight of the deep neural network with phylogenetic tree weight regularizer.</p>
+<p>tree_weight_list = deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weight_path)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="deepbiome.deepbiome.deepbiome_taxa_selection_performance">
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_taxa_selection_performance</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">true_tree_weight_list</em>, <em class="sig-param">trained_weight_path_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_taxa_selection_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_taxa_selection_performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>See ref url (TODO: update)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
+</dd>
+<dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
+</dd>
+<dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
+</dd>
+<dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
+</dd>
+<dt><strong>true_tree_weight_list (ndarray):</strong></dt><dd><p>lists of the true weight information with the shape of (k folds, number of weights)
+<cite>true_tree_weight_list[0][0]</cite> is the true weight information between the first and second layers for the first fold. It is a numpy array with the shape of (number of nodes for the first layer, number of nodes for the second layer).</p>
+</dd>
+<dt><strong>trained_weight_path_list (list):</strong></dt><dd><p>lists of the path of trained weight for each fold.</p>
+</dd>
+<dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
+</dd>
+<dt><strong>workers (int):</strong></dt><dd><p>default=1</p>
+</dd>
+<dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>summary (numpy array):</dt><dd><p>summary of the taxa selection performance</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The taxa selection performance of the trained deep neural network with phylogenetic tree weight regularizer.</p>
+<p>summary = deepbiome_taxa_selection_performance(log, network_info, path_info, num_classes)</p>
 </dd></dl>
 
 <table class="longtable docutils align-default">

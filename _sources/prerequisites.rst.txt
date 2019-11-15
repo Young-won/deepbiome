@@ -332,7 +332,12 @@ This is the example of the configuration dictionary: `network_info` dictionary
             'taxa_selection_metrics': 'accuracy, sensitivity, specificity, gmeasure'
         },
         'training_info': {
-            'batch_size': '200', 'epochs': '10'
+            'batch_size': '200',
+            'epochs': '10',
+            'callbacks': 'ModelCheckpoint',
+            'monitor': 'val_binary_accuracy',
+            'mode': 'max',
+            'min_delta': '1e-4',
         },
         'validation_info': {
             'batch_size': 'None', 'validation_size': '0.2'
@@ -370,7 +375,6 @@ This is the example of the configuration file: `network_info.cfg`
     callbacks       = ModelCheckpoint
     monitor         = val_binary_accuracy
     mode            = max
-    patience        = 20
     min_delta       = 1e-4
 
     [validation_info]
