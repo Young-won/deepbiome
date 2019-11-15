@@ -22,8 +22,6 @@ from deepbiome import utils
 
 def test_utils():
     print(utils.argv_parse(['main.py','--log_info=log_info.yaml']))
-    print(utils.file_size(resource_filename('deepbiome', 'tests/data/regression_real_train_evaluation.npy')))
-    utils.print_sysinfo()
 
 def test_loss_numpy():
     y_true_set = np.array([[0,1],
