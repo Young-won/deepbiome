@@ -5,12 +5,15 @@
 
 deepbiome Documentation
 ========================
-
+   
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :glob:
 
    introduction
+   DeepBiome_usage_classification
+   DeepBiome_usage_regression
    installation
    prerequisites
    usage
