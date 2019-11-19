@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting start with the classification problem. &mdash; deepbiome 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting start with the regression problem." href="DeepBiome_usage_regression.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> deepbiome
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting start with the classification problem.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeepBiome_usage_regression.html">Getting start with the regression problem.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">deepbiome</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting start with the classification problem.</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DeepBiome_usage_classification.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Getting-start-with-the-classification-problem.">
+<h1>Getting start with the classification problem.<a class="headerlink" href="#Getting-start-with-the-classification-problem." title="Permalink to this headline">¶</a></h1>
+<p>Let’s start with the baby step example for classification problem. Below is the basic example of the configuration for binary classification problem. For more detailed configuration, please check the detailed information about each option in the <a class="reference external" href="https://young-won.github.io/deepbiome/prerequisites.html#configuration">documantation</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">network_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;architecture_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_normalization&#39;</span><span class="p">:</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;drop_out&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_initial&#39;</span><span class="p">:</span> <span class="s1">&#39;glorot_uniform&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_l1_penalty&#39;</span><span class="p">:</span><span class="s1">&#39;0.01&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="s1">&#39;phylogenetic_tree&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;decay&#39;</span><span class="p">:</span> <span class="s1">&#39;0.001&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="s1">&#39;0.01&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;binary_accuracy, sensitivity, specificity, gmeasure, auc&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;network_class&#39;</span><span class="p">:</span> <span class="s1">&#39;DeepBiomeNetwork&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;normalizer&#39;</span><span class="p">:</span> <span class="s1">&#39;normalize_minmax&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;reader_class&#39;</span><span class="p">:</span> <span class="s1">&#39;MicroBiomeClassificationReader&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;taxa_selection_metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;sensitivity, specificity, gmeasure, accuracy&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;training_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;200&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;callbacks&#39;</span><span class="p">:</span> <span class="s1">&#39;ModelCheckpoint&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;monitor&#39;</span><span class="p">:</span> <span class="s1">&#39;val_loss&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mode&#39;</span> <span class="p">:</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;min_delta&#39;</span><span class="p">:</span> <span class="s1">&#39;1e-7&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;validation_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;validation_size&#39;</span><span class="p">:</span> <span class="s1">&#39;0.2&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;test_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">path_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;data_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;count_list_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/gcount_list.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;count_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/count&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;data_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;idx_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/idx.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tree_info_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/genus48/genus48_dic.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;x_path&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;y_path&#39;</span><span class="p">:</span> <span class="s1">&#39;y.csv&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="s1">&#39;history/hist.json&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./simulation_s2/simulation_s2_deepbiome/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>For logging, we used the python logging library.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is the <code class="docutils literal notranslate"><span class="pre">deepbiome.deepbiome_train</span></code> function for training:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
+
+<span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Using TensorFlow backend.
+[root    |INFO|deepbiome.py:100] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:137] -------1 simulation start!----------------------------------
+[root    |INFO|readers.py:57] -----------------------------------------------------------------------
+[root    |INFO|readers.py:58] Construct Dataset
+[root    |INFO|readers.py:59] -----------------------------------------------------------------------
+[root    |INFO|readers.py:60] Load data
+[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:148] Build network for 1 simulation
+[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv
+[root    |INFO|build_network.py:512] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:520]      Genus: 48
+[root    |INFO|build_network.py:520]     Family: 40
+[root    |INFO|build_network.py:520]      Order: 23
+[root    |INFO|build_network.py:520]      Class: 17
+[root    |INFO|build_network.py:520]     Phylum: 9
+[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Genus&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]
+[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------
+[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/resource_variable_ops.py:432: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model: &#34;model_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input (InputLayer)           (None, 48)                0
+_________________________________________________________________
+l1_dense (Dense_with_tree)   (None, 40)                1960
+_________________________________________________________________
+l1_activation (Activation)   (None, 40)                0
+_________________________________________________________________
+l2_dense (Dense_with_tree)   (None, 23)                943
+_________________________________________________________________
+l2_activation (Activation)   (None, 23)                0
+_________________________________________________________________
+l3_dense (Dense_with_tree)   (None, 17)                408
+_________________________________________________________________
+l3_activation (Activation)   (None, 17)                0
+_________________________________________________________________
+l4_dense (Dense_with_tree)   (None, 9)                 162
+_________________________________________________________________
+l4_activation (Activation)   (None, 9)                 0
+_________________________________________________________________
+last_dense_h (Dense)         (None, 1)                 10
+_________________________________________________________________
+p_hat (Activation)           (None, 1)                 0
+=================================================================
+Total params: 3,483
+Trainable params: 3,483
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:57] Build Network
+[root    |INFO|build_network.py:58] Optimizer = adam
+[root    |INFO|build_network.py:59] Loss = binary_crossentropy
+[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
+[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:158] 1 fold computing start!----------------------------------
+[root    |INFO|build_network.py:133] Training start!
+[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/math_ops.py:2862: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 600 samples, validate on 150 samples
+Epoch 1/10
+600/600 [==============================] - 1s 1ms/step - loss: 0.6900 - binary_accuracy: 0.6550 - sensitivity: 0.8906 - specificity: 0.1111 - gmeasure: 0.1577 - auc: 0.4864 - val_loss: 0.6829 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4233
+Epoch 2/10
+600/600 [==============================] - 0s 62us/step - loss: 0.6801 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4657 - val_loss: 0.6715 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4962
+Epoch 3/10
+600/600 [==============================] - 0s 50us/step - loss: 0.6696 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5121 - val_loss: 0.6601 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5386
+Epoch 4/10
+600/600 [==============================] - 0s 55us/step - loss: 0.6594 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5354 - val_loss: 0.6492 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5441
+Epoch 5/10
+600/600 [==============================] - 0s 56us/step - loss: 0.6488 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5431 - val_loss: 0.6393 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5501
+Epoch 6/10
+600/600 [==============================] - 0s 60us/step - loss: 0.6400 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5463 - val_loss: 0.6304 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5503
+Epoch 7/10
+600/600 [==============================] - 0s 64us/step - loss: 0.6324 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5407 - val_loss: 0.6229 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508
+Epoch 8/10
+600/600 [==============================] - 0s 61us/step - loss: 0.6266 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5506 - val_loss: 0.6171 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508
+Epoch 9/10
+600/600 [==============================] - 0s 53us/step - loss: 0.6226 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5497 - val_loss: 0.6133 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5532
+Epoch 10/10
+600/600 [==============================] - 0s 64us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5489 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5565
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
+[root    |INFO|build_network.py:143] Training end with time 3.6571226119995117!
+[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
+[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
+[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_0.json
+[root    |INFO|build_network.py:169] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+750/750 [==============================] - 0s 7us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:174] Evaluation end with time 0.012011289596557617!
+[root    |INFO|build_network.py:175] Evaluation: [0.6186335682868958, 0.690666675567627, 1.0, 0.0, 0.0, 0.5562883019447327]
+[root    |INFO|build_network.py:169] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+250/250 [==============================] - 0s 22us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:174] Evaluation end with time 0.012785911560058594!
+[root    |INFO|build_network.py:175] Evaluation: [0.6300222873687744, 0.6759999990463257, 1.0, 0.0, 0.0, 0.5671342015266418]
+[root    |INFO|deepbiome.py:180] Compute time : 5.438173294067383
+[root    |INFO|deepbiome.py:181] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:137] -------2 simulation start!----------------------------------
+[root    |INFO|readers.py:57] -----------------------------------------------------------------------
+[root    |INFO|readers.py:58] Construct Dataset
+[root    |INFO|readers.py:59] -----------------------------------------------------------------------
+[root    |INFO|readers.py:60] Load data
+[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:148] Build network for 2 simulation
+[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv
+[root    |INFO|build_network.py:512] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:520]      Genus: 48
+[root    |INFO|build_network.py:520]     Family: 40
+[root    |INFO|build_network.py:520]      Order: 23
+[root    |INFO|build_network.py:520]      Class: 17
+[root    |INFO|build_network.py:520]     Phylum: 9
+[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Genus&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]
+[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model: &#34;model_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input (InputLayer)           (None, 48)                0
+_________________________________________________________________
+l1_dense (Dense_with_tree)   (None, 40)                1960
+_________________________________________________________________
+l1_activation (Activation)   (None, 40)                0
+_________________________________________________________________
+l2_dense (Dense_with_tree)   (None, 23)                943
+_________________________________________________________________
+l2_activation (Activation)   (None, 23)                0
+_________________________________________________________________
+l3_dense (Dense_with_tree)   (None, 17)                408
+_________________________________________________________________
+l3_activation (Activation)   (None, 17)                0
+_________________________________________________________________
+l4_dense (Dense_with_tree)   (None, 9)                 162
+_________________________________________________________________
+l4_activation (Activation)   (None, 9)                 0
+_________________________________________________________________
+last_dense_h (Dense)         (None, 1)                 10
+_________________________________________________________________
+p_hat (Activation)           (None, 1)                 0
+=================================================================
+Total params: 3,483
+Trainable params: 3,483
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:57] Build Network
+[root    |INFO|build_network.py:58] Optimizer = adam
+[root    |INFO|build_network.py:59] Loss = binary_crossentropy
+[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
+[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:158] 2 fold computing start!----------------------------------
+[root    |INFO|build_network.py:133] Training start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 600 samples, validate on 150 samples
+Epoch 1/10
+600/600 [==============================] - 0s 697us/step - loss: 0.6832 - binary_accuracy: 0.6083 - sensitivity: 0.6764 - specificity: 0.3228 - gmeasure: 0.0560 - auc: 0.5388 - val_loss: 0.6661 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5904
+Epoch 2/10
+600/600 [==============================] - 0s 75us/step - loss: 0.6567 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5764 - val_loss: 0.6406 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6444
+Epoch 3/10
+600/600 [==============================] - 0s 66us/step - loss: 0.6329 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5717 - val_loss: 0.6181 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6005
+Epoch 4/10
+600/600 [==============================] - 0s 63us/step - loss: 0.6109 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.6007 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6028
+Epoch 5/10
+600/600 [==============================] - 0s 60us/step - loss: 0.5955 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5794 - val_loss: 0.5900 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6042
+Epoch 6/10
+600/600 [==============================] - 0s 57us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6096
+Epoch 7/10
+600/600 [==============================] - 0s 59us/step - loss: 0.5871 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5833 - val_loss: 0.5887 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6287
+Epoch 8/10
+600/600 [==============================] - 0s 61us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6086 - val_loss: 0.5908 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6730
+Epoch 9/10
+600/600 [==============================] - 0s 60us/step - loss: 0.5891 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6512 - val_loss: 0.5910 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7267
+Epoch 10/10
+600/600 [==============================] - 0s 61us/step - loss: 0.5888 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7052 - val_loss: 0.5893 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7928
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
+[root    |INFO|build_network.py:143] Training end with time 2.510734796524048!
+[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
+[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
+[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_1.json
+[root    |INFO|build_network.py:169] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+750/750 [==============================] - 0s 7us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:174] Evaluation end with time 0.012083768844604492!
+[root    |INFO|build_network.py:175] Evaluation: [0.5852290987968445, 0.7279999852180481, 1.0, 0.0, 0.0, 0.5892587900161743]
+[root    |INFO|build_network.py:169] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+250/250 [==============================] - 0s 16us/step
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:174] Evaluation end with time 0.010590553283691406!
+[root    |INFO|build_network.py:175] Evaluation: [0.6164111495018005, 0.6959999799728394, 1.0, 0.0, 0.0, 0.6603524088859558]
+[root    |INFO|deepbiome.py:180] Compute time : 3.6922340393066406
+[root    |INFO|deepbiome.py:181] 2 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:184] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:186] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:189]       mean : [0.60193133 0.70933333 1.         0.         0.         0.57277355]
+[root    |INFO|deepbiome.py:190]        std : [0.01670223 0.01866665 0.         0.         0.         0.01648524]
+[root    |INFO|deepbiome.py:191] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:193] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:196]       mean : [0.62321672 0.68599999 1.         0.         0.         0.61374331]
+[root    |INFO|deepbiome.py:197]        std : [0.00680557 0.00999999 0.         0.         0.         0.0466091 ]
+[root    |INFO|deepbiome.py:198] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:207] Total Computing Ended
+[root    |INFO|deepbiome.py:208] -----------------------------------------------------------------
+</pre></div></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DeepBiome_usage_regression.html" class="btn btn-neutral float-right" title="Getting start with the regression problem." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Youngwon Choi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

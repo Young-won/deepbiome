@@ -1,0 +1,468 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Getting start with the classification problem.\n",
+    "\n",
+    "Let's start with the baby step example for classification problem.\n",
+    "Below is the basic example of the configuration for binary classification problem. For more detailed configuration, please check the detailed information about each option in the [documantation](https://young-won.github.io/deepbiome/prerequisites.html#configuration)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "network_info = {\n",
+    "    'architecture_info': {\n",
+    "        'batch_normalization': 'False',\n",
+    "        'drop_out': '0',\n",
+    "        'weight_initial': 'glorot_uniform',\n",
+    "        'weight_l1_penalty':'0.01',\n",
+    "        'weight_decay': 'phylogenetic_tree',\n",
+    "    },\n",
+    "    'model_info': {\n",
+    "        'decay': '0.001',\n",
+    "        'loss': 'binary_crossentropy',\n",
+    "        'lr': '0.01',\n",
+    "        'metrics': 'binary_accuracy, sensitivity, specificity, gmeasure, auc',\n",
+    "        'network_class': 'DeepBiomeNetwork',\n",
+    "        'normalizer': 'normalize_minmax',\n",
+    "        'optimizer': 'adam',\n",
+    "        'reader_class': 'MicroBiomeClassificationReader',\n",
+    "        'taxa_selection_metrics': 'sensitivity, specificity, gmeasure, accuracy',\n",
+    "    },\n",
+    "    'training_info': {\n",
+    "        'batch_size': '200', \n",
+    "        'epochs': '10',\n",
+    "        'callbacks': 'ModelCheckpoint',\n",
+    "        'monitor': 'val_loss',\n",
+    "        'mode' : 'min',\n",
+    "        'min_delta': '1e-7',\n",
+    "    },\n",
+    "    'validation_info': {\n",
+    "        'batch_size': 'None', \n",
+    "        'validation_size': '0.2'\n",
+    "    },\n",
+    "    'test_info': {\n",
+    "        'batch_size': 'None',\n",
+    "    },\n",
+    "}\n",
+    "\n",
+    "path_info = {\n",
+    "    'data_info': {\n",
+    "        'count_list_path': 'data/simulation/gcount_list.csv',\n",
+    "        'count_path': 'data/simulation/count',\n",
+    "        'data_path': 'data/simulation/s2/',\n",
+    "        'idx_path': 'data/simulation/s2/idx.csv',\n",
+    "        'tree_info_path': 'data/genus48/genus48_dic.csv',\n",
+    "        'x_path': '',\n",
+    "        'y_path': 'y.csv'\n",
+    "    },\n",
+    "    'model_info': {\n",
+    "        'evaluation': 'eval.npy',\n",
+    "        'history': 'history/hist.json',\n",
+    "        'model_dir': './simulation_s2/simulation_s2_deepbiome/',\n",
+    "        'weight': 'weight/weight.h5'\n",
+    "    }\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For logging, we used the python logging library."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "import logging\n",
+    "\n",
+    "logging.basicConfig(format = '[%(name)-8s|%(levelname)s|%(filename)s:%(lineno)s] %(message)s',\n",
+    "                    level=logging.DEBUG)\n",
+    "log = logging.getLogger()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here is the `deepbiome.deepbiome_train` function for training:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Using TensorFlow backend.\n",
+      "[root    |INFO|deepbiome.py:100] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:137] -------1 simulation start!----------------------------------\n",
+      "[root    |INFO|readers.py:57] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:58] Construct Dataset\n",
+      "[root    |INFO|readers.py:59] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:60] Load data\n",
+      "[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:148] Build network for 1 simulation\n",
+      "[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv\n",
+      "[root    |INFO|build_network.py:512] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
+      "[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:520]      Genus: 48\n",
+      "[root    |INFO|build_network.py:520]     Family: 40\n",
+      "[root    |INFO|build_network.py:520]      Order: 23\n",
+      "[root    |INFO|build_network.py:520]      Class: 17\n",
+      "[root    |INFO|build_network.py:520]     Phylum: 9\n",
+      "[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: ['Class', 'Number', 'Family', 'Order', 'Genus', 'Phylum']\n",
+      "[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]\n",
+      "[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information\n",
+      "[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------\n",
+      "[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/resource_variable_ops.py:432: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.\n",
+      "Instructions for updating:\n",
+      "Colocations handled automatically by placer.\n",
+      "[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Model: \"model_1\"\n",
+      "_________________________________________________________________\n",
+      "Layer (type)                 Output Shape              Param #   \n",
+      "=================================================================\n",
+      "input (InputLayer)           (None, 48)                0         \n",
+      "_________________________________________________________________\n",
+      "l1_dense (Dense_with_tree)   (None, 40)                1960      \n",
+      "_________________________________________________________________\n",
+      "l1_activation (Activation)   (None, 40)                0         \n",
+      "_________________________________________________________________\n",
+      "l2_dense (Dense_with_tree)   (None, 23)                943       \n",
+      "_________________________________________________________________\n",
+      "l2_activation (Activation)   (None, 23)                0         \n",
+      "_________________________________________________________________\n",
+      "l3_dense (Dense_with_tree)   (None, 17)                408       \n",
+      "_________________________________________________________________\n",
+      "l3_activation (Activation)   (None, 17)                0         \n",
+      "_________________________________________________________________\n",
+      "l4_dense (Dense_with_tree)   (None, 9)                 162       \n",
+      "_________________________________________________________________\n",
+      "l4_activation (Activation)   (None, 9)                 0         \n",
+      "_________________________________________________________________\n",
+      "last_dense_h (Dense)         (None, 1)                 10        \n",
+      "_________________________________________________________________\n",
+      "p_hat (Activation)           (None, 1)                 0         \n",
+      "=================================================================\n",
+      "Total params: 3,483\n",
+      "Trainable params: 3,483\n",
+      "Non-trainable params: 0\n",
+      "_________________________________________________________________\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:57] Build Network\n",
+      "[root    |INFO|build_network.py:58] Optimizer = adam\n",
+      "[root    |INFO|build_network.py:59] Loss = binary_crossentropy\n",
+      "[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
+      "[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:158] 1 fold computing start!----------------------------------\n",
+      "[root    |INFO|build_network.py:133] Training start!\n",
+      "[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/math_ops.py:2862: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.\n",
+      "Instructions for updating:\n",
+      "Use tf.cast instead.\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Train on 600 samples, validate on 150 samples\n",
+      "Epoch 1/10\n",
+      "600/600 [==============================] - 1s 1ms/step - loss: 0.6900 - binary_accuracy: 0.6550 - sensitivity: 0.8906 - specificity: 0.1111 - gmeasure: 0.1577 - auc: 0.4864 - val_loss: 0.6829 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4233\n",
+      "Epoch 2/10\n",
+      "600/600 [==============================] - 0s 62us/step - loss: 0.6801 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4657 - val_loss: 0.6715 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4962\n",
+      "Epoch 3/10\n",
+      "600/600 [==============================] - 0s 50us/step - loss: 0.6696 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5121 - val_loss: 0.6601 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5386\n",
+      "Epoch 4/10\n",
+      "600/600 [==============================] - 0s 55us/step - loss: 0.6594 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5354 - val_loss: 0.6492 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5441\n",
+      "Epoch 5/10\n",
+      "600/600 [==============================] - 0s 56us/step - loss: 0.6488 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5431 - val_loss: 0.6393 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5501\n",
+      "Epoch 6/10\n",
+      "600/600 [==============================] - 0s 60us/step - loss: 0.6400 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5463 - val_loss: 0.6304 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5503\n",
+      "Epoch 7/10\n",
+      "600/600 [==============================] - 0s 64us/step - loss: 0.6324 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5407 - val_loss: 0.6229 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508\n",
+      "Epoch 8/10\n",
+      "600/600 [==============================] - 0s 61us/step - loss: 0.6266 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5506 - val_loss: 0.6171 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508\n",
+      "Epoch 9/10\n",
+      "600/600 [==============================] - 0s 53us/step - loss: 0.6226 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5497 - val_loss: 0.6133 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5532\n",
+      "Epoch 10/10\n",
+      "600/600 [==============================] - 0s 64us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5489 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5565\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5 \n",
+      "[root    |INFO|build_network.py:143] Training end with time 3.6571226119995117!\n",
+      "[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5 \n",
+      "[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5\n",
+      "[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_0.json\n",
+      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\r",
+      "750/750 [==============================] - 0s 7us/step\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:174] Evaluation end with time 0.012011289596557617!\n",
+      "[root    |INFO|build_network.py:175] Evaluation: [0.6186335682868958, 0.690666675567627, 1.0, 0.0, 0.0, 0.5562883019447327]\n",
+      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\r",
+      "250/250 [==============================] - 0s 22us/step\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:174] Evaluation end with time 0.012785911560058594!\n",
+      "[root    |INFO|build_network.py:175] Evaluation: [0.6300222873687744, 0.6759999990463257, 1.0, 0.0, 0.0, 0.5671342015266418]\n",
+      "[root    |INFO|deepbiome.py:180] Compute time : 5.438173294067383\n",
+      "[root    |INFO|deepbiome.py:181] 1 fold computing end!---------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:137] -------2 simulation start!----------------------------------\n",
+      "[root    |INFO|readers.py:57] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:58] Construct Dataset\n",
+      "[root    |INFO|readers.py:59] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:60] Load data\n",
+      "[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:148] Build network for 2 simulation\n",
+      "[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv\n",
+      "[root    |INFO|build_network.py:512] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
+      "[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:520]      Genus: 48\n",
+      "[root    |INFO|build_network.py:520]     Family: 40\n",
+      "[root    |INFO|build_network.py:520]      Order: 23\n",
+      "[root    |INFO|build_network.py:520]      Class: 17\n",
+      "[root    |INFO|build_network.py:520]     Phylum: 9\n",
+      "[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: ['Class', 'Number', 'Family', 'Order', 'Genus', 'Phylum']\n",
+      "[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]\n",
+      "[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]\n",
+      "[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information\n",
+      "[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Model: \"model_1\"\n",
+      "_________________________________________________________________\n",
+      "Layer (type)                 Output Shape              Param #   \n",
+      "=================================================================\n",
+      "input (InputLayer)           (None, 48)                0         \n",
+      "_________________________________________________________________\n",
+      "l1_dense (Dense_with_tree)   (None, 40)                1960      \n",
+      "_________________________________________________________________\n",
+      "l1_activation (Activation)   (None, 40)                0         \n",
+      "_________________________________________________________________\n",
+      "l2_dense (Dense_with_tree)   (None, 23)                943       \n",
+      "_________________________________________________________________\n",
+      "l2_activation (Activation)   (None, 23)                0         \n",
+      "_________________________________________________________________\n",
+      "l3_dense (Dense_with_tree)   (None, 17)                408       \n",
+      "_________________________________________________________________\n",
+      "l3_activation (Activation)   (None, 17)                0         \n",
+      "_________________________________________________________________\n",
+      "l4_dense (Dense_with_tree)   (None, 9)                 162       \n",
+      "_________________________________________________________________\n",
+      "l4_activation (Activation)   (None, 9)                 0         \n",
+      "_________________________________________________________________\n",
+      "last_dense_h (Dense)         (None, 1)                 10        \n",
+      "_________________________________________________________________\n",
+      "p_hat (Activation)           (None, 1)                 0         \n",
+      "=================================================================\n",
+      "Total params: 3,483\n",
+      "Trainable params: 3,483\n",
+      "Non-trainable params: 0\n",
+      "_________________________________________________________________\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:57] Build Network\n",
+      "[root    |INFO|build_network.py:58] Optimizer = adam\n",
+      "[root    |INFO|build_network.py:59] Loss = binary_crossentropy\n",
+      "[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
+      "[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:158] 2 fold computing start!----------------------------------\n",
+      "[root    |INFO|build_network.py:133] Training start!\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Train on 600 samples, validate on 150 samples\n",
+      "Epoch 1/10\n",
+      "600/600 [==============================] - 0s 697us/step - loss: 0.6832 - binary_accuracy: 0.6083 - sensitivity: 0.6764 - specificity: 0.3228 - gmeasure: 0.0560 - auc: 0.5388 - val_loss: 0.6661 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5904\n",
+      "Epoch 2/10\n",
+      "600/600 [==============================] - 0s 75us/step - loss: 0.6567 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5764 - val_loss: 0.6406 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6444\n",
+      "Epoch 3/10\n",
+      "600/600 [==============================] - 0s 66us/step - loss: 0.6329 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5717 - val_loss: 0.6181 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6005\n",
+      "Epoch 4/10\n",
+      "600/600 [==============================] - 0s 63us/step - loss: 0.6109 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.6007 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6028\n",
+      "Epoch 5/10\n",
+      "600/600 [==============================] - 0s 60us/step - loss: 0.5955 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5794 - val_loss: 0.5900 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6042\n",
+      "Epoch 6/10\n",
+      "600/600 [==============================] - 0s 57us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6096\n",
+      "Epoch 7/10\n",
+      "600/600 [==============================] - 0s 59us/step - loss: 0.5871 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5833 - val_loss: 0.5887 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6287\n",
+      "Epoch 8/10\n",
+      "600/600 [==============================] - 0s 61us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6086 - val_loss: 0.5908 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6730\n",
+      "Epoch 9/10\n",
+      "600/600 [==============================] - 0s 60us/step - loss: 0.5891 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6512 - val_loss: 0.5910 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7267\n",
+      "Epoch 10/10\n",
+      "600/600 [==============================] - 0s 61us/step - loss: 0.5888 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7052 - val_loss: 0.5893 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7928\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5 \n",
+      "[root    |INFO|build_network.py:143] Training end with time 2.510734796524048!\n",
+      "[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5 \n",
+      "[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5\n",
+      "[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_1.json\n",
+      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\r",
+      "750/750 [==============================] - 0s 7us/step\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:174] Evaluation end with time 0.012083768844604492!\n",
+      "[root    |INFO|build_network.py:175] Evaluation: [0.5852290987968445, 0.7279999852180481, 1.0, 0.0, 0.0, 0.5892587900161743]\n",
+      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\r",
+      "250/250 [==============================] - 0s 16us/step\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[root    |INFO|build_network.py:174] Evaluation end with time 0.010590553283691406!\n",
+      "[root    |INFO|build_network.py:175] Evaluation: [0.6164111495018005, 0.6959999799728394, 1.0, 0.0, 0.0, 0.6603524088859558]\n",
+      "[root    |INFO|deepbiome.py:180] Compute time : 3.6922340393066406\n",
+      "[root    |INFO|deepbiome.py:181] 2 fold computing end!---------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:184] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:186] Train Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
+      "[root    |INFO|deepbiome.py:189]       mean : [0.60193133 0.70933333 1.         0.         0.         0.57277355]\n",
+      "[root    |INFO|deepbiome.py:190]        std : [0.01670223 0.01866665 0.         0.         0.         0.01648524]\n",
+      "[root    |INFO|deepbiome.py:191] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:193] Test Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
+      "[root    |INFO|deepbiome.py:196]       mean : [0.62321672 0.68599999 1.         0.         0.         0.61374331]\n",
+      "[root    |INFO|deepbiome.py:197]        std : [0.00680557 0.00999999 0.         0.         0.         0.0466091 ]\n",
+      "[root    |INFO|deepbiome.py:198] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:207] Total Computing Ended\n",
+      "[root    |INFO|deepbiome.py:208] -----------------------------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "from deepbiome import deepbiome\n",
+    "\n",
+    "test_evaluation, train_evaluation, network = deepbiome.deepbiome_train(log, network_info, path_info, number_of_fold=2)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
