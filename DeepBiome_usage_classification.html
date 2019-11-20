@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]], "ignoreClass": "document"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -392,9 +392,19 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Getting-start-with-the-classification-problem.">
 <h1>Getting start with the classification problem.<a class="headerlink" href="#Getting-start-with-the-classification-problem." title="Permalink to this headline">¶</a></h1>
-<p>Let’s start with the baby step example for classification problem. Below is the basic example of the configuration for binary classification problem. For more detailed configuration, please check the detailed information about each option in the <a class="reference external" href="https://young-won.github.io/deepbiome/prerequisites.html#configuration">documantation</a></p>
+<p>Let’s start with the baby step example for classification problem. Below is the basic example of the configuration for binary classification problem using example data contained in the package. For the required data type or more detailed configuration, please check the detailed information about each option in the <a class="reference external" href="https://young-won.github.io/deepbiome/prerequisites.html#configuration">documantation</a> and the detailed
+<a class="reference external" href="https://young-won.github.io/deepbiome/example_with_the_list_of_inputs.html">examples</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -436,19 +446,17 @@ div.rendered_html tbody tr:hover {
 
 <span class="n">path_info</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;data_info&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;count_list_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/gcount_list.csv&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;count_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/count&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;data_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;idx_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/simulation/s2/idx.csv&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tree_info_path&#39;</span><span class="p">:</span> <span class="s1">&#39;data/genus48/genus48_dic.csv&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;x_path&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;y_path&#39;</span><span class="p">:</span> <span class="s1">&#39;y.csv&#39;</span>
+        <span class="s1">&#39;data_path&#39;</span><span class="p">:</span> <span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;idx_path&#39;</span><span class="p">:</span> <span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/onefile_idx.csv&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;tree_info_path&#39;</span><span class="p">:</span> <span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/genus48_dic.csv&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;x_path&#39;</span><span class="p">:</span> <span class="s1">&#39;onefile_x.csv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;y_path&#39;</span><span class="p">:</span> <span class="s1">&#39;classification_y.csv&#39;</span>
     <span class="p">},</span>
     <span class="s1">&#39;model_info&#39;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s1">&#39;evaluation&#39;</span><span class="p">:</span> <span class="s1">&#39;eval.npy&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="s1">&#39;history/hist.json&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./simulation_s2/simulation_s2_deepbiome/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight/weight.h5&#39;</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="s1">&#39;hist.json&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;model_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;weight.h5&#39;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -456,7 +464,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>For logging, we used the python logging library.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -470,7 +478,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>Here is the <code class="docutils literal notranslate"><span class="pre">deepbiome.deepbiome_train</span></code> function for training:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -495,7 +503,7 @@ Using TensorFlow backend.
 [root    |INFO|deepbiome.py:147] -----------------------------------------------------------------
 [root    |INFO|deepbiome.py:148] Build network for 1 simulation
 [root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv
+[root    |INFO|build_network.py:507] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
 [root    |INFO|build_network.py:512] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
 [root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
 [root    |INFO|build_network.py:520]      Genus: 48
@@ -504,7 +512,7 @@ Using TensorFlow backend.
 [root    |INFO|build_network.py:520]      Class: 17
 [root    |INFO|build_network.py:520]     Phylum: 9
 [root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Genus&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Genus&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Phylum&#39;]
 [root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------
 [root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]
 [root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]
@@ -579,27 +587,27 @@ Use tf.cast instead.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Train on 600 samples, validate on 150 samples
+Train on 640 samples, validate on 160 samples
 Epoch 1/10
-600/600 [==============================] - 1s 1ms/step - loss: 0.6900 - binary_accuracy: 0.6550 - sensitivity: 0.8906 - specificity: 0.1111 - gmeasure: 0.1577 - auc: 0.4864 - val_loss: 0.6829 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4233
+640/640 [==============================] - 1s 1ms/step - loss: 0.6872 - binary_accuracy: 0.6750 - sensitivity: 0.9847 - specificity: 0.0072 - gmeasure: 0.0412 - auc: 0.4661 - val_loss: 0.6708 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4638
 Epoch 2/10
-600/600 [==============================] - 0s 62us/step - loss: 0.6801 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4657 - val_loss: 0.6715 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4962
+640/640 [==============================] - 0s 76us/step - loss: 0.6668 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5575 - val_loss: 0.6486 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4292
 Epoch 3/10
-600/600 [==============================] - 0s 50us/step - loss: 0.6696 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5121 - val_loss: 0.6601 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5386
+640/640 [==============================] - 0s 71us/step - loss: 0.6466 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5892 - val_loss: 0.6297 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4356
 Epoch 4/10
-600/600 [==============================] - 0s 55us/step - loss: 0.6594 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5354 - val_loss: 0.6492 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5441
+640/640 [==============================] - 0s 73us/step - loss: 0.6318 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5951 - val_loss: 0.6188 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4420
 Epoch 5/10
-600/600 [==============================] - 0s 56us/step - loss: 0.6488 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5431 - val_loss: 0.6393 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5501
+640/640 [==============================] - 0s 70us/step - loss: 0.6254 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5916 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4540
 Epoch 6/10
-600/600 [==============================] - 0s 60us/step - loss: 0.6400 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5463 - val_loss: 0.6304 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5503
+640/640 [==============================] - 0s 77us/step - loss: 0.6248 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6458 - val_loss: 0.6184 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4698
 Epoch 7/10
-600/600 [==============================] - 0s 64us/step - loss: 0.6324 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5407 - val_loss: 0.6229 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508
+640/640 [==============================] - 0s 73us/step - loss: 0.6278 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6974 - val_loss: 0.6190 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4960
 Epoch 8/10
-600/600 [==============================] - 0s 61us/step - loss: 0.6266 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5506 - val_loss: 0.6171 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5508
+640/640 [==============================] - 0s 72us/step - loss: 0.6282 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7014 - val_loss: 0.6180 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5292
 Epoch 9/10
-600/600 [==============================] - 0s 53us/step - loss: 0.6226 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5497 - val_loss: 0.6133 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5532
+640/640 [==============================] - 0s 74us/step - loss: 0.6260 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7385 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5627
 Epoch 10/10
-600/600 [==============================] - 0s 64us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5489 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5565
+640/640 [==============================] - 0s 66us/step - loss: 0.6236 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7905 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5951
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -607,11 +615,11 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
-[root    |INFO|build_network.py:143] Training end with time 3.6571226119995117!
-[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
-[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_0.h5
-[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_0.json
+[root    |INFO|build_network.py:83] Load trained model weight at ./weight_0.h5
+[root    |INFO|build_network.py:143] Training end with time 3.435981273651123!
+[root    |INFO|build_network.py:79] Saved trained model weight at ./weight_0.h5
+[root    |DEBUG|deepbiome.py:166] Save weight at ./weight_0.h5
+[root    |DEBUG|deepbiome.py:169] Save history at ./hist_0.json
 [root    |INFO|build_network.py:169] Evaluation start!
 </pre></div></div>
 </div>
@@ -620,7 +628,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-750/750 [==============================] - 0s 7us/step
+800/800 [==============================] - 0s 9us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -628,8 +636,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:174] Evaluation end with time 0.012011289596557617!
-[root    |INFO|build_network.py:175] Evaluation: [0.6186335682868958, 0.690666675567627, 1.0, 0.0, 0.0, 0.5562883019447327]
+[root    |INFO|build_network.py:174] Evaluation end with time 0.015033245086669922!
+[root    |INFO|build_network.py:175] Evaluation: [0.6220226883888245, 0.6862499713897705, 1.0, 0.0, 0.0, 0.7600091695785522]
 [root    |INFO|build_network.py:169] Evaluation start!
 </pre></div></div>
 </div>
@@ -638,7 +646,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 22us/step
+200/200 [==============================] - 0s 25us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -646,9 +654,9 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:174] Evaluation end with time 0.012785911560058594!
-[root    |INFO|build_network.py:175] Evaluation: [0.6300222873687744, 0.6759999990463257, 1.0, 0.0, 0.0, 0.5671342015266418]
-[root    |INFO|deepbiome.py:180] Compute time : 5.438173294067383
+[root    |INFO|build_network.py:174] Evaluation end with time 0.012362003326416016!
+[root    |INFO|build_network.py:175] Evaluation: [0.6190998554229736, 0.6899999976158142, 1.0, 0.0, 0.0, 0.7425198554992676]
+[root    |INFO|deepbiome.py:180] Compute time : 6.31894063949585
 [root    |INFO|deepbiome.py:181] 1 fold computing end!---------------------------------------------
 [root    |INFO|deepbiome.py:137] -------2 simulation start!----------------------------------
 [root    |INFO|readers.py:57] -----------------------------------------------------------------------
@@ -658,7 +666,7 @@ Epoch 10/10
 [root    |INFO|deepbiome.py:147] -----------------------------------------------------------------
 [root    |INFO|deepbiome.py:148] Build network for 2 simulation
 [root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:507] Read phylogenetic tree information from data/genus48/genus48_dic.csv
+[root    |INFO|build_network.py:507] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
 [root    |INFO|build_network.py:512] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
 [root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
 [root    |INFO|build_network.py:520]      Genus: 48
@@ -667,7 +675,7 @@ Epoch 10/10
 [root    |INFO|build_network.py:520]      Class: 17
 [root    |INFO|build_network.py:520]     Phylum: 9
 [root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Genus&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: [&#39;Class&#39;, &#39;Genus&#39;, &#39;Number&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Phylum&#39;]
 [root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------
 [root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]
 [root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]
@@ -736,27 +744,27 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Train on 600 samples, validate on 150 samples
+Train on 640 samples, validate on 160 samples
 Epoch 1/10
-600/600 [==============================] - 0s 697us/step - loss: 0.6832 - binary_accuracy: 0.6083 - sensitivity: 0.6764 - specificity: 0.3228 - gmeasure: 0.0560 - auc: 0.5388 - val_loss: 0.6661 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5904
+640/640 [==============================] - 1s 785us/step - loss: 0.6869 - binary_accuracy: 0.6906 - sensitivity: 0.9460 - specificity: 0.0574 - gmeasure: 0.1061 - auc: 0.5067 - val_loss: 0.6684 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5046
 Epoch 2/10
-600/600 [==============================] - 0s 75us/step - loss: 0.6567 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5764 - val_loss: 0.6406 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6444
+640/640 [==============================] - 0s 72us/step - loss: 0.6644 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5049 - val_loss: 0.6401 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5071
 Epoch 3/10
-600/600 [==============================] - 0s 66us/step - loss: 0.6329 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5717 - val_loss: 0.6181 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6005
+640/640 [==============================] - 0s 72us/step - loss: 0.6386 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5282 - val_loss: 0.6136 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5102
 Epoch 4/10
-600/600 [==============================] - 0s 63us/step - loss: 0.6109 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.6007 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6028
+640/640 [==============================] - 0s 75us/step - loss: 0.6162 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5213 - val_loss: 0.5909 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5176
 Epoch 5/10
-600/600 [==============================] - 0s 60us/step - loss: 0.5955 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5794 - val_loss: 0.5900 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6042
+640/640 [==============================] - 0s 73us/step - loss: 0.6017 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4813 - val_loss: 0.5779 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5188
 Epoch 6/10
-600/600 [==============================] - 0s 57us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5784 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6096
+640/640 [==============================] - 0s 73us/step - loss: 0.5979 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5115 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5163
 Epoch 7/10
-600/600 [==============================] - 0s 59us/step - loss: 0.5871 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5833 - val_loss: 0.5887 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6287
+640/640 [==============================] - 0s 75us/step - loss: 0.5997 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4661 - val_loss: 0.5763 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5141
 Epoch 8/10
-600/600 [==============================] - 0s 61us/step - loss: 0.5873 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6086 - val_loss: 0.5908 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6730
+640/640 [==============================] - 0s 76us/step - loss: 0.6003 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5192 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5099
 Epoch 9/10
-600/600 [==============================] - 0s 60us/step - loss: 0.5891 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6512 - val_loss: 0.5910 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7267
+640/640 [==============================] - 0s 68us/step - loss: 0.5988 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4937 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5042
 Epoch 10/10
-600/600 [==============================] - 0s 61us/step - loss: 0.5888 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7052 - val_loss: 0.5893 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7928
+640/640 [==============================] - 0s 70us/step - loss: 0.5972 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5483 - val_loss: 0.5767 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4996
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -764,11 +772,11 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:83] Load trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
-[root    |INFO|build_network.py:143] Training end with time 2.510734796524048!
-[root    |INFO|build_network.py:79] Saved trained model weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
-[root    |DEBUG|deepbiome.py:166] Save weight at ./simulation_s2/simulation_s2_deepbiome/weight/weight_1.h5
-[root    |DEBUG|deepbiome.py:169] Save history at ./simulation_s2/simulation_s2_deepbiome/history/hist_1.json
+[root    |INFO|build_network.py:83] Load trained model weight at ./weight_1.h5
+[root    |INFO|build_network.py:143] Training end with time 2.7756500244140625!
+[root    |INFO|build_network.py:79] Saved trained model weight at ./weight_1.h5
+[root    |DEBUG|deepbiome.py:166] Save weight at ./weight_1.h5
+[root    |DEBUG|deepbiome.py:169] Save history at ./hist_1.json
 [root    |INFO|build_network.py:169] Evaluation start!
 </pre></div></div>
 </div>
@@ -777,7 +785,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-750/750 [==============================] - 0s 7us/step
+800/800 [==============================] - 0s 8us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -785,8 +793,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:174] Evaluation end with time 0.012083768844604492!
-[root    |INFO|build_network.py:175] Evaluation: [0.5852290987968445, 0.7279999852180481, 1.0, 0.0, 0.0, 0.5892587900161743]
+[root    |INFO|build_network.py:174] Evaluation end with time 0.012213706970214844!
+[root    |INFO|build_network.py:175] Evaluation: [0.5944244861602783, 0.7200000286102295, 1.0, 0.0, 0.0, 0.508866548538208]
 [root    |INFO|build_network.py:169] Evaluation start!
 </pre></div></div>
 </div>
@@ -795,7 +803,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 16us/step
+200/200 [==============================] - 0s 27us/step
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -803,18 +811,18 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:174] Evaluation end with time 0.010590553283691406!
-[root    |INFO|build_network.py:175] Evaluation: [0.6164111495018005, 0.6959999799728394, 1.0, 0.0, 0.0, 0.6603524088859558]
-[root    |INFO|deepbiome.py:180] Compute time : 3.6922340393066406
+[root    |INFO|build_network.py:174] Evaluation end with time 0.010983943939208984!
+[root    |INFO|build_network.py:175] Evaluation: [0.5944291353225708, 0.7200000286102295, 1.0, 0.0, 0.0, 0.4608134925365448]
+[root    |INFO|deepbiome.py:180] Compute time : 3.853395462036133
 [root    |INFO|deepbiome.py:181] 2 fold computing end!---------------------------------------------
 [root    |INFO|deepbiome.py:184] -----------------------------------------------------------------
 [root    |INFO|deepbiome.py:186] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:189]       mean : [0.60193133 0.70933333 1.         0.         0.         0.57277355]
-[root    |INFO|deepbiome.py:190]        std : [0.01670223 0.01866665 0.         0.         0.         0.01648524]
+[root    |INFO|deepbiome.py:189]       mean : [0.60822359 0.703125   1.         0.         0.         0.63443786]
+[root    |INFO|deepbiome.py:190]        std : [0.0137991  0.01687503 0.         0.         0.         0.12557131]
 [root    |INFO|deepbiome.py:191] -----------------------------------------------------------------
 [root    |INFO|deepbiome.py:193] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:196]       mean : [0.62321672 0.68599999 1.         0.         0.         0.61374331]
-[root    |INFO|deepbiome.py:197]        std : [0.00680557 0.00999999 0.         0.         0.         0.0466091 ]
+[root    |INFO|deepbiome.py:196]       mean : [0.6067645  0.70500001 1.         0.         0.         0.60166667]
+[root    |INFO|deepbiome.py:197]        std : [0.01233536 0.01500002 0.         0.         0.         0.14085318]
 [root    |INFO|deepbiome.py:198] -----------------------------------------------------------------
 [root    |INFO|deepbiome.py:207] Total Computing Ended
 [root    |INFO|deepbiome.py:208] -----------------------------------------------------------------
