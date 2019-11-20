@@ -17,22 +17,37 @@ import tensorflow as tf
 import keras.backend as K
 from keras.losses import mean_squared_error, mean_absolute_error, binary_crossentropy, categorical_crossentropy, sparse_categorical_crossentropy
 from keras.metrics import binary_accuracy, categorical_accuracy, sparse_categorical_accuracy
-from sklearn.metrics import roc_auc_score, f1_score
+from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score
 
 ###############################################################################################################################
 # tf loss functions
-def precision(y_true, y_pred):
-    return K.sum(y_true*y_pred)/(K.sum(y_true*y_pred) + K.sum((1-y_true)*y_pred) + 1e-10)
-
 def recall(y_true, y_pred):
-    return K.sum(y_true*y_pred)/(K.sum(y_true*y_pred) + K.sum(y_true*(1-y_pred)) + 1e-10)
+    y_pred = K.round(y_pred)
+    score = tf.py_function(lambda y_true, y_pred : recall_score(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+                           [y_true, y_pred],
+                           Tout=tf.float32,
+                           name='sklearnRecall')
+    return score
+    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    # predicted_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    # recall = true_positives / (predicted_positives + K.epsilon())
+    # return recall
+    # return K.sum(y_true==y_pred)/(K.sum(y_true==y_pred) + K.sum(y_true==(1-y_pred)) + 1e-10)
 
+def precision(y_true, y_pred):
+    y_pred = K.round(y_pred)
+    score = tf.py_function(lambda y_true, y_pred : precision_score(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
+                           [y_true, y_pred],
+                           Tout=tf.float32,
+                           name='sklearnPrecision')
+    return score
+    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    # predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    # precision = true_positives / (predicted_positives + K.epsilon())
+    # return precision
+    # return K.sum(y_true==y_pred)/(K.sum(y_true==y_pred) + K.sum((1-y_true)==y_pred) + 1e-10)
+    
 def sensitivity(y_true, y_pred):
-#     y_pred = K.round(y_pred)
-#     neg_y_pred = 1 - y_pred
-#     true_positive = K.sum(y_true * y_pred)
-#     false_negative = K.sum(y_true * neg_y_pred)
-#     return (true_positive) / (true_positive + false_negative + K.epsilon())
     y_pred = K.cast(K.greater(K.clip(y_pred, 0, 1), 0.5), K.floatx())
     neg_y_pred = 1 - y_pred
     true_positive = K.round(K.sum(K.clip(y_true * y_pred, 0, 1)))
@@ -40,12 +55,6 @@ def sensitivity(y_true, y_pred):
     return (true_positive) / (true_positive + false_negative + K.epsilon())
 
 def specificity(y_true, y_pred):
-#     y_pred = K.round(y_pred)
-#     neg_y_true = 1 - y_true
-#     neg_y_pred = 1 - y_pred
-#     false_positive = K.sum(neg_y_true * y_pred)
-#     true_negative = K.sum(neg_y_true * neg_y_pred)
-#     return (true_negative) / (false_positive + true_negative + K.epsilon())
     y_pred = K.cast(K.greater(K.clip(y_pred, 0, 1), 0.5), K.floatx())
     neg_y_true = 1 - y_true
     neg_y_pred = 1 - y_pred
@@ -72,6 +81,10 @@ def f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None):
     return score
 
 def f1(y_true, y_pred):
+    # precision = precision(y_true, y_pred)
+    # recall = recall(y_true, y_pred)
+    # return 2 * (precision * recall) / (precision + recall + K.epsilon())
+
     # https://stackoverflow.com/questions/43263111/defining-an-auc-metric-for-keras-to-support-evaluation-of-validation-dataset
     y_pred = K.round(y_pred)
     score = tf.py_function(lambda y_true, y_pred : f1_score_with_nan(y_true, y_pred, average='macro', sample_weight=None).astype('float32'),
@@ -118,15 +131,15 @@ def np_binary_accuracy(y_true, y_pred):
     return skmetrics.accuracy_score(y_true, y_pred, normalize=True, sample_weight=None)
 
 def np_precision(y_true, y_pred):
-    return skmetrics.precision_score(y_true, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)
+    return precision_score(y_true, y_pred, labels=None, pos_label=1, average='macro', sample_weight=None)
     # return (np.sum(y_true*y_pred) + 1e-7)/(np.sum(y_true*y_pred) + np.sum((1-y_true)*y_pred) + 1e-7)
 
 def np_recall(y_true, y_pred):
-    return skmetrics.recall_score(y_true, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)
+    return recall_score(y_true, y_pred, labels=None, pos_label=1, average='macro', sample_weight=None)
     # return (np.sum(y_true*y_pred) + 1e-7)/(np.sum(y_true*y_pred) + np.sum(y_true*(1-y_pred)) + 1e-7)
 
 def np_f1_score(y_true, y_pred):
-    return skmetrics.f1_score(y_true, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)
+    return skmetrics.f1_score(y_true, y_pred, labels=None, pos_label=1, average='macro', sample_weight=None)
 
 def np_roc_auc(y_true, y_pred):
     return skmetrics.roc_auc_score(y_true, y_pred, average='macro', sample_weight=None)
