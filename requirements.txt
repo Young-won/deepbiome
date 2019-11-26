@@ -4,3 +4,5 @@ tensorflow
 numpy >= 1.12
 pandas
 sklearn
+PyQt
+ete3

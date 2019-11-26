@@ -30,7 +30,12 @@ from .utils import file_path_fold, argv_parse, taxa_selection_accuracy
 
 import keras.backend as k  
 import tensorflow as tf
-    
+
+import copy
+from ete3 import Tree, faces, AttrFace, TreeStyle, NodeStyle, CircleFace
+import matplotlib.colors as mcolors
+
+
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     max_queue_size=10, workers=1, use_multiprocessing=False):
     """
@@ -612,6 +617,175 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
     if not tf.__version__.startswith('2'): k.clear_session()
     gc.collect()
     return summary
+
+
+def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
+                                     file_name = "%%inline", img_w = 500, branch_vertical_margin = 20, 
+                                     arc_start = 0, arc_span = 360,
+                                     node_name_on = True, name_fsize = 10,
+                                     tree_weight_on = True, tree_weight=None, weight_opacity = 0.4, weight_max_radios = 10, 
+                                     background_color_on = True, phylumn_color = []):
+    """
+    Draw phylogenetic tree
+    
+    See ref url (TODO: update)
+
+    Parameters
+    ----------
+    log (logging instance) :
+        python logging instance for logging
+    network_info (dictionary) :
+        python dictionary with network_information
+    path_info (dictionary):
+        python dictionary with path_information
+    num_classes (int):
+        number of classes for the network. 0 for regression, 1 for binary classificatin.
+    file_name (str):
+        name of the figure for save.
+        - "*.png", "*.jpg"
+        - "%%inline" for notebook inline output.
+        default="%%inline"
+    img_w (int):
+        image width (pt)
+        default=500
+    branch_vertical_margin (int):
+        default=20
+    arc_start (int):
+        default=0
+    arc_span (int):
+        default=360
+    node_name_on (boolean):
+        default=False
+    name_fsize (int):
+        default=10
+    tree_weight_on (boolean):
+        default=True
+    tree_weight (ndarray)
+        default=None
+    weight_opacity  (float)
+        default= 0.4
+    weight_max_radios (int)
+        default= 10
+    background_color_on (boolean)
+        default= True
+    phylumn_color (list)
+        default= []
+    
+    Returns
+    -------
+    
+    Examples
+    --------
+    Draw phylogenetic tree
+    
+    deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes, file_name = "%%inline")
+    """
+    
+    os.environ['QT_QPA_PLATFORM']='offscreen' # for tree figure (https://github.com/etetoolkit/ete/issues/381)
+    
+    network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
+    network = network_class(network_info, path_info['data_info'], log, fold=0, num_classes=num_classes, verbose=False)
+    
+    if len(phylumn_color) == 0:
+        colors = mcolors.CSS4_COLORS
+        colors_name = list(colors.keys())
+        phylumn_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum'].unique().shape[0])
+    
+    basic_st = NodeStyle()
+    basic_st['size'] = weight_max_radios * 0.5
+    basic_st['shape'] = 'circle'
+    basic_st['fgcolor'] = 'black'
+    
+    t = Tree()
+    root_st = NodeStyle()
+    root_st["size"] = 0
+    t.set_style(root_st)
+    for i, phylum_val in enumerate(network.phylogenetic_tree_info['Phylum'].unique()):
+        t.add_child(name=phylum_val)
+        phylum_t = t.get_leaves_by_name(name=phylum_val)[0]
+        if background_color_on:
+            phylum_st = copy.deepcopy(basic_st)
+            phylum_st["bgcolor"] = phylumn_color[i]
+            phylum_t.set_style(phylum_st)
+        else:
+            phylum_t.set_style(basic_st)
+            
+        child_class = network.phylogenetic_tree_info['Class'][network.phylogenetic_tree_info['Phylum'] == phylum_val].unique()
+        for class_val in child_class:
+            phylum_t.add_child(name=class_val)
+            class_t = t.get_leaves_by_name(name=class_val)[0]
+            class_t.set_style(basic_st)
+            if tree_weight_on:
+                class_weights = tree_weight[-1] 
+                class_weights *= (weight_max_radios / np.max(class_weights))
+                phylum_num = network.phylogenetic_tree_dict['Phylum'][phylum_val]
+                class_num = network.phylogenetic_tree_dict['Class'][class_val]
+                class_t.add_features(weight=class_weights[class_num,phylum_num])
+
+            child_order = network.phylogenetic_tree_info['Order'][network.phylogenetic_tree_info['Class'] == class_val].unique()
+            for order_val in child_order:
+                class_t.add_child(name=order_val)
+                order_t = t.get_leaves_by_name(name=order_val)[0]
+                order_t.set_style(basic_st)
+                if tree_weight_on:
+                    order_weights = tree_weight[-2] 
+                    order_weights *= (weight_max_radios / np.max(order_weights))
+                    class_num = network.phylogenetic_tree_dict['Class'][class_val]
+                    order_num = network.phylogenetic_tree_dict['Order'][order_val]
+                    order_t.add_features(weight=order_weights[order_num,class_num])
+                    
+                child_family = network.phylogenetic_tree_info['Family'][network.phylogenetic_tree_info['Order'] == order_val].unique()
+                for family_val in child_family:
+                    order_t.add_child(name=family_val)
+                    family_t = t.get_leaves_by_name(name=family_val)[0]
+                    family_t.set_style(basic_st)
+                    if tree_weight_on:
+                        family_weights = tree_weight[-3] 
+                        family_weights *= (weight_max_radios / np.max(family_weights))
+                        order_num = network.phylogenetic_tree_dict['Order'][order_val]
+                        family_num = network.phylogenetic_tree_dict['Family'][family_val]
+                        family_t.add_features(weight=family_weights[family_num, order_num])
+                        
+                    child_genus = network.phylogenetic_tree_info['Genus'][network.phylogenetic_tree_info['Family'] == family_val].unique()
+                    for genus_val in child_genus:
+                        family_t.add_child(name=genus_val)
+                        genus_t = t.get_leaves_by_name(name=genus_val)[0]
+                        genus_t.set_style(basic_st)
+                        if tree_weight_on:
+                            genus_weights = tree_weight[-4] 
+                            genus_weights *= (weight_max_radios / np.max(genus_weights))
+                            family_num = network.phylogenetic_tree_dict['Family'][family_val]
+                            genus_num = network.phylogenetic_tree_dict['Genus'][genus_val]
+                            genus_t.add_features(weight=genus_weights[genus_num, family_num])
+                    
+    def layout(node):
+        if "weight" in node.features:
+            # Creates a sphere face whose size is proportional to node's
+            # feature "weight"
+            color = {1:"RoyalBlue", 0: "Red"}[int(node.weight > 0)]
+            C = CircleFace(radius=node.weight, color=color, style="circle")
+            # Let's make the sphere transparent
+            C.opacity = weight_opacity
+            # And place as a float face over the tree
+            faces.add_face_to_node(C, node, 0, position="float")
+        
+        if node_name_on & node.is_leaf():
+            # Add node name to laef nodes
+            N = AttrFace("name", fsize=name_fsize, fgcolor="black")
+            faces.add_face_to_node(N, node, 0)
+        
+        
+    ts = TreeStyle()
+
+    ts.show_leaf_name = False
+    ts.mode = "c"
+    ts.arc_start = arc_start
+    ts.arc_span = arc_span
+    ts.layout_fn = layout
+    ts.branch_vertical_margin = branch_vertical_margin
+    ts.show_scale = False
+
+    return t.render(file_name=file_name, w=img_w, tree_style=ts)
 
 # #########################################################################################################################
 # if __name__ == "__main__":  
