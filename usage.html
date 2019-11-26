@@ -187,13 +187,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -247,7 +247,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                 <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -283,7 +283,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
 <span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
 
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If you use the index file, this function provides the evaluation using test index (index set not included in the index file) for each fold. If not, this function provides the evaluation using the whole sample.
@@ -296,7 +296,7 @@ If <cite>number_of_fold</cite> is setted as <cite>k</cite>, the function will te
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for python 3.x</span>
 <span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
 
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">change_weight_for_each_fold</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">change_weight_for_each_fold</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If <cite>number_of_fold</cite> is set as <cite>k</cite>, the function will predict the output of the first <cite>k</cite> folds’ samples.</p>
@@ -341,13 +341,13 @@ If <cite>change_weight_for_each_fold</cite> is set as <cite>True</cite>, the fun
 <span class="c1"># Argument ##########################################################</span>
 <span class="n">argdict</span> <span class="o">=</span> <span class="n">argv_parse</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;gpu_memory_fraction&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="k">except</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">gpu_memory_fraction</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="k">try</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;max_queue_size&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">except</span><span class="p">:</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span>
 <span class="k">try</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;workers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">except</span><span class="p">:</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span>
 <span class="k">try</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;use_multiprocessing&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;True&#39;</span>
-<span class="k">except</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="bp">False</span>
+<span class="k">except</span><span class="p">:</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span>
 
 <span class="c1"># Logger ###########################################################</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging_daily</span><span class="o">.</span><span class="n">logging_daily</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;log_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
@@ -357,7 +357,7 @@ If <cite>change_weight_for_each_fold</cite> is set as <cite>True</cite>, the fun
 
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Argument input&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">argname</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">argdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    {}:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">argname</span><span class="p">,</span><span class="n">arg</span><span class="p">))</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">argname</span><span class="p">,</span><span class="n">arg</span><span class="p">))</span>
 
 <span class="c1"># Configuration ####################################################</span>
 <span class="n">config_data</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">Configurator</span><span class="p">(</span><span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;path_info&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">log</span><span class="p">)</span>

@@ -186,18 +186,23 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">logging_daily</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">configuration</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">loss_and_metric</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">readers</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">build_network</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">file_path_fold</span><span class="p">,</span> <span class="n">argv_parse</span><span class="p">,</span> <span class="n">taxa_selection_accuracy</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">logging_daily</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">configuration</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">loss_and_metric</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">readers</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">build_network</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">file_path_fold</span><span class="p">,</span> <span class="n">argv_parse</span><span class="p">,</span> <span class="n">taxa_selection_accuracy</span>
 
 <span class="kn">import</span> <span class="nn">keras.backend</span> <span class="k">as</span> <span class="nn">k</span>  
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-    
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">ete3</span> <span class="kn">import</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">AttrFace</span><span class="p">,</span> <span class="n">TreeStyle</span><span class="p">,</span> <span class="n">NodeStyle</span><span class="p">,</span> <span class="n">CircleFace</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+
+
 <div class="viewcode-block" id="deepbiome_train"><a class="viewcode-back" href="../../usage.html#deepbiome.deepbiome.deepbiome_train">[docs]</a><span class="k">def</span> <span class="nf">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                     <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -779,6 +784,175 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span> <span class="n">k</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">summary</span></div>
+
+
+<span class="k">def</span> <span class="nf">deepbiome_draw_phylogenetic_tree</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span>
+                                     <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%%</span><span class="s2">inline&quot;</span><span class="p">,</span> <span class="n">img_w</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">branch_vertical_margin</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
+                                     <span class="n">arc_start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">arc_span</span> <span class="o">=</span> <span class="mi">360</span><span class="p">,</span>
+                                     <span class="n">node_name_on</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">name_fsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                                     <span class="n">tree_weight_on</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tree_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight_opacity</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">weight_max_radios</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> 
+                                     <span class="n">background_color_on</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">phylumn_color</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw phylogenetic tree</span>
+<span class="sd">    </span>
+<span class="sd">    See ref url (TODO: update)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log (logging instance) :</span>
+<span class="sd">        python logging instance for logging</span>
+<span class="sd">    network_info (dictionary) :</span>
+<span class="sd">        python dictionary with network_information</span>
+<span class="sd">    path_info (dictionary):</span>
+<span class="sd">        python dictionary with path_information</span>
+<span class="sd">    num_classes (int):</span>
+<span class="sd">        number of classes for the network. 0 for regression, 1 for binary classificatin.</span>
+<span class="sd">    file_name (str):</span>
+<span class="sd">        name of the figure for save.</span>
+<span class="sd">        - &quot;*.png&quot;, &quot;*.jpg&quot;</span>
+<span class="sd">        - &quot;%%inline&quot; for notebook inline output.</span>
+<span class="sd">        default=&quot;%%inline&quot;</span>
+<span class="sd">    img_w (int):</span>
+<span class="sd">        image width (pt)</span>
+<span class="sd">        default=500</span>
+<span class="sd">    branch_vertical_margin (int):</span>
+<span class="sd">        default=20</span>
+<span class="sd">    arc_start (int):</span>
+<span class="sd">        default=0</span>
+<span class="sd">    arc_span (int):</span>
+<span class="sd">        default=360</span>
+<span class="sd">    node_name_on (boolean):</span>
+<span class="sd">        default=False</span>
+<span class="sd">    name_fsize (int):</span>
+<span class="sd">        default=10</span>
+<span class="sd">    tree_weight_on (boolean):</span>
+<span class="sd">        default=True</span>
+<span class="sd">    tree_weight (ndarray)</span>
+<span class="sd">        default=None</span>
+<span class="sd">    weight_opacity  (float)</span>
+<span class="sd">        default= 0.4</span>
+<span class="sd">    weight_max_radios (int)</span>
+<span class="sd">        default= 10</span>
+<span class="sd">    background_color_on (boolean)</span>
+<span class="sd">        default= True</span>
+<span class="sd">    phylumn_color (list)</span>
+<span class="sd">        default= []</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Draw phylogenetic tree</span>
+<span class="sd">    </span>
+<span class="sd">    deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes, file_name = &quot;%%inline&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;QT_QPA_PLATFORM&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;offscreen&#39;</span> <span class="c1"># for tree figure (https://github.com/etetoolkit/ete/issues/381)</span>
+    
+    <span class="n">network_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">build_network</span><span class="p">,</span> <span class="n">network_info</span><span class="p">[</span><span class="s1">&#39;model_info&#39;</span><span class="p">][</span><span class="s1">&#39;network_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
+    <span class="n">network</span> <span class="o">=</span> <span class="n">network_class</span><span class="p">(</span><span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">[</span><span class="s1">&#39;data_info&#39;</span><span class="p">],</span> <span class="n">log</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">phylumn_color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">CSS4_COLORS</span>
+        <span class="n">colors_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">phylumn_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">colors_name</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="n">basic_st</span> <span class="o">=</span> <span class="n">NodeStyle</span><span class="p">()</span>
+    <span class="n">basic_st</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight_max_radios</span> <span class="o">*</span> <span class="mf">0.5</span>
+    <span class="n">basic_st</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;circle&#39;</span>
+    <span class="n">basic_st</span><span class="p">[</span><span class="s1">&#39;fgcolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+    
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+    <span class="n">root_st</span> <span class="o">=</span> <span class="n">NodeStyle</span><span class="p">()</span>
+    <span class="n">root_st</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">root_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">phylum_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()):</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">phylum_val</span><span class="p">)</span>
+        <span class="n">phylum_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">phylum_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">background_color_on</span><span class="p">:</span>
+            <span class="n">phylum_st</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+            <span class="n">phylum_st</span><span class="p">[</span><span class="s2">&quot;bgcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phylumn_color</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">phylum_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">phylum_st</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">phylum_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+            
+        <span class="n">child_class</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">][</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">phylum_val</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">class_val</span> <span class="ow">in</span> <span class="n">child_class</span><span class="p">:</span>
+            <span class="n">phylum_t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">class_val</span><span class="p">)</span>
+            <span class="n">class_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">class_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">class_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tree_weight_on</span><span class="p">:</span>
+                <span class="n">class_weights</span> <span class="o">=</span> <span class="n">tree_weight</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+                <span class="n">class_weights</span> <span class="o">*=</span> <span class="p">(</span><span class="n">weight_max_radios</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">class_weights</span><span class="p">))</span>
+                <span class="n">phylum_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">][</span><span class="n">phylum_val</span><span class="p">]</span>
+                <span class="n">class_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">][</span><span class="n">class_val</span><span class="p">]</span>
+                <span class="n">class_t</span><span class="o">.</span><span class="n">add_features</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">class_weights</span><span class="p">[</span><span class="n">class_num</span><span class="p">,</span><span class="n">phylum_num</span><span class="p">])</span>
+
+            <span class="n">child_order</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Order&#39;</span><span class="p">][</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">class_val</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">order_val</span> <span class="ow">in</span> <span class="n">child_order</span><span class="p">:</span>
+                <span class="n">class_t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">order_val</span><span class="p">)</span>
+                <span class="n">order_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">order_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">order_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tree_weight_on</span><span class="p">:</span>
+                    <span class="n">order_weights</span> <span class="o">=</span> <span class="n">tree_weight</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> 
+                    <span class="n">order_weights</span> <span class="o">*=</span> <span class="p">(</span><span class="n">weight_max_radios</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">order_weights</span><span class="p">))</span>
+                    <span class="n">class_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">][</span><span class="n">class_val</span><span class="p">]</span>
+                    <span class="n">order_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Order&#39;</span><span class="p">][</span><span class="n">order_val</span><span class="p">]</span>
+                    <span class="n">order_t</span><span class="o">.</span><span class="n">add_features</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">order_weights</span><span class="p">[</span><span class="n">order_num</span><span class="p">,</span><span class="n">class_num</span><span class="p">])</span>
+                    
+                <span class="n">child_family</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Family&#39;</span><span class="p">][</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Order&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">order_val</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">family_val</span> <span class="ow">in</span> <span class="n">child_family</span><span class="p">:</span>
+                    <span class="n">order_t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">family_val</span><span class="p">)</span>
+                    <span class="n">family_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">family_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">family_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">tree_weight_on</span><span class="p">:</span>
+                        <span class="n">family_weights</span> <span class="o">=</span> <span class="n">tree_weight</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> 
+                        <span class="n">family_weights</span> <span class="o">*=</span> <span class="p">(</span><span class="n">weight_max_radios</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">family_weights</span><span class="p">))</span>
+                        <span class="n">order_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Order&#39;</span><span class="p">][</span><span class="n">order_val</span><span class="p">]</span>
+                        <span class="n">family_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Family&#39;</span><span class="p">][</span><span class="n">family_val</span><span class="p">]</span>
+                        <span class="n">family_t</span><span class="o">.</span><span class="n">add_features</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">family_weights</span><span class="p">[</span><span class="n">family_num</span><span class="p">,</span> <span class="n">order_num</span><span class="p">])</span>
+                        
+                    <span class="n">child_genus</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Genus&#39;</span><span class="p">][</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Family&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">family_val</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">genus_val</span> <span class="ow">in</span> <span class="n">child_genus</span><span class="p">:</span>
+                        <span class="n">family_t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">genus_val</span><span class="p">)</span>
+                        <span class="n">genus_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">genus_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">genus_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">tree_weight_on</span><span class="p">:</span>
+                            <span class="n">genus_weights</span> <span class="o">=</span> <span class="n">tree_weight</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> 
+                            <span class="n">genus_weights</span> <span class="o">*=</span> <span class="p">(</span><span class="n">weight_max_radios</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">genus_weights</span><span class="p">))</span>
+                            <span class="n">family_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Family&#39;</span><span class="p">][</span><span class="n">family_val</span><span class="p">]</span>
+                            <span class="n">genus_num</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_dict</span><span class="p">[</span><span class="s1">&#39;Genus&#39;</span><span class="p">][</span><span class="n">genus_val</span><span class="p">]</span>
+                            <span class="n">genus_t</span><span class="o">.</span><span class="n">add_features</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">genus_weights</span><span class="p">[</span><span class="n">genus_num</span><span class="p">,</span> <span class="n">family_num</span><span class="p">])</span>
+                    
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;weight&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+            <span class="c1"># Creates a sphere face whose size is proportional to node&#39;s</span>
+            <span class="c1"># feature &quot;weight&quot;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="s2">&quot;RoyalBlue&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Red&quot;</span><span class="p">}[</span><span class="nb">int</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">CircleFace</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+            <span class="c1"># Let&#39;s make the sphere transparent</span>
+            <span class="n">C</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="n">weight_opacity</span>
+            <span class="c1"># And place as a float face over the tree</span>
+            <span class="n">faces</span><span class="o">.</span><span class="n">add_face_to_node</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">node_name_on</span> <span class="o">&amp;</span> <span class="n">node</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">():</span>
+            <span class="c1"># Add node name to laef nodes</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">AttrFace</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">fsize</span><span class="o">=</span><span class="n">name_fsize</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+            <span class="n">faces</span><span class="o">.</span><span class="n">add_face_to_node</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        
+        
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">TreeStyle</span><span class="p">()</span>
+
+    <span class="n">ts</span><span class="o">.</span><span class="n">show_leaf_name</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">arc_start</span> <span class="o">=</span> <span class="n">arc_start</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">arc_span</span> <span class="o">=</span> <span class="n">arc_span</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">layout_fn</span> <span class="o">=</span> <span class="n">layout</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">branch_vertical_margin</span> <span class="o">=</span> <span class="n">branch_vertical_margin</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">show_scale</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">img_w</span><span class="p">,</span> <span class="n">tree_style</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
 
 <span class="c1"># #########################################################################################################################</span>
 <span class="c1"># if __name__ == &quot;__main__&quot;:  </span>

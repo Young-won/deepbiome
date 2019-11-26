@@ -200,16 +200,16 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput,
-div.nbinput div.prompt,
-div.nbinput div.input_area,
-div.nbinput div[class*=highlight],
-div.nbinput div[class*=highlight] pre,
-div.nboutput,
-div.nbinput div.prompt,
-div.nbinput div.output_area,
-div.nboutput div[class*=highlight],
-div.nboutput div[class*=highlight] pre {
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
     background: none;
     border: none;
     padding: 0 0;
@@ -218,13 +218,13 @@ div.nboutput div[class*=highlight] pre {
 }
 
 /* avoid gaps between output lines */
-div.nboutput div[class*=highlight] pre {
+div.nboutput.container div[class*=highlight] pre {
     line-height: normal;
 }
 
 /* input/output containers */
-div.nbinput,
-div.nboutput {
+div.nbinput.container,
+div.nboutput.container {
     display: -webkit-flex;
     display: flex;
     align-items: flex-start;
@@ -232,35 +232,35 @@ div.nboutput {
     width: 100%;
 }
 @media (max-width: 540px) {
-    div.nbinput,
-    div.nboutput {
+    div.nbinput.container,
+    div.nboutput.container {
         flex-direction: column;
     }
 }
 
 /* input container */
-div.nbinput {
+div.nbinput.container {
     padding-top: 5px;
 }
 
 /* last container */
-div.nblast {
+div.nblast.container {
     padding-bottom: 5px;
 }
 
 /* input prompt */
-div.nbinput div.prompt pre {
+div.nbinput.container div.prompt pre {
     color: #307FC1;
 }
 
 /* output prompt */
-div.nboutput div.prompt pre {
+div.nboutput.container div.prompt pre {
     color: #BF5B3D;
 }
 
 /* all prompts */
-div.nbinput div.prompt,
-div.nboutput div.prompt {
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
     min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
@@ -268,56 +268,56 @@ div.nboutput div.prompt {
     flex: 0;
 }
 @media (max-width: 540px) {
-    div.nbinput div.prompt,
-    div.nboutput div.prompt {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
         text-align: left;
         padding: 0.4em;
     }
-    div.nboutput div.prompt.empty {
+    div.nboutput.container div.prompt.empty {
         padding: 0;
     }
 }
 
 /* disable scrollbars on prompts */
-div.nbinput div.prompt pre,
-div.nboutput div.prompt pre {
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
     overflow: hidden;
 }
 
 /* input/output area */
-div.nbinput div.input_area,
-div.nboutput div.output_area {
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
     padding: 0.4em;
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
 }
 @media (max-width: 540px) {
-    div.nbinput div.input_area,
-    div.nboutput div.output_area {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
         width: 100%;
     }
 }
 
 /* input area */
-div.nbinput div.input_area {
+div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
-div.nboutput div[class*=MathJax] {
+div.nboutput.container div[class*=MathJax] {
     text-align: left !important;
 }
 
 /* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput div.math p {
+div.nboutput.container div.math p {
     text-align: left;
 }
 
 /* standard error */
-div.nboutput div.output_area.stderr {
+div.nboutput.container div.output_area.stderr {
     background: #fdd;
 }
 
@@ -398,13 +398,13 @@ div.rendered_html tbody tr:hover {
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -435,9 +435,9 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="kn">from</span> <span class="nn">deepbiome</span> <span class="kn">import</span> <span class="n">deepbiome</span>
 </pre></div>
@@ -946,7 +946,7 @@ Using TensorFlow backend.
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/genus48_dic.csv&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1438,7 +1438,7 @@ Pseudonocardia,Pseudonocardiaceae,Actinomycetales,Actinobacteria,Actinobacteria,
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/count/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">list_of_input_files</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -2614,15 +2614,15 @@ Pseudonocardia,Pseudonocardiaceae,Actinomycetales,Actinobacteria,Actinobacteria,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>0    4.997270
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    4.997270
 1    5.004092
 2    5.485126
 3    5.489590
 4    1.500001
 Name: x1, dtype: float64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -2637,15 +2637,15 @@ Name: x1, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>995    2.609926
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+995    2.609926
 996    5.488959
 997    3.498418
 998    5.486107
 999    5.319623
 Name: x1, dtype: float64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Example-of-the-Y-(classification)">
@@ -2810,15 +2810,15 @@ Name: x1, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>0    1
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    1
 1    1
 2    0
 3    0
 4    1
 Name: V1, dtype: int64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -2833,15 +2833,15 @@ Name: V1, dtype: int64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>995    1
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+995    1
 996    0
 997    1
 998    0
 999    1
 Name: V1, dtype: int64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Exmple-of-the-training-index-file-for-repetition">
@@ -3006,15 +3006,15 @@ Name: V1, dtype: int64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>0    490
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    490
 1    498
 2    389
 3     51
 4    592
 Name: V1, dtype: int64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -3029,15 +3029,15 @@ Name: V1, dtype: int64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>745    599
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+745    599
 746    720
 747     80
 748    570
 749    440
 Name: V1, dtype: int64
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 </div>
@@ -3132,7 +3132,7 @@ Name: V1, dtype: int64
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+<span></span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%(name)-8s</span><span class="s1">|</span><span class="si">%(levelname)s</span><span class="s1">|</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
 </pre></div>
@@ -3145,7 +3145,7 @@ Name: V1, dtype: int64
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span></span><span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3694,8 +3694,9 @@ Epoch 10/10
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&#39;hist_0.json&#39;,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;hist_0.json&#39;,
  &#39;weight_2.h5&#39;,
  &#39;test_eval.npy&#39;,
  &#39;weight_0.h5&#39;,
@@ -3707,8 +3708,7 @@ Epoch 10/10
  &#39;weight_1.h5&#39;,
  &#39;weight_4.h5&#39;,
  &#39;hist_1.json&#39;]
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <p>Lets check the history files.</p>
 <div class="nbinput docutils container">
@@ -3749,15 +3749,15 @@ Epoch 10/10
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[0.63044727, 0.676     , 1.        , 0.        , 0.        ,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.63044727, 0.676     , 1.        , 0.        , 0.        ,
         0.65424794],
        [0.61651909, 0.69599998, 1.        , 0.        , 0.        ,
         0.76081365],
        [0.60787106, 0.71200001, 1.        , 0.        , 0.        ,
         0.47140294]])
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
@@ -3772,15 +3772,15 @@ Epoch 10/10
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[0.61844474, 0.69066668, 1.        , 0.        , 0.        ,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.61844474, 0.69066668, 1.        , 0.        , 0.        ,
         0.66270721],
        [0.58521003, 0.72799999, 1.        , 0.        , 0.        ,
         0.79649681],
        [0.62746859, 0.68133336, 1.        , 0.        , 0.        ,
         0.51435369]])
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="5.-Load-the-pre-trained-network-for-training">
@@ -3837,7 +3837,7 @@ Epoch 10/10
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">test_evaluation</span><span class="p">,</span> <span class="n">train_evaluation</span><span class="p">,</span> <span class="n">network</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_train</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">warm_start_network_info</span><span class="p">,</span> <span class="n">path_info</span><span class="p">,</span>
-                                                                       <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+                                                                       <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4426,7 +4426,7 @@ Epoch 10/10
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">test_network_info</span><span class="p">,</span> <span class="n">test_path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span></span><span class="n">evaluation</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_test</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">test_network_info</span><span class="p">,</span> <span class="n">test_path_info</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4749,9 +4749,9 @@ _________________________________________________________________
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;      </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span><span class="o">+</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%16s</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">s</span>.strip() for s in network_info[&#39;model_info&#39;][&#39;metrics&#39;].split(&#39;,&#39;)]))
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Mean: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">v</span> for v in np.mean(evaluation, axis=0)]))
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Std : </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">v</span> for v in np.std(evaluation, axis=0)]))
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span><span class="o">+</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%16s</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">s</span>.strip() for s in network_info[&#39;model_info&#39;][&#39;metrics&#39;].split(&#39;,&#39;)]))
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">v</span> for v in np.mean(evaluation, axis=0)]))
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Std : </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%16.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">v</span> for v in np.std(evaluation, axis=0)]))
 </pre></div>
 </div>
 </div>
@@ -4832,7 +4832,7 @@ Std :           0.0100          0.0147          0.0000          0.0000          
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">prediction</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">prediction_network_info</span><span class="p">,</span> <span class="n">prediction_path_info</span><span class="p">,</span>
-                                            <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+                                            <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4954,10 +4954,10 @@ _________________________________________________________________
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(1, 1000, 1)
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1, 1000, 1)
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
@@ -4972,8 +4972,9 @@ _________________________________________________________________
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[0.6869001 ],
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.6869001 ],
        [0.6870548 ],
        [0.6803566 ],
        [0.68509316],
@@ -4983,8 +4984,7 @@ _________________________________________________________________
        [0.685999  ],
        [0.68569267],
        [0.6852404 ]], dtype=float32)
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="7.2-Prediction-with-each-fold-weight">
@@ -5052,9 +5052,9 @@ _________________________________________________________________
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">prediction</span> <span class="o">=</span> <span class="n">deepbiome</span><span class="o">.</span><span class="n">deepbiome_prediction</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">prediction_network_info</span><span class="p">,</span> <span class="n">prediction_path_info</span><span class="p">,</span>
-                                            <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                                            <span class="n">change_weight_for_each_fold</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
-                                            <span class="n">get_y</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                                            <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">number_of_fold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                            <span class="n">change_weight_for_each_fold</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">get_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -5319,7 +5319,7 @@ _________________________________________________________________
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">true_tree_weight_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/true_weight_list.npy&#39;</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span></span><span class="n">true_tree_weight_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;deepbiome&#39;</span><span class="p">,</span> <span class="s1">&#39;tests/data/true_weight_list.npy&#39;</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">true_tree_weight_list</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -5365,14 +5365,14 @@ _________________________________________________________________
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&#39;./example_result//weight_0.h5&#39;,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;./example_result//weight_0.h5&#39;,
  &#39;./example_result//weight_1.h5&#39;,
  &#39;./example_result//weight_2.h5&#39;,
  &#39;./example_result//weight_3.h5&#39;,
  &#39;./example_result//weight_4.h5&#39;]
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <p>This is the summary of the taxa selection accuracy of trained weights from each fold.</p>
 <div class="nbinput nblast docutils container">
