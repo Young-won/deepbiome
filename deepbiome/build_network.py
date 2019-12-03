@@ -492,14 +492,16 @@ def he_normal_with_tree(tree_weight, seed=None):
 #     DeepBiome Networks
 #####################################################################################################################
 class DeepBiomeNetwork(Base_Network):
-    def __init__(self, network_info, tree_info_path, log, fold=None, num_classes = 1, verbose=True):
+    def __init__(self, network_info, path_info, log, fold=None, num_classes = 1, 
+                 is_covariates=False, covariate_shape = None,
+                 verbose=True):
         super(DeepBiomeNetwork,self).__init__(network_info, log)
         if fold != None: self.fold = fold
         else: self.fold = ''
         # self.TB = TensorBoardWrapper_DeepBiome
         # self.TB = TensorBoardWrapper
         self.num_classes = num_classes
-        self.build_model(tree_info_path=tree_info_path, verbose=verbose)
+        self.build_model(path_info=path_info, is_covariates=is_covariates, covariate_shape=covariate_shape, verbose=verbose)
     
     def set_phylogenetic_tree_info(self, tree_path, verbose=True):
         if verbose: 
@@ -548,9 +550,9 @@ class DeepBiomeNetwork(Base_Network):
             self.tree_weight_noise_list.append(tree_w_n)
         if verbose: self.log.info('------------------------------------------------------------------------------------------')
             
-    def build_model(self, tree_info_path, verbose=True):
+    def build_model(self, path_info, is_covariates=False, covariate_shape = None, verbose=True):
         # Load Tree Weights
-        self.set_phylogenetic_tree_info(tree_info_path['tree_info_path'], verbose)
+        self.set_phylogenetic_tree_info(path_info['data_info']['tree_info_path'], verbose)
         
         # Build model
         if verbose: 
@@ -579,6 +581,7 @@ class DeepBiomeNetwork(Base_Network):
         if weight_decay == 'None': weight_decay = None
         
         x_input = Input(shape=(self.tree_weight_list[0].shape[0],), name='input')
+        if is_covariates: covariates_input = Input(shape=covariate_shape, name='covariates_input')
         l = x_input
         for i, (tree_w, tree_wn) in enumerate(zip(self.tree_weight_list, self.tree_weight_noise_list)):
             bias_initializer='zeros'
@@ -621,6 +624,9 @@ class DeepBiomeNetwork(Base_Network):
         kernel_initializer = 'he_normal'
         bias_initializer = 'zeros'
         
+        if is_covariates:
+            l = Concatenate(name='biome_covariates_concat')([l,covariates_input])
+            
         last_h = Dense(max(1,self.num_classes),
                        kernel_initializer=kernel_initializer, bias_initializer=bias_initializer, name='last_dense_h')(l)
         
@@ -630,21 +636,56 @@ class DeepBiomeNetwork(Base_Network):
             p_hat = Activation('sigmoid', name='p_hat')(last_h)
         else: 
             p_hat = Activation('softmax', name='p_hat')(last_h)
-        self.model = Model(inputs=x_input, outputs=p_hat)
+        if is_covariates: self.model = Model(inputs=[x_input, covariates_input], outputs=p_hat)
+        else: self.model = Model(inputs=x_input, outputs=p_hat)
         if verbose: 
             self.model.summary()
             self.log.info('------------------------------------------------------------------------------------------')
     
     def get_trained_weight(self):
         kernel_lists =  [l.get_weights()[0] for l in self.model.layers if 'dense' in l.name]
-        return kernel_lists
+        kernel_lists_with_name = []
+        for i in range(len(kernel_lists)):
+            try:
+                lower_dict = dict([(y,x) for x,y in self.phylogenetic_tree_dict[self.tree_level_list[i]].items()])
+                lower_colname = [lower_dict[ky] for ky in range(len(lower_dict))]
+                if len(lower_colname) < kernel_lists[i].shape[0]:
+                    lower_colname = lower_colname + list(np.arange(kernel_lists[i].shape[0] - len(lower_colname)))
+            except:
+                lower_colname = np.arange(kernel_lists[i].shape[0])
+            try:
+                upper_dict = dict([(y,x) for x,y in self.phylogenetic_tree_dict[self.tree_level_list[i+1]].items()])
+                upper_colname = [upper_dict[ky] for ky in range(len(upper_dict))]
+                if len(upper_colname) < kernel_lists[i].shape[-1]:
+                    upper_colname = upper_colname + list(np.arange(kernel_lists[i].shape[-1] - len(upper_colname)))
+            except:
+                upper_colname = np.arange(kernel_lists[i].shape[-1])
+            kernel_lists_with_name.append(pd.DataFrame(kernel_lists[i], columns=upper_colname, index=lower_colname))
+        return kernel_lists_with_name
     
     def get_trained_bias(self):
         kernel_lists =  [l.get_weights()[1] for l in self.model.layers if 'dense' in l.name]
         return kernel_lists
     
     def get_tree_weight(self):
-        return self.tree_weight_list
+        kernel_lists_with_name = []
+        for i in range(len(self.tree_weight_list)):
+            try:
+                lower_dict = dict([(y,x) for x,y in self.phylogenetic_tree_dict[self.tree_level_list[i]].items()])
+                lower_colname = [lower_dict[ky] for ky in range(len(lower_dict))]
+                if len(lower_colname) < self.tree_weight_list[i].shape[0]:
+                    lower_colname = lower_colname + list(range(self.tree_weight_list[i].shape[0] - len(lower_colname)))
+            except:
+                lower_colname = np.arange(self.tree_weight_list[i].shape[0])
+            try:
+                upper_dict = dict([(y,x) for x,y in self.phylogenetic_tree_dict[self.tree_level_list[i+1]].items()])
+                upper_colname = [upper_dict[ky] for ky in range(len(upper_dict))]
+                if len(upper_colname) < self.tree_weight_list[i].shape[-1]:
+                    upper_colname = upper_colname + list(range(self.tree_weight_list[i].shape[-1] - len(upper_colname)))
+            except:
+                upper_colname = np.arange(self.tree_weight_list[i].shape[-1])
+            kernel_lists_with_name.append(pd.DataFrame(self.tree_weight_list[i], columns=upper_colname, index=lower_colname))
+        return kernel_lists_with_name
     
 #     def load_true_tree_weight_list(self, data_path):
 #         true_tree_weight_list = [np.load('%s/tw_%d.npy'%(data_path,i))[self.fold] for i in range(1,len(self.tree_level_list))]

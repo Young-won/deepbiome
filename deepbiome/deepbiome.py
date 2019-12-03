@@ -104,7 +104,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     ### Reader ###########################################################################################
     log.info('-----------------------------------------------------------------')
     reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
-    reader = reader_class(log, verbose=True)
+    # TODO: fix path_info
+    reader = reader_class(log, path_info, verbose=True)
 
     data_path = path_info['data_info']['data_path']
     y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
@@ -152,7 +153,8 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         log.info('-----------------------------------------------------------------')
         log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-        network = network_class(network_info, path_info['data_info'], log, fold, num_classes=num_classes)
+        network = network_class(network_info, path_info, log, fold, num_classes=num_classes,
+                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape)
         network.model_compile() ## TODO : weight clear only (no recompile)
         if warm_start:
             network.load_weights(file_path_fold(warm_start_model, fold))
@@ -267,7 +269,7 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
     ### Reader ###########################################################################################
     log.info('-----------------------------------------------------------------')
     reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
-    reader = reader_class(log, verbose=True)
+    reader = reader_class(log, path_info, verbose=True)
 
     data_path = path_info['data_info']['data_path']
     y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
@@ -312,7 +314,8 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
         log.info('-----------------------------------------------------------------')
         log.info('Build network for %d fold testing' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-        network = network_class(network_info, path_info['data_info'], log, fold, num_classes=num_classes)
+        network = network_class(network_info, path_info, log, fold, num_classes=num_classes, 
+                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape)
         network.model_compile() ## TODO : weight clear only (no recompile)
         network.load_weights(file_path_fold(model_path, fold), verbose=False)
         sys.stdout.flush()
@@ -410,7 +413,7 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
     ### Reader ###########################################################################################
     log.info('-----------------------------------------------------------------')
     reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
-    reader = reader_class(log, verbose=True)
+    reader = reader_class(log, path_info, verbose=True)
 
     data_path = path_info['data_info']['data_path']
     if get_y: y_path = '%s/%s'%(data_path, path_info['data_info']['y_path'])
@@ -436,9 +439,6 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
     
     starttime = time.time()
     if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
-    network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-    network = network_class(network_info, path_info['data_info'], log, fold=0, num_classes=num_classes)
-    network.model_compile()
     prediction = []
     for fold in range(number_of_fold):
         log.info('-------%d th repeatition prediction start!----------------------------------' % (fold+1))
@@ -460,6 +460,10 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
 
         ### Bulid network ####################################################################################
         log.info('-----------------------------------------------------------------')
+        network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
+        network = network_class(network_info, path_info, log, fold=fold, num_classes=num_classes,
+                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape)
+        network.model_compile()
         if change_weight_for_each_fold:network.load_weights(file_path_fold(model_path, fold), verbose=False)
         else: network.load_weights(model_path, verbose=False)
         sys.stdout.flush()
@@ -501,7 +505,7 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
     
     Returns
     -------
-    list of numpy array:
+    list of pandas dataframe:
         the trained model's weight
     
     Examples
@@ -519,12 +523,30 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
         config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
     
     if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
+    reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
+    reader = reader_class(log, path_info, verbose=True)
+    data_path = path_info['data_info']['data_path']
+    try:
+        count_path = path_info['data_info']['count_path']
+        x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
+        x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(x_list.shape[0]) if '.csv' in x_list[fold]])
+    except:
+        x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(1)])
+    
+    reader.read_dataset(x_path[0], None, 0)
+    
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-    network = network_class(network_info, path_info['data_info'], log, fold=0, num_classes=num_classes, verbose=False)
+    network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape,
+                            verbose=False)
     network.fold = ''
     network.load_weights(weight_path, verbose=False)
     tree_weight_list = network.get_trained_weight()  
     if not tf.__version__.startswith('2'): k.clear_session()
+        
+    if reader.is_covariates:
+        if len(tree_weight_list[-1].index) - len(reader.covariates_names) > 0:
+            tree_weight_list[-1].index = list(tree_weight_list[-1].index)[:-len(reader.covariates_names)] + list(reader.covariates_names)
     return tree_weight_list
 
 
@@ -584,8 +606,21 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
         
     starttime = time.time()
     if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
+    reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
+    reader = reader_class(log, path_info, verbose=True)
+    data_path = path_info['data_info']['data_path']
+    try:
+        count_path = path_info['data_info']['count_path']
+        x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
+        x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(x_list.shape[0]) if '.csv' in x_list[fold]])
+    except:
+        x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(1)])
+    
+    reader.read_dataset(x_path[0], None, 0)
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-    network = network_class(network_info, path_info['data_info'], log, fold=0, num_classes=num_classes, verbose=False)
+    network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape,
+                            verbose=False)
     
     prediction = []
     accuracy_list = []
@@ -682,9 +717,22 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     """
     
     os.environ['QT_QPA_PLATFORM']='offscreen' # for tree figure (https://github.com/etetoolkit/ete/issues/381)
+    reader_class = getattr(readers, network_info['model_info']['reader_class'].strip())
+    reader = reader_class(log, path_info, verbose=True)
+    data_path = path_info['data_info']['data_path']
+    try:
+        count_path = path_info['data_info']['count_path']
+        x_list = np.array(pd.read_csv(path_info['data_info']['count_list_path'], header=None).iloc[:,0])
+        x_path = np.array(['%s/%s'%(count_path, x_list[fold]) for fold in range(x_list.shape[0]) if '.csv' in x_list[fold]])
+    except:
+        x_path = np.array(['%s/%s'%(data_path, path_info['data_info']['x_path']) for fold in range(1)])
+    
+    reader.read_dataset(x_path[0], None, 0)
     
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
-    network = network_class(network_info, path_info['data_info'], log, fold=0, num_classes=num_classes, verbose=False)
+    network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape,
+                            verbose=False)
     
     if len(phylumn_color) == 0:
         colors = mcolors.CSS4_COLORS
@@ -716,7 +764,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
             class_t = t.get_leaves_by_name(name=class_val)[0]
             class_t.set_style(basic_st)
             if tree_weight_on:
-                class_weights = tree_weight[-1] 
+                class_weights = np.array(tree_weight[-1])
                 class_weights *= (weight_max_radios / np.max(class_weights))
                 phylum_num = network.phylogenetic_tree_dict['Phylum'][phylum_val]
                 class_num = network.phylogenetic_tree_dict['Class'][class_val]
@@ -728,7 +776,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                 order_t = t.get_leaves_by_name(name=order_val)[0]
                 order_t.set_style(basic_st)
                 if tree_weight_on:
-                    order_weights = tree_weight[-2] 
+                    order_weights = np.array(tree_weight[-2]) 
                     order_weights *= (weight_max_radios / np.max(order_weights))
                     class_num = network.phylogenetic_tree_dict['Class'][class_val]
                     order_num = network.phylogenetic_tree_dict['Order'][order_val]
@@ -740,7 +788,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                     family_t = t.get_leaves_by_name(name=family_val)[0]
                     family_t.set_style(basic_st)
                     if tree_weight_on:
-                        family_weights = tree_weight[-3] 
+                        family_weights = np.array(tree_weight[-3])
                         family_weights *= (weight_max_radios / np.max(family_weights))
                         order_num = network.phylogenetic_tree_dict['Order'][order_val]
                         family_num = network.phylogenetic_tree_dict['Family'][family_val]
@@ -752,7 +800,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                         genus_t = t.get_leaves_by_name(name=genus_val)[0]
                         genus_t.set_style(basic_st)
                         if tree_weight_on:
-                            genus_weights = tree_weight[-4] 
+                            genus_weights = np.array(tree_weight[-4])
                             genus_weights *= (weight_max_radios / np.max(genus_weights))
                             family_num = network.phylogenetic_tree_dict['Family'][family_val]
                             genus_num = network.phylogenetic_tree_dict['Genus'][genus_val]

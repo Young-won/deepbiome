@@ -103,7 +103,7 @@ def taxa_selection_accuracy(tree_weight_list, true_tree_weight_list, taxa_metric
     for i in range(len(true_tree_weight_list)):
         tree_tw = true_tree_weight_list[i].astype(np.int32)
         tree_w = np.zeros_like(tree_tw, dtype=np.int32)
-        tree_w_abs = np.abs(tree_weight_list[i])
+        tree_w_abs = np.abs(np.array(tree_weight_list[i]))
 #         tree_w = (tree_w_abs>1e-2).astype(np.int32)
         for row in range(tree_w_abs.shape[0]):
 #             tree_w[row,:] = (tree_w_abs[row,:]> 0).astype(np.int32)

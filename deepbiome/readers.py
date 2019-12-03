@@ -48,9 +48,9 @@ class BaseReader(object):
 ### MicroBiome Reader
 ########################################################################################################
 class MicroBiomeReader(BaseReader):
-    def __init__(self, log, verbose=True):
+    def __init__(self, log, path_info, verbose=True):
         super(MicroBiomeReader,self).__init__(log, verbose)
-        # self.path_info = path_info
+        self.path_info = path_info
         # self.network_info = network_info
         
     def read_dataset(self, x_path, y_path, sim): # TODO fix without sim...
@@ -76,6 +76,45 @@ class MicroBiomeReader(BaseReader):
             except:
                 y = pd.DataFrame(y) #.merge(pd.DataFrame(1-y.iloc[:, sim]), left_index = True, right_index = True)
             self.num_classes, self.y = self._set_problem(y)
+    
+        # Covarates
+        try: self.continuous_variabl_paths = [cov.strip() for cov in self.path_info['covariates_info']['continuous_variables'].split(',') if '.csv' in cov]
+        except: self.continuous_variabl_paths = []
+        try: self.categorical_variable_paths = [cov.strip() for cov in self.path_info['covariates_info']['categorical_variables'].split(',') if '.csv' in cov]
+        except: self.categorical_variable_paths = []
+        
+        if len(self.continuous_variabl_paths) > 0:
+            self.cov_conti = pd.DataFrame()
+            for i in range(len(self.continuous_variabl_paths)):
+                cov = pd.read_csv(self.continuous_variabl_paths[i])
+                self.cov_conti = self.cov_conti.join(cov, how='right')
+            self.cov_conti = self.cov_conti.astype(np.float32)
+            
+        if len(self.categorical_variable_paths) > 0:
+            self.cov_categorical = pd.DataFrame()
+            for i in range(len(self.categorical_variable_paths)):
+                cov = pd.read_csv(self.categorical_variable_paths[i])
+                cov_name = cov.columns[0]
+                cov = to_categorical(cov, dtype='int32')
+                cov = pd.DataFrame(cov)
+                cov.columns = ['%s_%s' % (cov_name, name) for name in cov.columns]
+                self.cov_categorical = self.cov_categorical.join(cov, how='right')
+            self.cov_categorical = self.cov_categorical.astype(np.float32)
+        
+        if len(self.continuous_variabl_paths) + len(self.categorical_variable_paths) > 0:
+            self.covariates = pd.DataFrame()
+            try: self.covariates = self.covariates.join(self.cov_conti, how='right')
+            except: pass
+            try: self.covariates = self.covariates.join(self.cov_categorical, how='right')
+            except: pass
+            self.covariates_names = self.covariates.columns
+            self.covariates = np.array(self.covariates, dtype=np.float32)
+            self.is_covariates = True
+            self.covariate_shape = self.covariates.shape[1:]
+        else:
+            self.covariates_names = None
+            self.is_covariates = False
+            self.covariate_shape = None
    
     def _set_problem(self, y):
         raise NotImplementedError()
@@ -90,12 +129,22 @@ class MicroBiomeReader(BaseReader):
 
             x_train = self.x[idxs]
             x_test = self.x[remain_idxs]
+            if self.is_covariates:
+                cov_train = self.covariates[idxs]
+                cov_test = self.covariates[remain_idxs]
 
             y_train = self.y[idxs]
             y_test = self.y[remain_idxs]
-            return x_train, x_test, y_train, y_test
+            
+            if self.is_covariates:
+                return [x_train,cov_train], [x_test,cov_test], y_train, y_test
+            else:
+                return x_train, x_test, y_train, y_test
         else:
-            return self.x, None, self.y, None
+            if self.is_covariates:
+                return [self.x, self.covariates], None, self.y, None
+            else:
+                return self.x, None, self.y, None
         
     
     def get_input(self, idxs = None):
@@ -105,15 +154,24 @@ class MicroBiomeReader(BaseReader):
 
             x_train = self.x[idxs]
             x_test = self.x[remain_idxs]
-            return x_train, x_test
+            if self.is_covariates:
+                cov_train = self.covariates[idxs]
+                cov_test = self.covariates[remain_idxs]
+            if self.is_covariates:
+                return [x_train,cov_train], [x_test,cov_test]
+            else:
+                return x_train, x_test
         else:
-            return self.x, None
+            if self.is_covariates:
+                return [self.x, self.covariates], None
+            else:
+                return self.x, None
             
 ########################################################################################################
 # Regression
 class MicroBiomeRegressionReader(MicroBiomeReader):
-    def __init__(self, log, verbose=True):
-        super(MicroBiomeRegressionReader, self).__init__(log, verbose)
+    def __init__(self, log, path_info, verbose=True):
+        super(MicroBiomeRegressionReader, self).__init__(log, path_info, verbose)
     def _set_problem(self, y):
         num_classes = 0
         y = np.array(y, dtype=np.float32)[:,0]
@@ -122,8 +180,8 @@ class MicroBiomeRegressionReader(MicroBiomeReader):
 ########################################################################################################
 # Classification
 class MicroBiomeClassificationReader(MicroBiomeReader):
-    def __init__(self, log, verbose=True):
-        super(MicroBiomeClassificationReader, self).__init__(log, verbose)
+    def __init__(self, log, path_info, verbose=True):
+        super(MicroBiomeClassificationReader, self).__init__(log, path_info, verbose)
     def _set_problem(self, y):
         if np.min(np.array(y)) > 0: y = y - 1
         if np.max(np.array(y)) <= 1:
