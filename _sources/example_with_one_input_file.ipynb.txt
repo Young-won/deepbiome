@@ -8499,7 +8499,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## 10. Using covariates\n",
+    "## 11. Using covariates\n",
     "\n",
     "We can use covariates for training the DeepBiome network."
    ]
@@ -9644,7 +9644,9 @@
   {
    "cell_type": "code",
    "execution_count": 56,
-   "metadata": {},
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "path_info_with_covariates = {\n",
