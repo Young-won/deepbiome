@@ -872,7 +872,7 @@
    "source": [
     "### Example of the lists of the input files\n",
     "\n",
-    "Below is an example of each input file. This example has 1000 samples as rows, and the abandunces of each microbiomes as columns. Below is an example file for `k=3` repetition. This example is `gcount_0001.csv` for the first repetition in the list of the names of input files above. This file has the 1000 samples' microbiome abandunce."
+    "Below is an example of each input file. This example has 1000 samples as rows, and the abandunces of each microbiomes as columns. Below is an example file for `k=3` repetition. This example is `gcount_0001.csv` for the first repetition in the list of the names of input files above. This file has the 1000 samples' microbiome abandunce.  __The order of the microbiome should be same as the order of the microbiome in the Genus level in the tree information above.__"
    ]
   },
   {

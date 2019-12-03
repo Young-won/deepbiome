@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -566,7 +566,7 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>list of numpy array:</dt><dd><p>the trained model’s weight</p>
+<dt>list of pandas dataframe:</dt><dd><p>the trained model’s weight</p>
 </dd>
 </dl>
 </dd>
