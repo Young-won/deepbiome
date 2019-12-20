@@ -13,6 +13,7 @@ import time
 import json
 import sys
 import abc
+import copy
 import numpy as np
 import pandas as pd
 
@@ -509,7 +510,7 @@ class DeepBiomeNetwork(Base_Network):
             self.log.info('Read phylogenetic tree information from %s' % tree_path)
         self.phylogenetic_tree_info = pd.read_csv('%s' % tree_path)
         # self.tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum']
-        self.tree_level_list = self.phylogenetic_tree_info.columns[:-1].tolist()
+        self.tree_level_list = self.phylogenetic_tree_info.columns.tolist()
         if verbose: 
             self.log.info('Phylogenetic tree level list: %s' % self.tree_level_list)
             self.log.info('------------------------------------------------------------------------------------------')
@@ -526,7 +527,7 @@ class DeepBiomeNetwork(Base_Network):
             self.log.info('------------------------------------------------------------------------------------------')
             self.log.info('Phylogenetic_tree_dict info: %s' % list(self.phylogenetic_tree_dict.keys()))
             self.log.info('------------------------------------------------------------------------------------------')
-        self.phylogenetic_tree = self.phylogenetic_tree_info.iloc[:,:-1]
+        self.phylogenetic_tree = copy.deepcopy(self.phylogenetic_tree_info.iloc[:,:])
         for tree_lvl in self.tree_level_list:
             self.phylogenetic_tree[tree_lvl] = self.phylogenetic_tree[tree_lvl].map(self.phylogenetic_tree_dict[tree_lvl])
         self.phylogenetic_tree = np.array(self.phylogenetic_tree)

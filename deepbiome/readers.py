@@ -97,6 +97,7 @@ class MicroBiomeReader(BaseReader):
                 cov_name = cov.columns[0]
                 cov = to_categorical(cov, dtype='int32')
                 cov = pd.DataFrame(cov)
+                cov = cov.iloc[:,1:] #except first class as reference
                 cov.columns = ['%s_%s' % (cov_name, name) for name in cov.columns]
                 self.cov_categorical = self.cov_categorical.join(cov, how='right')
             self.cov_categorical = self.cov_categorical.astype(np.float32)

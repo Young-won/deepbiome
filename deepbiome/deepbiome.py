@@ -757,7 +757,6 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
             phylum_t.set_style(phylum_st)
         else:
             phylum_t.set_style(basic_st)
-            
         child_class = network.phylogenetic_tree_info['Class'][network.phylogenetic_tree_info['Phylum'] == phylum_val].unique()
         for class_val in child_class:
             phylum_t.add_child(name=class_val)
