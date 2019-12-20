@@ -29,7 +29,7 @@
         <script type="text/javascript" src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "processClass": "math|output_area", "ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -924,7 +924,6 @@
             <span class="n">phylum_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">phylum_st</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">phylum_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
-            
         <span class="n">child_class</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">][</span><span class="n">network</span><span class="o">.</span><span class="n">phylogenetic_tree_info</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">phylum_val</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">class_val</span> <span class="ow">in</span> <span class="n">child_class</span><span class="p">:</span>
             <span class="n">phylum_t</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">class_val</span><span class="p">)</span>
