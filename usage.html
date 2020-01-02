@@ -29,7 +29,7 @@
         <script type="text/javascript" src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]], "ignoreClass": "document"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -41,7 +41,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example : k times repetition with the list of k input files" href="example_with_the_list_of_inputs.html" />
+    <link rel="next" title="Example : k fold cross-validation with an input file" href="example_with_one_input_file.html" />
     <link rel="prev" title="Prerequisites" href="prerequisites.html" /> 
 </head>
 
@@ -112,8 +112,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_with_one_input_file.html">Example : k fold cross-validation with an input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_with_the_list_of_inputs.html">Example : k times repetition with the list of k input files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
@@ -417,7 +417,7 @@ python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --p
 </div>
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_train">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_train</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_train" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_train</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for training the deep neural network with phylogenetic tree weight regularizer.</p>
 <p>It uses microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.</p>
 <p>See ref url (TODO: update)</p>
@@ -437,6 +437,9 @@ python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --p
 <dt><strong>workers (int):</strong></dt><dd><p>default=1</p>
 </dd>
 <dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
+</dd>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
 </dd>
 </dl>
 </dd>
@@ -458,7 +461,7 @@ python3 ../../main.py --log_info<span class="o">=</span>config/log_info.yaml --p
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_test">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_test</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_test" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_test</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for testing the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.</p>
 <p>See ref url (TODO: update)</p>
@@ -480,6 +483,9 @@ default=None</p>
 </dd>
 <dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
 </dd>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -496,7 +502,7 @@ default=None</p>
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_prediction">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_prediction</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">change_weight_for_each_fold=False</em>, <em class="sig-param">get_y=False</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_prediction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_prediction</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">number_of_fold=None</em>, <em class="sig-param">change_weight_for_each_fold=False</em>, <em class="sig-param">get_y=False</em>, <em class="sig-param">max_queue_size=10</em>, <em class="sig-param">workers=1</em>, <em class="sig-param">use_multiprocessing=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_prediction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>See ref url (TODO: update)</p>
 <dl class="field-list">
@@ -528,6 +534,9 @@ degault=False</p>
 </dd>
 <dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
 </dd>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -546,7 +555,7 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_get_trained_weight">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_get_trained_weight</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">weight_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_get_trained_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_get_trained_weight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_get_trained_weight</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">weight_path</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_get_trained_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_get_trained_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>See ref url (TODO: update)</p>
 <dl class="field-list simple">
@@ -561,6 +570,9 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 <dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
 </dd>
 <dt><strong>weight_path (string):</strong></dt><dd><p>path of the model weight</p>
+</dd>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
 </dd>
 </dl>
 </dd>
@@ -578,7 +590,7 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_taxa_selection_performance">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_taxa_selection_performance</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">true_tree_weight_list</em>, <em class="sig-param">trained_weight_path_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_taxa_selection_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_taxa_selection_performance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_taxa_selection_performance</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">network_info</em>, <em class="sig-param">path_info</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">true_tree_weight_list</em>, <em class="sig-param">trained_weight_path_list</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_taxa_selection_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_taxa_selection_performance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>See ref url (TODO: update)</p>
 <dl class="field-list simple">
@@ -597,11 +609,8 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 </dd>
 <dt><strong>trained_weight_path_list (list):</strong></dt><dd><p>lists of the path of trained weight for each fold.</p>
 </dd>
-<dt><strong>max_queue_size (int):</strong></dt><dd><p>default=10</p>
-</dd>
-<dt><strong>workers (int):</strong></dt><dd><p>default=1</p>
-</dd>
-<dt><strong>use_multiprocessing (boolean):</strong></dt><dd><p>default=False</p>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
 </dd>
 </dl>
 </dd>
@@ -615,6 +624,82 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
 <p class="rubric">Examples</p>
 <p>The taxa selection performance of the trained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>summary = deepbiome_taxa_selection_performance(log, network_info, path_info, num_classes)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree">
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_draw_phylogenetic_tree</code><span class="sig-paren">(</span><em class="sig-param">log, network_info, path_info, num_classes, file_name='%%inline', img_w=500, branch_vertical_margin=20, arc_start=0, arc_span=360, node_name_on=True, name_fsize=10, tree_weight_on=True, tree_weight=None, tree_weight_classes=['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease'], weight_opacity=0.4, weight_max_radios=10, phylum_background_color_on=True, phylum_color=[], phylum_color_legend=False, verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_draw_phylogenetic_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw phylogenetic tree</p>
+<p>See ref url (TODO: update)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log (logging instance) :</strong></dt><dd><p>python logging instance for logging</p>
+</dd>
+<dt><strong>network_info (dictionary) :</strong></dt><dd><p>python dictionary with network_information</p>
+</dd>
+<dt><strong>path_info (dictionary):</strong></dt><dd><p>python dictionary with path_information</p>
+</dd>
+<dt><strong>num_classes (int):</strong></dt><dd><p>number of classes for the network. 0 for regression, 1 for binary classificatin.</p>
+</dd>
+<dt><strong>file_name (str):</strong></dt><dd><p>name of the figure for save.
+- “<em>.png”, “</em>.jpg”
+- “%%inline” for notebook inline output.
+default=”%%inline”</p>
+</dd>
+<dt><strong>img_w (int):</strong></dt><dd><p>image width (pt)
+default=500</p>
+</dd>
+<dt><strong>branch_vertical_margin (int):</strong></dt><dd><p>vertical margin for branch
+default=20</p>
+</dd>
+<dt><strong>arc_start (int):</strong></dt><dd><p>angle that arc start
+default=0</p>
+</dd>
+<dt><strong>arc_span (int):</strong></dt><dd><p>total amount of angle for the arc span
+default=360</p>
+</dd>
+<dt><strong>node_name_on (boolean):</strong></dt><dd><p>show the name of the last leaf node if True
+default=False</p>
+</dd>
+<dt><strong>name_fsize (int):</strong></dt><dd><p>font size for the name of the last leaf node
+default=10</p>
+</dd>
+<dt><strong>tree_weight_on (boolean):</strong></dt><dd><p>show the amount and the direction of the weight for each edge in the tree by circle size and color.
+default=True</p>
+</dd>
+<dt><strong>tree_weight (ndarray):</strong></dt><dd><p>reference tree weights
+default=None</p>
+</dd>
+<dt><strong>tree_weight_classes (list):</strong></dt><dd><p>name of each level of the given reference tree weights
+default=[‘Genus’, ‘Family’, ‘Order’, ‘Class’, ‘Phylum’, ‘Disease’]</p>
+</dd>
+<dt><strong>weight_opacity  (float):</strong></dt><dd><p>opacity for weight circle
+default= 0.4</p>
+</dd>
+<dt><strong>weight_max_radios (int):</strong></dt><dd><p>maximum radios for weight circle
+default= 10</p>
+</dd>
+<dt><strong>phylum_background_color_on (boolean):</strong></dt><dd><p>show the background color for each phylum based on <cite>phylumn_color</cite>.
+default= True</p>
+</dd>
+<dt><strong>phylum_color (list):</strong></dt><dd><p>specify the list of background colors for phylum level. If <cite>phylumn_color</cite> is empty, it will arbitrarily assign the color for each phylum.
+default= []</p>
+</dd>
+<dt><strong>phylum_color_legend (boolean):</strong></dt><dd><p>show the legend for the background colors for phylum level
+default= False</p>
+</dd>
+<dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
+default=True</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Draw phylogenetic tree</p>
+<p>deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes, file_name = “%%inline”)</p>
 </dd></dl>
 
 <table class="longtable docutils align-default">
@@ -636,7 +721,7 @@ prediction = deepbiome_predictoin(log, network_info, path_info, num_classes, num
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_with_the_list_of_inputs.html" class="btn btn-neutral float-right" title="Example : k times repetition with the list of k input files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example_with_one_input_file.html" class="btn btn-neutral float-right" title="Example : k fold cross-validation with an input file" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="prerequisites.html" class="btn btn-neutral float-left" title="Prerequisites" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

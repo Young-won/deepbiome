@@ -245,6 +245,8 @@ To use deepbiome in a project::
 
 .. autofunction:: deepbiome.deepbiome.deepbiome_taxa_selection_performance
 
+.. autofunction:: deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree
+
 .. autosummary::
    :toctree: generated/
 
