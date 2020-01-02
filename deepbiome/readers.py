@@ -54,11 +54,12 @@ class MicroBiomeReader(BaseReader):
         # self.network_info = network_info
         
     def read_dataset(self, x_path, y_path, sim): # TODO fix without sim...
-        self.log.info('-----------------------------------------------------------------------')
-        self.log.info('Construct Dataset')
-        self.log.info('-----------------------------------------------------------------------')
-        self.log.info('Load data')
-        
+        if self.verbose:
+            self.log.info('-----------------------------------------------------------------------')
+            self.log.info('Construct Dataset')
+            self.log.info('-----------------------------------------------------------------------')
+            self.log.info('Load data')
+
         x = pd.read_csv(x_path)
         if y_path != None: y = pd.read_csv(y_path)
         
