@@ -4,5 +4,5 @@ tensorflow
 numpy >= 1.12
 pandas
 sklearn
-# PyQt5
+PyQt5 == 5.10
 ete3
