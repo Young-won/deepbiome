@@ -109,12 +109,12 @@ class MicroBiomeReader(BaseReader):
             except: pass
             try: self.covariates = self.covariates.join(self.cov_categorical, how='right')
             except: pass
-            self.covariates_names = self.covariates.columns
+            self.covariate_names = self.covariates.columns
             self.covariates = np.array(self.covariates, dtype=np.float32)
             self.is_covariates = True
             self.covariate_shape = self.covariates.shape[1:]
         else:
-            self.covariates_names = None
+            self.covariate_names = None
             self.is_covariates = False
             self.covariate_shape = None
    

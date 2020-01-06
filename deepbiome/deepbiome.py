@@ -159,7 +159,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
             log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold, num_classes=num_classes,
-                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape, verbose=verbose)
+                                is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile() ## TODO : weight clear only (no recompile)
         if warm_start:
             network.load_weights(file_path_fold(warm_start_model, fold))
@@ -328,7 +328,7 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
             log.info('Build network for %d fold testing' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold, num_classes=num_classes, 
-                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape, verbose=verbose)
+                                is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile() ## TODO : weight clear only (no recompile)
         network.load_weights(file_path_fold(model_path, fold), verbose=verbose)
         sys.stdout.flush()
@@ -482,7 +482,7 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
         if verbose: log.info('-----------------------------------------------------------------')
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold=fold, num_classes=num_classes,
-                                is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape, verbose=verbose)
+                                is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile()
         if change_weight_for_each_fold:network.load_weights(file_path_fold(model_path, fold), verbose=verbose)
         else: network.load_weights(model_path, verbose=verbose)
@@ -560,7 +560,7 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
     
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
-                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape,
+                            is_covariates=reader.is_covariates, covariate_names = reader.covariate_names,
                             verbose=verbose)
     network.fold = ''
     network.load_weights(weight_path, verbose=False)
@@ -568,8 +568,8 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
     if not tf.__version__.startswith('2'): k.clear_session()
         
     if reader.is_covariates:
-        if len(tree_weight_list[-1].index) - len(reader.covariates_names) > 0:
-            tree_weight_list[-1].index = list(tree_weight_list[-1].index)[:-len(reader.covariates_names)] + list(reader.covariates_names)
+        if len(tree_weight_list[-1].index) - len(reader.covariate_names) > 0:
+            tree_weight_list[-1].index = list(tree_weight_list[-1].index)[:-len(reader.covariate_names)] + list(reader.covariate_names)
     return tree_weight_list
 
 
@@ -639,7 +639,7 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
     reader.read_dataset(x_path[0], None, 0)
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
-                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape, verbose=False)
+                            is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=False)
     
     prediction = []
     accuracy_list = []
@@ -772,7 +772,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
-                            is_covariates=reader.is_covariates, covariate_shape = reader.covariate_shape,
+                            is_covariates=reader.is_covariates, covariate_names = reader.covariate_names,
                             verbose=False)
     
     if len(phylum_color) == 0:
@@ -813,19 +813,16 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     for i in range(len(tree_weight_classes)-1):
         lower_class = tree_weight_classes[-2-i]
         lower_layer_names =  tree_weight[-i-1].index.to_list()
-    #     print('Upper: ', i, upper_class)
-    #     print(upper_layer_names)
-    #     print('Lower: ', i+1, lower_class)
-    #     print(lower_layer_names)
 
         layer_tree_node_dict = {}
         for j, val in enumerate(upper_layer_names):
             parient_t = tree_node_dict[upper_class][val]
             if upper_class == 'Disease':
-                child_class = network.phylogenetic_tree_info[lower_class].unique()
+                child_class = lower_layer_names
+                # child_class = network.phylogenetic_tree_info[lower_class].unique()
             else:
                 child_class = network.phylogenetic_tree_info[lower_class][network.phylogenetic_tree_info[upper_class] == val].unique()
-
+            
             for k, child_val in enumerate(child_class):
                 parient_t.add_child(name=child_val)
                 leaf_t = parient_t.get_leaves_by_name(name=child_val)[0]
@@ -845,7 +842,9 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                         upper_num = 0
                     else:
                         upper_num = network.phylogenetic_tree_dict[upper_class][val]
-                    lower_num = network.phylogenetic_tree_dict[lower_class][child_val]
+                    if upper_class == 'Disease' and reader.is_covariates == True:
+                        lower_num = network.phylogenetic_tree_dict['%s_with_covariates' % lower_class][child_val]
+                    else: lower_num = network.phylogenetic_tree_dict[lower_class][child_val]
                     leaf_t.add_features(weight=edge_weights[lower_num,upper_num])
                 layer_tree_node_dict[child_val] = leaf_t
         tree_node_dict[lower_class] = layer_tree_node_dict
@@ -880,7 +879,8 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     ts.show_scale = False
 
     if phylum_color_legend:
-        for phylum_name, color_name in phylum_color_dict.items():
+        for phylum_name in np.sort(list(phylum_color_dict.keys())):
+            color_name = phylum_color_dict[phylum_name]
             ts.legend.add_face(CircleFace(weight_max_radios * 1, color_name), column=0)
             ts.legend.add_face(TextFace(" %s" % phylum_name, fsize=name_fsize), column=1)
 

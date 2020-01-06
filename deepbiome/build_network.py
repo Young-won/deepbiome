@@ -494,7 +494,7 @@ def he_normal_with_tree(tree_weight, seed=None):
 #####################################################################################################################
 class DeepBiomeNetwork(Base_Network):
     def __init__(self, network_info, path_info, log, fold=None, num_classes = 1, 
-                 is_covariates=False, covariate_shape = None,
+                 is_covariates=False, covariate_names = None,
                  verbose=True):
         super(DeepBiomeNetwork,self).__init__(network_info, log)
         if fold != None: self.fold = fold
@@ -502,9 +502,9 @@ class DeepBiomeNetwork(Base_Network):
         # self.TB = TensorBoardWrapper_DeepBiome
         # self.TB = TensorBoardWrapper
         self.num_classes = num_classes
-        self.build_model(path_info=path_info, is_covariates=is_covariates, covariate_shape=covariate_shape, verbose=verbose)
+        self.build_model(path_info=path_info, is_covariates=is_covariates, covariate_names=covariate_names, verbose=verbose)
     
-    def set_phylogenetic_tree_info(self, tree_path, verbose=True):
+    def set_phylogenetic_tree_info(self, tree_path, is_covariates=False, covariate_names = None, verbose=True):
         if verbose: 
             self.log.info('------------------------------------------------------------------------------------------')
             self.log.info('Read phylogenetic tree information from %s' % tree_path)
@@ -523,6 +523,11 @@ class DeepBiomeNetwork(Base_Network):
             if verbose: self.log.info('    %6s: %d' % (tree_lvl, lvl_num))
             self.phylogenetic_tree_dict[tree_lvl] = dict(zip(lvl_category, np.arange(lvl_num)))
             self.phylogenetic_tree_dict['Number'][tree_lvl]=lvl_num
+            if is_covariates and i==len(self.tree_level_list)-1:
+                lvl_category = np.append(self.phylogenetic_tree_info[tree_lvl].unique(), covariate_names)
+                lvl_num = lvl_category.shape[0]
+                if verbose: self.log.info('    %6s: %d' % ('%s_with_covariates'%tree_lvl, lvl_num))
+                self.phylogenetic_tree_dict['%s_with_covariates' % tree_lvl] = dict(zip(lvl_category, np.arange(lvl_num)))
         if verbose: 
             self.log.info('------------------------------------------------------------------------------------------')
             self.log.info('Phylogenetic_tree_dict info: %s' % list(self.phylogenetic_tree_dict.keys()))
@@ -551,9 +556,10 @@ class DeepBiomeNetwork(Base_Network):
             self.tree_weight_noise_list.append(tree_w_n)
         if verbose: self.log.info('------------------------------------------------------------------------------------------')
             
-    def build_model(self, path_info, is_covariates=False, covariate_shape = None, verbose=True):
+    def build_model(self, path_info, is_covariates=False, covariate_names = None, verbose=True):
         # Load Tree Weights
-        self.set_phylogenetic_tree_info(path_info['data_info']['tree_info_path'], verbose)
+        self.set_phylogenetic_tree_info(path_info['data_info']['tree_info_path'], 
+                                        is_covariates=is_covariates, covariate_names=covariate_names, verbose=verbose)
         
         # Build model
         if verbose: 
@@ -582,7 +588,7 @@ class DeepBiomeNetwork(Base_Network):
         if weight_decay == 'None': weight_decay = None
         
         x_input = Input(shape=(self.tree_weight_list[0].shape[0],), name='input')
-        if is_covariates: covariates_input = Input(shape=covariate_shape, name='covariates_input')
+        if is_covariates: covariates_input = Input(shape=covariate_names.shape[0:], name='covariates_input')
         l = x_input
         for i, (tree_w, tree_wn) in enumerate(zip(self.tree_weight_list, self.tree_weight_noise_list)):
             bias_initializer='zeros'
