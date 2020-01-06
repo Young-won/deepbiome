@@ -1,6 +1,7 @@
 ./DeepBiome_usage_classification.html
 ./DeepBiome_usage_regression.html
 ./_images/DeepBiome.pdf
+./_images/example_with_one_input_file_112_0.png
 ./_images/example_with_one_input_file_38_0.png
 ./_images/example_with_one_input_file_46_0.png
 ./_images/example_with_one_input_file_88_0.png
@@ -26,6 +27,7 @@
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
 ./_static/basic.css
+./_static/clipboard.min.js
 ./_static/copy-button.svg
 ./_static/copybutton.css
 ./_static/copybutton.js
