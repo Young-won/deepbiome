@@ -88,6 +88,7 @@ class MicroBiomeReader(BaseReader):
             self.cov_conti = pd.DataFrame()
             for i in range(len(self.continuous_variabl_paths)):
                 cov = pd.read_csv(self.continuous_variabl_paths[i])
+                cov.columns = [name.title() for name in cov.columns]
                 self.cov_conti = self.cov_conti.join(cov, how='right')
             self.cov_conti = self.cov_conti.astype(np.float32)
             
@@ -99,7 +100,7 @@ class MicroBiomeReader(BaseReader):
                 cov = to_categorical(cov, dtype='int32')
                 cov = pd.DataFrame(cov)
                 cov = cov.iloc[:,1:] #except first class as reference
-                cov.columns = ['%s_%s' % (cov_name, name) for name in cov.columns]
+                cov.columns = ['%s_%s' % (cov_name.title(), name) for name in cov.columns]
                 self.cov_categorical = self.cov_categorical.join(cov, how='right')
             self.cov_categorical = self.cov_categorical.astype(np.float32)
         

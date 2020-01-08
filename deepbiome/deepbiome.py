@@ -778,7 +778,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     if len(phylum_color) == 0:
         colors = mcolors.CSS4_COLORS
         colors_name = list(colors.keys())
-        phylum_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum'].unique().shape[0])
+        phylum_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum_with_covariates'].unique().shape[0])
 
     basic_st = NodeStyle()
     basic_st['size'] = weight_max_radios * 0.5
