@@ -680,7 +680,8 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                                      tree_weight_on = True, tree_weight=None,
                                      tree_weight_classes = ['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease'],
                                      weight_opacity = 0.4, weight_max_radios = 10, 
-                                     phylum_background_color_on = True, phylum_color = [], phylum_color_legend=False, 
+                                     phylum_background_color_on = True, phylum_color = [], phylum_color_legend=False,
+                                     show_covariates = True,
                                      verbose=True):
     """
     Draw phylogenetic tree
@@ -744,6 +745,9 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     phylum_color_legend (boolean):
         show the legend for the background colors for phylum level
         default= False
+    show_covariates (boolean):
+        show the effect of the covariates
+        default= True
     verbose (boolean):
         show the log if True
         default=True
@@ -778,8 +782,11 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     if len(phylum_color) == 0:
         colors = mcolors.CSS4_COLORS
         colors_name = list(colors.keys())
-        phylum_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum_with_covariates'].unique().shape[0])
-
+        if reader.is_covariates and show_covariates:
+            phylum_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum_with_covariates'].unique().shape[0])
+        else:
+            phylum_color = np.random.choice(colors_name, network.phylogenetic_tree_info['Phylum'].unique().shape[0])
+            
     basic_st = NodeStyle()
     basic_st['size'] = weight_max_radios * 0.5
     basic_st['shape'] = 'circle'
@@ -812,14 +819,16 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
 
     for i in range(len(tree_weight_classes)-1):
         lower_class = tree_weight_classes[-2-i]
-        lower_layer_names =  tree_weight[-i-1].index.to_list()
+        if upper_class == 'Disease' and show_covariates == False: 
+            lower_layer_names = network.phylogenetic_tree_info[lower_class].unique()
+        else: 
+            lower_layer_names =  tree_weight[-i-1].index.to_list()
 
         layer_tree_node_dict = {}
         for j, val in enumerate(upper_layer_names):
             parient_t = tree_node_dict[upper_class][val]
             if upper_class == 'Disease':
                 child_class = lower_layer_names
-                # child_class = network.phylogenetic_tree_info[lower_class].unique()
             else:
                 child_class = network.phylogenetic_tree_info[lower_class][network.phylogenetic_tree_info[upper_class] == val].unique()
             
@@ -842,7 +851,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                         upper_num = 0
                     else:
                         upper_num = network.phylogenetic_tree_dict[upper_class][val]
-                    if upper_class == 'Disease' and reader.is_covariates == True:
+                    if upper_class == 'Disease' and reader.is_covariates == True and show_covariates:
                         lower_num = network.phylogenetic_tree_dict['%s_with_covariates' % lower_class][child_val]
                     else: lower_num = network.phylogenetic_tree_dict[lower_class][child_val]
                     leaf_t.add_features(weight=edge_weights[lower_num,upper_num])
