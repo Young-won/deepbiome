@@ -30,7 +30,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script type="text/javascript">var copybuttonSkipText = '>>> ';</script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -629,7 +629,7 @@ default=True</p>
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_draw_phylogenetic_tree</code><span class="sig-paren">(</span><em class="sig-param">log, network_info, path_info, num_classes, file_name='%%inline', img_w=500, branch_vertical_margin=20, arc_start=0, arc_span=360, node_name_on=True, name_fsize=10, tree_weight_on=True, tree_weight=None, tree_weight_classes=['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease'], weight_opacity=0.4, weight_max_radios=10, phylum_background_color_on=True, phylum_color=[], phylum_color_legend=False, verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_draw_phylogenetic_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_draw_phylogenetic_tree</code><span class="sig-paren">(</span><em class="sig-param">log, network_info, path_info, num_classes, file_name='%%inline', img_w=500, branch_vertical_margin=20, arc_start=0, arc_span=360, node_name_on=True, name_fsize=10, tree_weight_on=True, tree_weight=None, tree_weight_classes=['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease'], weight_opacity=0.4, weight_max_radios=10, phylum_background_color_on=True, phylum_color=[], phylum_color_legend=False, show_covariates=True, verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_draw_phylogenetic_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_draw_phylogenetic_tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw phylogenetic tree</p>
 <p>See ref url (TODO: update)</p>
 <dl class="field-list simple">
@@ -689,6 +689,9 @@ default= []</p>
 </dd>
 <dt><strong>phylum_color_legend (boolean):</strong></dt><dd><p>show the legend for the background colors for phylum level
 default= False</p>
+</dd>
+<dt><strong>show_covariates (boolean):</strong></dt><dd><p>show the effect of the covariates
+default= True</p>
 </dd>
 <dt><strong>verbose (boolean):</strong></dt><dd><p>show the log if True
 default=True</p>
