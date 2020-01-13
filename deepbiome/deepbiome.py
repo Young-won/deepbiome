@@ -811,6 +811,11 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
         leaf_t = t.get_leaves_by_name(name=val)[0]
         leaf_t.set_style(basic_st)
         layer_tree_node_dict[val] = leaf_t
+        if lower_class == 'Phylum' and phylum_background_color_on:
+            phylum_st = copy.deepcopy(basic_st)
+            phylum_st["bgcolor"] = phylum_color[j]
+            phylum_color_dict[val] = phylum_color[j]
+            leaf_t.set_style(phylum_st)
     tree_node_dict[lower_class] = layer_tree_node_dict
     upper_class = lower_class
     upper_layer_names = lower_layer_names
