@@ -811,8 +811,6 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
         leaf_t = t.get_leaves_by_name(name=val)[0]
         leaf_t.set_style(basic_st)
         layer_tree_node_dict[val] = leaf_t
-        if node_name_on:
-            leaf_t = t.get_leaves_by_name(name=val)[0]
     tree_node_dict[lower_class] = layer_tree_node_dict
     upper_class = lower_class
     upper_layer_names = lower_layer_names
@@ -842,8 +840,6 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                     leaf_t.set_style(phylum_st)
                 else:
                     leaf_t.set_style(basic_st)
-                if lower_class == 'Genus' and node_name_on:
-                    leaf_t = parient_t.get_leaves_by_name(name=child_val)[0]
                 if tree_weight_on:
                     edge_weights = np.array(tree_weight[-1-i])
                     edge_weights *= (weight_max_radios / np.max(edge_weights))

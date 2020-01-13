@@ -10,6 +10,7 @@ __pycache__/
 *.log
 *.json
 examples/realdata_diabete
+examples/realdata_bmi
 
 ## Exception for the example file
 !deepbiome/tests/data/*
