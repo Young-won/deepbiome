@@ -30,7 +30,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script type="text/javascript">var copybuttonSkipText = '>>> ';</script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"ignoreClass": "document", "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -979,8 +979,6 @@
         <span class="n">leaf_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">leaf_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
         <span class="n">layer_tree_node_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">leaf_t</span>
-        <span class="k">if</span> <span class="n">node_name_on</span><span class="p">:</span>
-            <span class="n">leaf_t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">tree_node_dict</span><span class="p">[</span><span class="n">lower_class</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer_tree_node_dict</span>
     <span class="n">upper_class</span> <span class="o">=</span> <span class="n">lower_class</span>
     <span class="n">upper_layer_names</span> <span class="o">=</span> <span class="n">lower_layer_names</span>
@@ -1010,8 +1008,6 @@
                     <span class="n">leaf_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">phylum_st</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">leaf_t</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">basic_st</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">lower_class</span> <span class="o">==</span> <span class="s1">&#39;Genus&#39;</span> <span class="ow">and</span> <span class="n">node_name_on</span><span class="p">:</span>
-                    <span class="n">leaf_t</span> <span class="o">=</span> <span class="n">parient_t</span><span class="o">.</span><span class="n">get_leaves_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">child_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">tree_weight_on</span><span class="p">:</span>
                     <span class="n">edge_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tree_weight</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="p">])</span>
                     <span class="n">edge_weights</span> <span class="o">*=</span> <span class="p">(</span><span class="n">weight_max_radios</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">edge_weights</span><span class="p">))</span>
