@@ -37,6 +37,7 @@ import matplotlib.colors as mcolors
 
 
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
+                    tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
                     max_queue_size=10, workers=1, use_multiprocessing=False, 
                     verbose=True):
     """
@@ -56,6 +57,9 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         python dictionary with path_information
     number_of_fold (int):
         default=None
+    tree_level_list (list):
+        name of each level of the given reference tree weights
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     max_queue_size (int):
         default=10
     workers (int):
@@ -159,6 +163,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
             log.info('Build network for %d simulation' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold, num_classes=num_classes,
+                                tree_level_list = tree_level_list,
                                 is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile() ## TODO : weight clear only (no recompile)
         if warm_start:
@@ -226,6 +231,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 
 
 def deepbiome_test(log, network_info, path_info, number_of_fold=None,
+                   tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
                    max_queue_size=10, workers=1, use_multiprocessing=False,
                    verbose=True):
     """
@@ -246,6 +252,9 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
     number_of_fold (int):
         If `number_of_fold` is set as `k`, the function will test the model only with first `k` folds.
         default=None
+    tree_level_list (list):
+        name of each level of the given reference tree weights
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     max_queue_size (int):
         default=10
     workers (int):
@@ -328,6 +337,7 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
             log.info('Build network for %d fold testing' % (fold+1))
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold, num_classes=num_classes, 
+                                tree_level_list = tree_level_list,
                                 is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile() ## TODO : weight clear only (no recompile)
         network.load_weights(file_path_fold(model_path, fold), verbose=verbose)
@@ -365,6 +375,7 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
 
 def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fold=None,
                          change_weight_for_each_fold=False, get_y = False,
+                         tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
                          max_queue_size=10, workers=1, use_multiprocessing=False, 
                          verbose=True):
     """
@@ -394,6 +405,9 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
     get_y (boolean):
         If 'True', the function will provide a list of tuples (prediction, true output) as a output.
         degault=False
+    tree_level_list (list):
+        name of each level of the given reference tree weights
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     max_queue_size (int):
         default=10
     workers (int):
@@ -482,6 +496,7 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
         if verbose: log.info('-----------------------------------------------------------------')
         network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
         network = network_class(network_info, path_info, log, fold=fold, num_classes=num_classes,
+                                tree_level_list = tree_level_list,
                                 is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=verbose)
         network.model_compile()
         if change_weight_for_each_fold:network.load_weights(file_path_fold(model_path, fold), verbose=verbose)
@@ -504,7 +519,9 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
     gc.collect()
     return prediction
 
-def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weight_path, verbose=True):
+def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weight_path,
+                                 tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
+                                 verbose=True):
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
     
@@ -522,6 +539,9 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
         number of classes for the network. 0 for regression, 1 for binary classificatin.
     weight_path (string):
         path of the model weight
+    tree_level_list (list):
+        name of each level of the given reference tree weights
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     verbose (boolean):
         show the log if True
         default=True
@@ -560,6 +580,7 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
     
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            tree_level_list = tree_level_list,
                             is_covariates=reader.is_covariates, covariate_names = reader.covariate_names,
                             verbose=verbose)
     network.fold = ''
@@ -574,7 +595,9 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
 
 
 def deepbiome_taxa_selection_performance(log, network_info, path_info, num_classes,
-                                         true_tree_weight_list, trained_weight_path_list, verbose=True):
+                                         true_tree_weight_list, trained_weight_path_list, 
+                                         tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
+                                         verbose=True):
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
     
@@ -595,6 +618,9 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
         `true_tree_weight_list[0][0]` is the true weight information between the first and second layers for the first fold. It is a numpy array with the shape of (number of nodes for the first layer, number of nodes for the second layer).
     trained_weight_path_list (list):
         lists of the path of trained weight for each fold.
+    tree_level_list (list):
+        name of each level of the given reference tree weights
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     verbose (boolean):
         show the log if True
         default=True
@@ -639,6 +665,7 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
     reader.read_dataset(x_path[0], None, 0)
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            tree_level_list = tree_level_list,
                             is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=False)
     
     prediction = []
@@ -678,7 +705,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                                      arc_start = 0, arc_span = 360,
                                      node_name_on = True, name_fsize = 10,
                                      tree_weight_on = True, tree_weight=None,
-                                     tree_weight_classes = ['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease'],
+                                     tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
                                      weight_opacity = 0.4, weight_max_radios = 10, 
                                      phylum_background_color_on = True, phylum_color = [], phylum_color_legend=False,
                                      show_covariates = True,
@@ -727,9 +754,9 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     tree_weight (ndarray):
         reference tree weights
         default=None
-    tree_weight_classes (list):
+    tree_level_list (list):
         name of each level of the given reference tree weights
-        default=['Genus', 'Family', 'Order', 'Class', 'Phylum', 'Disease']
+        default=['Genus', 'Family', 'Order', 'Class', 'Phylum']
     weight_opacity  (float):
         opacity for weight circle
         default= 0.4
@@ -776,6 +803,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
+                            tree_level_list = tree_level_list,
                             is_covariates=reader.is_covariates, covariate_names = reader.covariate_names,
                             verbose=False)
     
@@ -801,7 +829,7 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     tree_node_dict['root'] = t
 
     upper_class = 'root'
-    lower_class = tree_weight_classes[-1]
+    lower_class = tree_level_list[-1]
     lower_layer_names = tree_weight[-1].columns.to_list()
 
     layer_tree_node_dict = {}
@@ -820,8 +848,8 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
     upper_class = lower_class
     upper_layer_names = lower_layer_names
 
-    for i in range(len(tree_weight_classes)-1):
-        lower_class = tree_weight_classes[-2-i]
+    for i in range(len(tree_level_list)-1):
+        lower_class = tree_level_list[-2-i]
         if upper_class == 'Disease' and show_covariates == False: 
             lower_layer_names = network.phylogenetic_tree_info[lower_class].unique()
         else: 

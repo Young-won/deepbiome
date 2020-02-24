@@ -9,8 +9,11 @@ __pycache__/
 *.npy
 *.log
 *.json
+*.zip
 examples/realdata_diabete
 examples/realdata_bmi
+simulation_results_dl
+*backup*
 
 ## Exception for the example file
 !deepbiome/tests/data/*
