@@ -1,5 +1,7 @@
 ./DeepBiome_usage_classification.html
+./DeepBiome_usage_classification.ipynb
 ./DeepBiome_usage_regression.html
+./DeepBiome_usage_regression.ipynb
 ./_images/DeepBiome.pdf
 ./_images/example_with_one_input_file_112_0.png
 ./_images/example_with_one_input_file_38_0.png
@@ -86,7 +88,9 @@
 ./authors.html
 ./contributing.html
 ./example_with_one_input_file.html
+./example_with_one_input_file.ipynb
 ./example_with_the_list_of_inputs.html
+./example_with_the_list_of_inputs.ipynb
 ./genindex.html
 ./index.html
 ./installation.html

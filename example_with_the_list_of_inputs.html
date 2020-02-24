@@ -21,16 +21,16 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/clipboard.min.js"></script>
-        <script type="text/javascript" src="_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script type="text/javascript">var copybuttonSkipText = '>>> ';</script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script >var copybuttonSkipText = '>>> ';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "math|output_area", "processEscapes": true, "ignoreClass": "document", "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -263,8 +263,8 @@ div.nboutput.container div.prompt pre {
 div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
     min-width: 5ex;
-    padding-top: 0.4em;
-    padding-right: 0.4em;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
     text-align: right;
     flex: 0;
 }
@@ -288,7 +288,6 @@ div.nboutput.container div.prompt pre {
 /* input/output area */
 div.nbinput.container div.input_area,
 div.nboutput.container div.output_area {
-    padding: 0.4em;
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
@@ -361,6 +360,27 @@ div.nboutput.container div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
 
 /* Some additional styling taken form the Jupyter notebook CSS */
 div.rendered_html table {
@@ -3106,34 +3126,34 @@ Name: V1, dtype: int64
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|deepbiome.py:109] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:147] -------1 simulation start!----------------------------------
+[root    |INFO|deepbiome.py:113] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:151] -------1 simulation start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 1 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 1 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3154,7 +3174,7 @@ Colocations handled automatically by placer.
 [tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/resource_variable_ops.py:432: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
 Instructions for updating:
 Colocations handled automatically by placer.
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3203,8 +3223,8 @@ _________________________________________________________________
 [root    |INFO|build_network.py:59] Optimizer = adam
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 1 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 1 fold computing start!----------------------------------
 [root    |INFO|build_network.py:134] Training start!
 </pre></div></div>
 </div>
@@ -3235,25 +3255,25 @@ Use tf.cast instead.
 <div class="highlight"><pre>
 Train on 600 samples, validate on 150 samples
 Epoch 1/10
-600/600 [==============================] - 1s 1ms/step - loss: 0.6653 - binary_accuracy: 0.6567 - sensitivity: 0.9238 - specificity: 0.0722 - gmeasure: 0.0227 - auc: 0.4724 - val_loss: 0.6271 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4761
+600/600 [==============================] - 1s 1ms/step - loss: 0.6526 - binary_accuracy: 0.6883 - sensitivity: 0.9972 - specificity: 0.0042 - gmeasure: 0.0183 - auc: 0.6355 - val_loss: 0.6210 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6349
 Epoch 2/10
-600/600 [==============================] - 0s 220us/step - loss: 0.6289 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4632 - val_loss: 0.6125 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4959
+600/600 [==============================] - 0s 216us/step - loss: 0.6256 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6700 - val_loss: 0.6115 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6729
 Epoch 3/10
-600/600 [==============================] - 0s 211us/step - loss: 0.6237 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4836 - val_loss: 0.6113 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5191
+600/600 [==============================] - 0s 195us/step - loss: 0.6222 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7378 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7542
 Epoch 4/10
-600/600 [==============================] - 0s 222us/step - loss: 0.6208 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5284 - val_loss: 0.6110 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5292
+600/600 [==============================] - 0s 213us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7981 - val_loss: 0.6113 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7929
 Epoch 5/10
-600/600 [==============================] - 0s 184us/step - loss: 0.6223 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5574 - val_loss: 0.6124 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5464
+600/600 [==============================] - 0s 221us/step - loss: 0.6220 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8333 - val_loss: 0.6129 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8051
 Epoch 6/10
-600/600 [==============================] - 0s 201us/step - loss: 0.6211 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5882 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5753
+600/600 [==============================] - 0s 206us/step - loss: 0.6212 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8395 - val_loss: 0.6108 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8166
 Epoch 7/10
-600/600 [==============================] - 0s 223us/step - loss: 0.6208 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6102 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5983
+600/600 [==============================] - 0s 219us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8542 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8199
 Epoch 8/10
-600/600 [==============================] - 0s 216us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6184 - val_loss: 0.6120 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5996
+600/600 [==============================] - 0s 225us/step - loss: 0.6207 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8566 - val_loss: 0.6113 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8302
 Epoch 9/10
-600/600 [==============================] - 0s 216us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6355 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6144
+600/600 [==============================] - 0s 209us/step - loss: 0.6207 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8626 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8319
 Epoch 10/10
-600/600 [==============================] - 0s 221us/step - loss: 0.6208 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6447 - val_loss: 0.6110 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6195
+600/600 [==============================] - 0s 192us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8630 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8240
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3262,10 +3282,10 @@ Epoch 10/10
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|build_network.py:144] Training end with time 4.361445188522339!
+[root    |INFO|build_network.py:144] Training end with time 4.130972146987915!
 [root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_0.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_0.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_0.json
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_0.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_0.json
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -3274,7 +3294,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-750/750 [==============================] - 0s 11us/step
+750/750 [==============================] - 0s 9us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3282,165 +3302,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.01755976676940918!
-[root    |INFO|build_network.py:176] Evaluation: [0.6186636686325073, 0.690666675567627, 1.0, 0.0, 0.0, 0.5935461521148682]
-[root    |INFO|build_network.py:170] Evaluation start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-250/250 [==============================] - 0s 21us/step
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.013000726699829102!
-[root    |INFO|build_network.py:176] Evaluation: [0.630921483039856, 0.6759999990463257, 1.0, 0.0, 0.0, 0.5979618430137634]
-[root    |INFO|deepbiome.py:192] Compute time : 6.488859415054321
-[root    |INFO|deepbiome.py:193] 1 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:147] -------2 simulation start!----------------------------------
-[root    |INFO|readers.py:58] -----------------------------------------------------------------------
-[root    |INFO|readers.py:59] Construct Dataset
-[root    |INFO|readers.py:60] -----------------------------------------------------------------------
-[root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 2 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
-[root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Model: &#34;model_1&#34;
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #
-=================================================================
-input (InputLayer)           (None, 48)                0
-_________________________________________________________________
-l1_dense (Dense_with_tree)   (None, 40)                1960
-_________________________________________________________________
-l1_activation (Activation)   (None, 40)                0
-_________________________________________________________________
-l2_dense (Dense_with_tree)   (None, 23)                943
-_________________________________________________________________
-l2_activation (Activation)   (None, 23)                0
-_________________________________________________________________
-l3_dense (Dense_with_tree)   (None, 17)                408
-_________________________________________________________________
-l3_activation (Activation)   (None, 17)                0
-_________________________________________________________________
-l4_dense (Dense_with_tree)   (None, 9)                 162
-_________________________________________________________________
-l4_activation (Activation)   (None, 9)                 0
-_________________________________________________________________
-last_dense_h (Dense)         (None, 1)                 10
-_________________________________________________________________
-p_hat (Activation)           (None, 1)                 0
-=================================================================
-Total params: 3,483
-Trainable params: 3,483
-Non-trainable params: 0
-_________________________________________________________________
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:58] Build Network
-[root    |INFO|build_network.py:59] Optimizer = adam
-[root    |INFO|build_network.py:60] Loss = binary_crossentropy
-[root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 2 fold computing start!----------------------------------
-[root    |INFO|build_network.py:134] Training start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Train on 600 samples, validate on 150 samples
-Epoch 1/10
-600/600 [==============================] - 1s 985us/step - loss: 0.6726 - binary_accuracy: 0.7033 - sensitivity: 0.9192 - specificity: 0.0833 - gmeasure: 0.0145 - auc: 0.5291 - val_loss: 0.6481 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5391
-Epoch 2/10
-600/600 [==============================] - 0s 184us/step - loss: 0.6279 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5304 - val_loss: 0.6077 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6667
-Epoch 3/10
-600/600 [==============================] - 0s 144us/step - loss: 0.5937 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6113 - val_loss: 0.5871 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7116
-Epoch 4/10
-600/600 [==============================] - 0s 204us/step - loss: 0.5869 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6607 - val_loss: 0.5890 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7352
-Epoch 5/10
-600/600 [==============================] - 0s 199us/step - loss: 0.5863 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7353 - val_loss: 0.5867 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7897
-Epoch 6/10
-600/600 [==============================] - 0s 186us/step - loss: 0.5857 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7983 - val_loss: 0.5867 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8321
-Epoch 7/10
-600/600 [==============================] - 0s 213us/step - loss: 0.5856 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8194 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8498
-Epoch 8/10
-600/600 [==============================] - 0s 227us/step - loss: 0.5850 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8617 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8660
-Epoch 9/10
-600/600 [==============================] - 0s 212us/step - loss: 0.5850 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8743 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8742
-Epoch 10/10
-600/600 [==============================] - 0s 211us/step - loss: 0.5860 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8773 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8819
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
-[root    |INFO|build_network.py:144] Training end with time 3.562530279159546!
-[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_1.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_1.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_1.json
-[root    |INFO|build_network.py:170] Evaluation start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-750/750 [==============================] - 0s 8us/step
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.01360464096069336!
-[root    |INFO|build_network.py:176] Evaluation: [0.58513343334198, 0.7279999852180481, 1.0, 0.0, 0.0, 0.8750359416007996]
+[root    |INFO|build_network.py:175] Evaluation end with time 0.012928247451782227!
+[root    |INFO|build_network.py:176] Evaluation: [0.6185957193374634, 0.690666675567627, 1.0, 0.0, 0.0, 0.8402218222618103]
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -3457,38 +3320,210 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.012235879898071289!
-[root    |INFO|build_network.py:176] Evaluation: [0.6168190836906433, 0.6959999799728394, 1.0, 0.0, 0.0, 0.8657743334770203]
-[root    |INFO|deepbiome.py:192] Compute time : 4.074154615402222
-[root    |INFO|deepbiome.py:193] 2 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:147] -------3 simulation start!----------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.011587858200073242!
+[root    |INFO|build_network.py:176] Evaluation: [0.6308059692382812, 0.6759999990463257, 1.0, 0.0, 0.0, 0.8475052714347839]
+[root    |INFO|deepbiome.py:197] Compute time : 5.863989353179932
+[root    |INFO|deepbiome.py:198] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:151] -------2 simulation start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 3 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 2 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model: &#34;model_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input (InputLayer)           (None, 48)                0
+_________________________________________________________________
+l1_dense (Dense_with_tree)   (None, 40)                1960
+_________________________________________________________________
+l1_activation (Activation)   (None, 40)                0
+_________________________________________________________________
+l2_dense (Dense_with_tree)   (None, 23)                943
+_________________________________________________________________
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+l2_activation (Activation)   (None, 23)                0
+_________________________________________________________________
+l3_dense (Dense_with_tree)   (None, 17)                408
+_________________________________________________________________
+l3_activation (Activation)   (None, 17)                0
+_________________________________________________________________
+l4_dense (Dense_with_tree)   (None, 9)                 162
+_________________________________________________________________
+l4_activation (Activation)   (None, 9)                 0
+_________________________________________________________________
+last_dense_h (Dense)         (None, 1)                 10
+_________________________________________________________________
+p_hat (Activation)           (None, 1)                 0
+=================================================================
+Total params: 3,483
+Trainable params: 3,483
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:58] Build Network
+[root    |INFO|build_network.py:59] Optimizer = adam
+[root    |INFO|build_network.py:60] Loss = binary_crossentropy
+[root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 2 fold computing start!----------------------------------
+[root    |INFO|build_network.py:134] Training start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 600 samples, validate on 150 samples
+Epoch 1/10
+600/600 [==============================] - 1s 898us/step - loss: 0.6673 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5837 - val_loss: 0.6283 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6231
+Epoch 2/10
+600/600 [==============================] - 0s 221us/step - loss: 0.6070 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5689 - val_loss: 0.5868 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6248
+Epoch 3/10
+600/600 [==============================] - 0s 217us/step - loss: 0.5860 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5909 - val_loss: 0.5872 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6557
+Epoch 4/10
+600/600 [==============================] - 0s 218us/step - loss: 0.5854 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6169 - val_loss: 0.5862 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6809
+Epoch 5/10
+600/600 [==============================] - 0s 194us/step - loss: 0.5846 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6363 - val_loss: 0.5859 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6769
+Epoch 6/10
+600/600 [==============================] - 0s 203us/step - loss: 0.5847 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6677 - val_loss: 0.5858 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6766
+Epoch 7/10
+600/600 [==============================] - 0s 198us/step - loss: 0.5843 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6753 - val_loss: 0.5854 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6838
+Epoch 8/10
+600/600 [==============================] - 0s 197us/step - loss: 0.5840 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6899 - val_loss: 0.5853 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6906
+Epoch 9/10
+600/600 [==============================] - 0s 211us/step - loss: 0.5838 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7018 - val_loss: 0.5849 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7023
+Epoch 10/10
+600/600 [==============================] - 0s 210us/step - loss: 0.5834 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7169 - val_loss: 0.5843 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7083
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
+[root    |INFO|build_network.py:144] Training end with time 3.511033296585083!
+[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_1.h5
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_1.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_1.json
+[root    |INFO|build_network.py:170] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+750/750 [==============================] - 0s 8us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:175] Evaluation end with time 0.01337742805480957!
+[root    |INFO|build_network.py:176] Evaluation: [0.5832566618919373, 0.7279999852180481, 1.0, 0.0, 0.0, 0.7232950925827026]
+[root    |INFO|build_network.py:170] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+250/250 [==============================] - 0s 22us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:175] Evaluation end with time 0.01352691650390625!
+[root    |INFO|build_network.py:176] Evaluation: [0.6143583655357361, 0.6959999799728394, 1.0, 0.0, 0.0, 0.7264065146446228]
+[root    |INFO|deepbiome.py:197] Compute time : 4.0996620655059814
+[root    |INFO|deepbiome.py:198] 2 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:151] -------3 simulation start!----------------------------------
+[root    |INFO|readers.py:58] -----------------------------------------------------------------------
+[root    |INFO|readers.py:59] Construct Dataset
+[root    |INFO|readers.py:60] -----------------------------------------------------------------------
+[root    |INFO|readers.py:61] Load data
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 3 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
+[root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3537,8 +3572,8 @@ _________________________________________________________________
 [root    |INFO|build_network.py:59] Optimizer = adam
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 3 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 3 fold computing start!----------------------------------
 [root    |INFO|build_network.py:134] Training start!
 </pre></div></div>
 </div>
@@ -3549,25 +3584,25 @@ _________________________________________________________________
 <div class="highlight"><pre>
 Train on 600 samples, validate on 150 samples
 Epoch 1/10
-600/600 [==============================] - 1s 970us/step - loss: 0.6608 - binary_accuracy: 0.6550 - sensitivity: 0.9342 - specificity: 0.0694 - gmeasure: 0.0349 - auc: 0.5155 - val_loss: 0.6466 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4716
+600/600 [==============================] - 1s 928us/step - loss: 0.6653 - binary_accuracy: 0.6583 - sensitivity: 0.9310 - specificity: 0.0611 - gmeasure: 0.0295 - auc: 0.5099 - val_loss: 0.6502 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4965
 Epoch 2/10
-600/600 [==============================] - 0s 223us/step - loss: 0.6225 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5605 - val_loss: 0.6577 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5405
+600/600 [==============================] - 0s 218us/step - loss: 0.6248 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5704 - val_loss: 0.6542 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5843
 Epoch 3/10
-600/600 [==============================] - 0s 218us/step - loss: 0.6239 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6426 - val_loss: 0.6500 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5807
+600/600 [==============================] - 0s 219us/step - loss: 0.6225 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6871 - val_loss: 0.6510 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6798
 Epoch 4/10
-600/600 [==============================] - 0s 225us/step - loss: 0.6196 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6875 - val_loss: 0.6461 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6559
+600/600 [==============================] - 0s 208us/step - loss: 0.6212 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7733 - val_loss: 0.6469 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7217
 Epoch 5/10
-600/600 [==============================] - 0s 222us/step - loss: 0.6217 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7359 - val_loss: 0.6460 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6928
+600/600 [==============================] - 0s 209us/step - loss: 0.6211 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8098 - val_loss: 0.6479 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7505
 Epoch 6/10
-600/600 [==============================] - 0s 218us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7924 - val_loss: 0.6512 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7516
+600/600 [==============================] - 0s 206us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8203 - val_loss: 0.6490 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7700
 Epoch 7/10
-600/600 [==============================] - 0s 225us/step - loss: 0.6218 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8224 - val_loss: 0.6469 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7970
+600/600 [==============================] - 0s 208us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8345 - val_loss: 0.6494 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7938
 Epoch 8/10
-600/600 [==============================] - 0s 215us/step - loss: 0.6203 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8547 - val_loss: 0.6481 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7785
+600/600 [==============================] - 0s 195us/step - loss: 0.6223 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8620 - val_loss: 0.6463 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8272
 Epoch 9/10
-600/600 [==============================] - 0s 204us/step - loss: 0.6201 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8109 - val_loss: 0.6471 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.7963
+600/600 [==============================] - 0s 200us/step - loss: 0.6205 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8588 - val_loss: 0.6476 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8366
 Epoch 10/10
-600/600 [==============================] - 0s 205us/step - loss: 0.6194 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8389 - val_loss: 0.6471 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8381
+600/600 [==============================] - 0s 192us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.8678 - val_loss: 0.6504 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.8431
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3576,10 +3611,10 @@ Epoch 10/10
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
-[root    |INFO|build_network.py:144] Training end with time 3.5530033111572266!
+[root    |INFO|build_network.py:144] Training end with time 3.3367719650268555!
 [root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_2.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_2.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_2.json
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_2.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_2.json
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -3588,7 +3623,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-750/750 [==============================] - 0s 8us/step
+750/750 [==============================] - 0s 7us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3596,8 +3631,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.013504981994628906!
-[root    |INFO|build_network.py:176] Evaluation: [0.6260514855384827, 0.6813333630561829, 1.0, 0.0, 0.0, 0.7517993450164795]
+[root    |INFO|build_network.py:175] Evaluation end with time 0.011718988418579102!
+[root    |INFO|build_network.py:176] Evaluation: [0.6257398128509521, 0.6813333630561829, 1.0, 0.0, 0.0, 0.8508626222610474]
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -3606,7 +3641,7 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 17us/step
+250/250 [==============================] - 0s 21us/step
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -3614,21 +3649,21 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.011878013610839844!
-[root    |INFO|build_network.py:176] Evaluation: [0.6041988134384155, 0.7120000123977661, 1.0, 0.0, 0.0, 0.6278089880943298]
-[root    |INFO|deepbiome.py:192] Compute time : 4.307129859924316
-[root    |INFO|deepbiome.py:193] 3 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:204] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:205] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:206]       mean : [0.60994953 0.70000001 1.         0.         0.         0.74012715]
-[root    |INFO|deepbiome.py:207]        std : [0.01780494 0.02016229 0.         0.         0.         0.11521373]
-[root    |INFO|deepbiome.py:208] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:209] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:210]       mean : [0.61731313 0.69466666 1.         0.         0.         0.69718172]
-[root    |INFO|deepbiome.py:211]        std : [0.01091508 0.01472715 0.         0.         0.         0.11983409]
-[root    |INFO|deepbiome.py:212] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:223] Total Computing Ended
-[root    |INFO|deepbiome.py:224] -----------------------------------------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.012784004211425781!
+[root    |INFO|build_network.py:176] Evaluation: [0.6032165288925171, 0.7120000123977661, 1.0, 0.0, 0.0, 0.8039950132369995]
+[root    |INFO|deepbiome.py:197] Compute time : 4.090543508529663
+[root    |INFO|deepbiome.py:198] 3 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:209] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:210] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:211]       mean : [0.6091974  0.70000001 1.         0.         0.         0.80479318]
+[root    |INFO|deepbiome.py:212]        std : [0.01857329 0.02016229 0.         0.         0.         0.05779135]
+[root    |INFO|deepbiome.py:213] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:214] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:215]       mean : [0.61612695 0.69466666 1.         0.         0.         0.7926356 ]
+[root    |INFO|deepbiome.py:216]        std : [0.01133256 0.01472715 0.         0.         0.         0.05008662]
+[root    |INFO|deepbiome.py:217] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:228] Total Computing Ended
+[root    |INFO|deepbiome.py:229] -----------------------------------------------------------------
 </pre></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">deepbiome_train</span></code> saves the trained model weights, evaluation results and history based on the path information from the configuration.</p>
@@ -3673,12 +3708,12 @@ Epoch 10/10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.63092148, 0.676     , 1.        , 0.        , 0.        ,
-        0.59796184],
-       [0.61681908, 0.69599998, 1.        , 0.        , 0.        ,
-        0.86577433],
-       [0.60419881, 0.71200001, 1.        , 0.        , 0.        ,
-        0.62780899]])
+array([[0.63080597, 0.676     , 1.        , 0.        , 0.        ,
+        0.84750527],
+       [0.61435837, 0.69599998, 1.        , 0.        , 0.        ,
+        0.72640651],
+       [0.60321653, 0.71200001, 1.        , 0.        , 0.        ,
+        0.80399501]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -3696,12 +3731,12 @@ array([[0.63092148, 0.676     , 1.        , 0.        , 0.        ,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.61866367, 0.69066668, 1.        , 0.        , 0.        ,
-        0.59354615],
-       [0.58513343, 0.72799999, 1.        , 0.        , 0.        ,
-        0.87503594],
-       [0.62605149, 0.68133336, 1.        , 0.        , 0.        ,
-        0.75179935]])
+array([[0.61859572, 0.69066668, 1.        , 0.        , 0.        ,
+        0.84022182],
+       [0.58325666, 0.72799999, 1.        , 0.        , 0.        ,
+        0.72329509],
+       [0.62573981, 0.68133336, 1.        , 0.        , 0.        ,
+        0.85086262]])
 </pre></div></div>
 </div>
 </div>
@@ -3768,35 +3803,35 @@ array([[0.61866367, 0.69066668, 1.        , 0.        , 0.        ,
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|deepbiome.py:109] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:147] -------1 simulation start!----------------------------------
+[root    |INFO|deepbiome.py:113] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:151] -------1 simulation start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 1 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 1 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 [root    |INFO|build_network.py:58] Build Network
 [root    |INFO|build_network.py:59] Optimizer = adam
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
@@ -3846,8 +3881,8 @@ _________________________________________________________________
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 1 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 1 fold computing start!----------------------------------
 [root    |INFO|build_network.py:134] Training start!
 </pre></div></div>
 </div>
@@ -3858,25 +3893,25 @@ _________________________________________________________________
 <div class="highlight"><pre>
 Train on 600 samples, validate on 150 samples
 Epoch 1/10
-600/600 [==============================] - 1s 912us/step - loss: 0.6245 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 811us/step - loss: 0.6218 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6119 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 2/10
-600/600 [==============================] - 0s 140us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6133 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 126us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6117 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 3/10
-600/600 [==============================] - 0s 138us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6116 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 134us/step - loss: 0.6202 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6108 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 4/10
-600/600 [==============================] - 0s 139us/step - loss: 0.6210 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6109 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 133us/step - loss: 0.6209 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6107 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 5/10
-600/600 [==============================] - 0s 145us/step - loss: 0.6209 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6111 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 127us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6120 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 6/10
-600/600 [==============================] - 0s 137us/step - loss: 0.6211 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 136us/step - loss: 0.6222 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6128 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 7/10
-600/600 [==============================] - 0s 142us/step - loss: 0.6209 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6111 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 138us/step - loss: 0.6197 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6106 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 8/10
-600/600 [==============================] - 0s 141us/step - loss: 0.6230 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6108 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 125us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6108 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 9/10
-600/600 [==============================] - 0s 128us/step - loss: 0.6207 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6124 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 97us/step - loss: 0.6213 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6105 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 10/10
-600/600 [==============================] - 0s 128us/step - loss: 0.6206 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6115 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 128us/step - loss: 0.6204 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6114 - val_binary_accuracy: 0.7000 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -3885,10 +3920,10 @@ Epoch 10/10
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|build_network.py:144] Training end with time 2.7502920627593994!
+[root    |INFO|build_network.py:144] Training end with time 3.1849966049194336!
 [root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_0.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_0.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_0.json
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_0.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_0.json
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -3905,166 +3940,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.00915670394897461!
-[root    |INFO|build_network.py:176] Evaluation: [0.6188459992408752, 0.690666675567627, 1.0, 0.0, 0.0]
-[root    |INFO|build_network.py:170] Evaluation start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-250/250 [==============================] - 0s 9us/step
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.009038209915161133!
-[root    |INFO|build_network.py:176] Evaluation: [0.6315351724624634, 0.6759999990463257, 1.0, 0.0, 0.0]
-[root    |INFO|deepbiome.py:192] Compute time : 3.403714179992676
-[root    |INFO|deepbiome.py:193] 1 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:147] -------2 simulation start!----------------------------------
-[root    |INFO|readers.py:58] -----------------------------------------------------------------------
-[root    |INFO|readers.py:59] Construct Dataset
-[root    |INFO|readers.py:60] -----------------------------------------------------------------------
-[root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 2 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
-[root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Model: &#34;model_1&#34;
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #
-=================================================================
-input (InputLayer)           (None, 48)                0
-_________________________________________________________________
-l1_dense (Dense_with_tree)   (None, 40)                1960
-_________________________________________________________________
-l1_activation (Activation)   (None, 40)                0
-_________________________________________________________________
-l2_dense (Dense_with_tree)   (None, 23)                943
-_________________________________________________________________
-l2_activation (Activation)   (None, 23)                0
-_________________________________________________________________
-l3_dense (Dense_with_tree)   (None, 17)                408
-_________________________________________________________________
-l3_activation (Activation)   (None, 17)                0
-_________________________________________________________________
-l4_dense (Dense_with_tree)   (None, 9)                 162
-_________________________________________________________________
-l4_activation (Activation)   (None, 9)                 0
-_________________________________________________________________
-last_dense_h (Dense)         (None, 1)                 10
-_________________________________________________________________
-p_hat (Activation)           (None, 1)                 0
-=================================================================
-Total params: 3,483
-Trainable params: 3,483
-Non-trainable params: 0
-_________________________________________________________________
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:58] Build Network
-[root    |INFO|build_network.py:59] Optimizer = adam
-[root    |INFO|build_network.py:60] Loss = binary_crossentropy
-[root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure
-[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 2 fold computing start!----------------------------------
-[root    |INFO|build_network.py:134] Training start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Train on 600 samples, validate on 150 samples
-Epoch 1/10
-600/600 [==============================] - 1s 876us/step - loss: 0.5861 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 2/10
-600/600 [==============================] - 0s 135us/step - loss: 0.5850 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5865 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 3/10
-600/600 [==============================] - 0s 147us/step - loss: 0.5850 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5864 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 4/10
-600/600 [==============================] - 0s 140us/step - loss: 0.5850 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5863 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 5/10
-600/600 [==============================] - 0s 143us/step - loss: 0.5849 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5862 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 6/10
-600/600 [==============================] - 0s 139us/step - loss: 0.5848 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5862 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 7/10
-600/600 [==============================] - 0s 135us/step - loss: 0.5848 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5863 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 8/10
-600/600 [==============================] - 0s 145us/step - loss: 0.5845 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5859 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 9/10
-600/600 [==============================] - 0s 156us/step - loss: 0.5842 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5855 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-Epoch 10/10
-600/600 [==============================] - 0s 135us/step - loss: 0.5837 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5850 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
-[root    |INFO|build_network.py:144] Training end with time 3.1308505535125732!
-[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_1.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_1.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_1.json
-[root    |INFO|build_network.py:170] Evaluation start!
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-750/750 [==============================] - 0s 4us/step
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.01028132438659668!
-[root    |INFO|build_network.py:176] Evaluation: [0.5834336876869202, 0.7279999852180481, 1.0, 0.0, 0.0]
+[root    |INFO|build_network.py:175] Evaluation end with time 0.009194135665893555!
+[root    |INFO|build_network.py:176] Evaluation: [0.6182171106338501, 0.690666675567627, 1.0, 0.0, 0.0]
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4081,39 +3958,38 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.008895158767700195!
-[root    |INFO|build_network.py:176] Evaluation: [0.615436851978302, 0.6959999799728394, 1.0, 0.0, 0.0]
-[root    |INFO|deepbiome.py:192] Compute time : 4.0078675746917725
-[root    |INFO|deepbiome.py:193] 2 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:147] -------3 simulation start!----------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.007758140563964844!
+[root    |INFO|build_network.py:176] Evaluation: [0.6303936839103699, 0.6759999990463257, 1.0, 0.0, 0.0]
+[root    |INFO|deepbiome.py:197] Compute time : 3.8117446899414062
+[root    |INFO|deepbiome.py:198] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:151] -------2 simulation start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:158] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:159] Build network for 3 simulation
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 2 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:58] Build Network
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4158,12 +4034,13 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+[root    |INFO|build_network.py:58] Build Network
 [root    |INFO|build_network.py:59] Optimizer = adam
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure
-[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
-[root    |INFO|deepbiome.py:169] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:170] 3 fold computing start!----------------------------------
+[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 2 fold computing start!----------------------------------
 [root    |INFO|build_network.py:134] Training start!
 </pre></div></div>
 </div>
@@ -4174,25 +4051,25 @@ _________________________________________________________________
 <div class="highlight"><pre>
 Train on 600 samples, validate on 150 samples
 Epoch 1/10
-600/600 [==============================] - 1s 898us/step - loss: 0.6210 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6479 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 1s 876us/step - loss: 0.5835 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5836 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 2/10
-600/600 [==============================] - 0s 132us/step - loss: 0.6212 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6471 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 146us/step - loss: 0.5826 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5831 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 3/10
-600/600 [==============================] - 0s 137us/step - loss: 0.6212 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6491 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 154us/step - loss: 0.5837 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5829 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 4/10
-600/600 [==============================] - 0s 150us/step - loss: 0.6202 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6461 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 132us/step - loss: 0.5831 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5825 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 5/10
-600/600 [==============================] - 0s 148us/step - loss: 0.6199 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6466 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 135us/step - loss: 0.5805 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5802 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 6/10
-600/600 [==============================] - 0s 156us/step - loss: 0.6189 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6447 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 143us/step - loss: 0.5822 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5791 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 7/10
-600/600 [==============================] - 0s 152us/step - loss: 0.6173 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6427 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 140us/step - loss: 0.5798 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5789 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 8/10
-600/600 [==============================] - 0s 144us/step - loss: 0.6148 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6383 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 140us/step - loss: 0.5773 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5755 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 9/10
-600/600 [==============================] - 0s 141us/step - loss: 0.6082 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6330 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 154us/step - loss: 0.5749 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5723 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 Epoch 10/10
-600/600 [==============================] - 0s 166us/step - loss: 0.5971 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6185 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+600/600 [==============================] - 0s 142us/step - loss: 0.5745 - binary_accuracy: 0.7283 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.5689 - val_binary_accuracy: 0.7267 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4200,11 +4077,11 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
-[root    |INFO|build_network.py:144] Training end with time 3.3785605430603027!
-[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_2.h5
-[root    |DEBUG|deepbiome.py:178] Save weight at ./example_result/weight_2.h5
-[root    |DEBUG|deepbiome.py:181] Save history at ./example_result/hist_2.json
+[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
+[root    |INFO|build_network.py:144] Training end with time 3.1659278869628906!
+[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_1.h5
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_1.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_1.json
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4221,8 +4098,8 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.010133981704711914!
-[root    |INFO|build_network.py:176] Evaluation: [0.5940648913383484, 0.6813333630561829, 1.0, 0.0, 0.0]
+[root    |INFO|build_network.py:175] Evaluation end with time 0.010507822036743164!
+[root    |INFO|build_network.py:176] Evaluation: [0.5697051882743835, 0.7279999852180481, 1.0, 0.0, 0.0]
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4234,26 +4111,184 @@ Epoch 10/10
 250/250 [==============================] - 0s 10us/step
 </pre></div></div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:175] Evaluation end with time 0.008732080459594727!
+[root    |INFO|build_network.py:176] Evaluation: [0.6001993417739868, 0.6959999799728394, 1.0, 0.0, 0.0]
+[root    |INFO|deepbiome.py:197] Compute time : 4.0174524784088135
+[root    |INFO|deepbiome.py:198] 2 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:151] -------3 simulation start!----------------------------------
+[root    |INFO|readers.py:58] -----------------------------------------------------------------------
+[root    |INFO|readers.py:59] Construct Dataset
+[root    |INFO|readers.py:60] -----------------------------------------------------------------------
+[root    |INFO|readers.py:61] Load data
+[root    |INFO|deepbiome.py:162] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:163] Build network for 3 simulation
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
+[root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:58] Build Network
+[root    |INFO|build_network.py:59] Optimizer = adam
+[root    |INFO|build_network.py:60] Loss = binary_crossentropy
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model: &#34;model_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input (InputLayer)           (None, 48)                0
+_________________________________________________________________
+l1_dense (Dense_with_tree)   (None, 40)                1960
+_________________________________________________________________
+l1_activation (Activation)   (None, 40)                0
+_________________________________________________________________
+l2_dense (Dense_with_tree)   (None, 23)                943
+_________________________________________________________________
+l2_activation (Activation)   (None, 23)                0
+_________________________________________________________________
+l3_dense (Dense_with_tree)   (None, 17)                408
+_________________________________________________________________
+l3_activation (Activation)   (None, 17)                0
+_________________________________________________________________
+l4_dense (Dense_with_tree)   (None, 9)                 162
+_________________________________________________________________
+l4_activation (Activation)   (None, 9)                 0
+_________________________________________________________________
+last_dense_h (Dense)         (None, 1)                 10
+_________________________________________________________________
+p_hat (Activation)           (None, 1)                 0
+=================================================================
+Total params: 3,483
+Trainable params: 3,483
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure
+[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
+[root    |INFO|deepbiome.py:174] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:175] 3 fold computing start!----------------------------------
+[root    |INFO|build_network.py:134] Training start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 600 samples, validate on 150 samples
+Epoch 1/10
+600/600 [==============================] - 0s 827us/step - loss: 0.6246 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6481 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 2/10
+600/600 [==============================] - 0s 134us/step - loss: 0.6203 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6463 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 3/10
+600/600 [==============================] - 0s 129us/step - loss: 0.6218 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6484 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 4/10
+600/600 [==============================] - 0s 135us/step - loss: 0.6212 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6464 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 5/10
+600/600 [==============================] - 0s 137us/step - loss: 0.6199 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6476 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 6/10
+600/600 [==============================] - 0s 140us/step - loss: 0.6200 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6480 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 7/10
+600/600 [==============================] - 0s 134us/step - loss: 0.6197 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6481 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 8/10
+600/600 [==============================] - 0s 136us/step - loss: 0.6195 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6464 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 9/10
+600/600 [==============================] - 0s 145us/step - loss: 0.6190 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6467 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+Epoch 10/10
+600/600 [==============================] - 0s 135us/step - loss: 0.6185 - binary_accuracy: 0.6883 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - val_loss: 0.6459 - val_binary_accuracy: 0.6533 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
+[root    |INFO|build_network.py:144] Training end with time 2.892124652862549!
+[root    |INFO|build_network.py:80] Saved trained model weight at ./example_result/weight_2.h5
+[root    |DEBUG|deepbiome.py:183] Save weight at ./example_result/weight_2.h5
+[root    |DEBUG|deepbiome.py:186] Save history at ./example_result/hist_2.json
+[root    |INFO|build_network.py:170] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+750/750 [==============================] - 0s 3us/step
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[root    |INFO|build_network.py:175] Evaluation end with time 0.007277011871337891!
+[root    |INFO|build_network.py:176] Evaluation: [0.6235824823379517, 0.6813333630561829, 1.0, 0.0, 0.0]
+[root    |INFO|build_network.py:170] Evaluation start!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+250/250 [==============================] - 0s 7us/step
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.009307384490966797!
-[root    |INFO|build_network.py:176] Evaluation: [0.5718339085578918, 0.7120000123977661, 1.0, 0.0, 0.0]
-[root    |INFO|deepbiome.py:192] Compute time : 4.075947046279907
-[root    |INFO|deepbiome.py:193] 3 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:204] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:205] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39;]
-[root    |INFO|deepbiome.py:206]       mean : [0.59878153 0.70000001 1.         0.         0.        ]
-[root    |INFO|deepbiome.py:207]        std : [0.01483673 0.02016229 0.         0.         0.        ]
-[root    |INFO|deepbiome.py:208] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:209] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39;]
-[root    |INFO|deepbiome.py:210]       mean : [0.60626864 0.69466666 1.         0.         0.        ]
-[root    |INFO|deepbiome.py:211]        std : [0.02522039 0.01472715 0.         0.         0.        ]
-[root    |INFO|deepbiome.py:212] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:223] Total Computing Ended
-[root    |INFO|deepbiome.py:224] -----------------------------------------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.008111238479614258!
+[root    |INFO|build_network.py:176] Evaluation: [0.5993856191635132, 0.7120000123977661, 1.0, 0.0, 0.0]
+[root    |INFO|deepbiome.py:197] Compute time : 3.559682846069336
+[root    |INFO|deepbiome.py:198] 3 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:209] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:210] Train Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39;]
+[root    |INFO|deepbiome.py:211]       mean : [0.60383493 0.70000001 1.         0.         0.        ]
+[root    |INFO|deepbiome.py:212]        std : [0.02423257 0.02016229 0.         0.         0.        ]
+[root    |INFO|deepbiome.py:213] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:214] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39;]
+[root    |INFO|deepbiome.py:215]       mean : [0.60999288 0.69466666 1.         0.         0.        ]
+[root    |INFO|deepbiome.py:216]        std : [0.01442937 0.01472715 0.         0.         0.        ]
+[root    |INFO|deepbiome.py:217] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:228] Total Computing Ended
+[root    |INFO|deepbiome.py:229] -----------------------------------------------------------------
 </pre></div></div>
 </div>
 <p>Let’s check the history plot again.</p>
@@ -4357,36 +4392,36 @@ Epoch 10/10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|deepbiome.py:282] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:314] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:316] -------1 fold test start!----------------------------------
+[root    |INFO|deepbiome.py:291] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:323] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:325] -------1 fold test start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:327] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:328] Build network for 1 fold testing
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:336] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:337] Build network for 1 fold testing
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4436,8 +4471,8 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|deepbiome.py:338] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:339] 1 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:348] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:349] 1 fold computing start!----------------------------------
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4446,7 +4481,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 451us/step
+250/250 [==============================] - 0s 401us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4454,39 +4489,39 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.2981085777282715!
-[root    |INFO|build_network.py:176] Evaluation: [0.6315351724624634, 0.6759999990463257, 1.0, 0.0, 0.0, 0.6930382251739502]
-[root    |INFO|deepbiome.py:344]
-[root    |INFO|deepbiome.py:345] Compute time : 0.8888938426971436
-[root    |INFO|deepbiome.py:346] 1 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:316] -------2 fold test start!----------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.2873556613922119!
+[root    |INFO|build_network.py:176] Evaluation: [0.6303936839103699, 0.6759999990463257, 1.0, 0.0, 0.0, 0.8604353666305542]
+[root    |INFO|deepbiome.py:354]
+[root    |INFO|deepbiome.py:355] Compute time : 0.8468482494354248
+[root    |INFO|deepbiome.py:356] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:325] -------2 fold test start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:327] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:328] Build network for 2 fold testing
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:336] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:337] Build network for 2 fold testing
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4536,8 +4571,8 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
-[root    |INFO|deepbiome.py:338] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:339] 2 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:348] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:349] 2 fold computing start!----------------------------------
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4546,7 +4581,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 461us/step
+250/250 [==============================] - 0s 452us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4554,39 +4589,39 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.31202101707458496!
-[root    |INFO|build_network.py:176] Evaluation: [0.615436851978302, 0.6959999799728394, 1.0, 0.0, 0.0, 0.8960980176925659]
-[root    |INFO|deepbiome.py:344]
-[root    |INFO|deepbiome.py:345] Compute time : 1.025442361831665
-[root    |INFO|deepbiome.py:346] 2 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:316] -------3 fold test start!----------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.30832552909851074!
+[root    |INFO|build_network.py:176] Evaluation: [0.6001993417739868, 0.6959999799728394, 1.0, 0.0, 0.0, 0.7648971676826477]
+[root    |INFO|deepbiome.py:354]
+[root    |INFO|deepbiome.py:355] Compute time : 0.9090492725372314
+[root    |INFO|deepbiome.py:356] 2 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:325] -------3 fold test start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:327] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:328] Build network for 3 fold testing
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:336] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:337] Build network for 3 fold testing
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4636,8 +4671,8 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
-[root    |INFO|deepbiome.py:338] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:339] 3 fold computing start!----------------------------------
+[root    |INFO|deepbiome.py:348] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:349] 3 fold computing start!----------------------------------
 [root    |INFO|build_network.py:170] Evaluation start!
 </pre></div></div>
 </div>
@@ -4646,7 +4681,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 412us/step
+250/250 [==============================] - 0s 443us/step
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -4654,18 +4689,18 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:175] Evaluation end with time 0.29592347145080566!
-[root    |INFO|build_network.py:176] Evaluation: [0.5718339085578918, 0.7120000123977661, 1.0, 0.0, 0.0, 0.8586922883987427]
-[root    |INFO|deepbiome.py:344]
-[root    |INFO|deepbiome.py:345] Compute time : 0.921210527420044
-[root    |INFO|deepbiome.py:346] 3 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:355] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:356] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
-[root    |INFO|deepbiome.py:357]       mean : [0.60626864 0.69466666 1.         0.         0.         0.81594284]
-[root    |INFO|deepbiome.py:358]        std : [0.02522039 0.01472715 0.         0.         0.         0.08823815]
-[root    |INFO|deepbiome.py:359] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:360] Total Computing Ended
-[root    |INFO|deepbiome.py:361] -----------------------------------------------------------------
+[root    |INFO|build_network.py:175] Evaluation end with time 0.3035879135131836!
+[root    |INFO|build_network.py:176] Evaluation: [0.5993856191635132, 0.7120000123977661, 1.0, 0.0, 0.0, 0.8437890410423279]
+[root    |INFO|deepbiome.py:354]
+[root    |INFO|deepbiome.py:355] Compute time : 0.9336304664611816
+[root    |INFO|deepbiome.py:356] 3 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:365] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:366] Test Evaluation : [&#39;loss&#39; &#39;binary_accuracy&#39; &#39;sensitivity&#39; &#39;specificity&#39; &#39;gmeasure&#39; &#39;auc&#39;]
+[root    |INFO|deepbiome.py:367]       mean : [0.60999288 0.69466666 1.         0.         0.         0.82304053]
+[root    |INFO|deepbiome.py:368]        std : [0.01442937 0.01472715 0.         0.         0.         0.04167143]
+[root    |INFO|deepbiome.py:369] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:370] Total Computing Ended
+[root    |INFO|deepbiome.py:371] -----------------------------------------------------------------
 </pre></div></div>
 </div>
 <p>This function provides the evaluation result as a numpy array with a shape of (number of repetition, number of evaluation measures).</p>
@@ -4686,8 +4721,8 @@ _________________________________________________________________
 <div class="output_area docutils container">
 <div class="highlight"><pre>
                   loss binary_accuracy     sensitivity     specificity        gmeasure             auc
-Mean:           0.6063          0.6947          1.0000          0.0000          0.0000          0.8159
-Std :           0.0252          0.0147          0.0000          0.0000          0.0000          0.0882
+Mean:           0.6100          0.6947          1.0000          0.0000          0.0000          0.8230
+Std :           0.0144          0.0147          0.0000          0.0000          0.0000          0.0417
 </pre></div></div>
 </div>
 </div>
@@ -4766,34 +4801,34 @@ Std :           0.0252          0.0147          0.0000          0.0000          
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|deepbiome.py:434] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:464] -------1 th repeatition prediction start!----------------------------------
+[root    |INFO|deepbiome.py:448] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:478] -------1 th repeatition prediction start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:482] -----------------------------------------------------------------
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:496] -----------------------------------------------------------------
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -4843,7 +4878,7 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|deepbiome.py:492] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:507] -----------------------------------------------------------------
 [root    |INFO|build_network.py:190] Prediction start!
 </pre></div></div>
 </div>
@@ -4852,7 +4887,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1000/1000 [==============================] - 0s 46us/step
+1000/1000 [==============================] - 0s 43us/step
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -4860,11 +4895,11 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:195] Prediction end with time 0.04892873764038086!
-[root    |INFO|deepbiome.py:496] Compute time : 0.63570237159729
-[root    |INFO|deepbiome.py:497] 1 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:502] Total Computing Ended
-[root    |INFO|deepbiome.py:503] -----------------------------------------------------------------
+[root    |INFO|build_network.py:195] Prediction end with time 0.046140193939208984!
+[root    |INFO|deepbiome.py:511] Compute time : 0.6527199745178223
+[root    |INFO|deepbiome.py:512] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:517] Total Computing Ended
+[root    |INFO|deepbiome.py:518] -----------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -4900,16 +4935,16 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.7038855 ],
-       [0.70406747],
-       [0.7041563 ],
-       [0.7041337 ],
-       [0.70418155],
-       [0.7041672 ],
-       [0.70354867],
-       [0.70406944],
-       [0.70406485],
-       [0.7040982 ]], dtype=float32)
+array([[0.69664025],
+       [0.69661224],
+       [0.69627917],
+       [0.6959224 ],
+       [0.6965686 ],
+       [0.6969018 ],
+       [0.6964817 ],
+       [0.6958908 ],
+       [0.696547  ],
+       [0.69644856]], dtype=float32)
 </pre></div></div>
 </div>
 </div>
@@ -4989,34 +5024,34 @@ array([[0.7038855 ],
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|deepbiome.py:434] -----------------------------------------------------------------
-[root    |INFO|deepbiome.py:464] -------1 th repeatition prediction start!----------------------------------
+[root    |INFO|deepbiome.py:448] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:478] -------1 th repeatition prediction start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:482] -----------------------------------------------------------------
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:496] -----------------------------------------------------------------
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -5066,7 +5101,7 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_0.h5
-[root    |INFO|deepbiome.py:492] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:507] -----------------------------------------------------------------
 [root    |INFO|build_network.py:190] Prediction start!
 </pre></div></div>
 </div>
@@ -5075,7 +5110,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 196us/step
+250/250 [==============================] - 0s 177us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -5083,36 +5118,36 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:195] Prediction end with time 0.05215334892272949!
-[root    |INFO|deepbiome.py:496] Compute time : 0.7286860942840576
-[root    |INFO|deepbiome.py:497] 1 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:464] -------2 th repeatition prediction start!----------------------------------
+[root    |INFO|build_network.py:195] Prediction end with time 0.04746675491333008!
+[root    |INFO|deepbiome.py:511] Compute time : 0.5821309089660645
+[root    |INFO|deepbiome.py:512] 1 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:478] -------2 th repeatition prediction start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:482] -----------------------------------------------------------------
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:496] -----------------------------------------------------------------
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -5162,7 +5197,7 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_1.h5
-[root    |INFO|deepbiome.py:492] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:507] -----------------------------------------------------------------
 [root    |INFO|build_network.py:190] Prediction start!
 </pre></div></div>
 </div>
@@ -5171,7 +5206,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 260us/step
+250/250 [==============================] - 0s 148us/step
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -5179,36 +5214,36 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:195] Prediction end with time 0.0679934024810791!
-[root    |INFO|deepbiome.py:496] Compute time : 0.7756044864654541
-[root    |INFO|deepbiome.py:497] 2 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:464] -------3 th repeatition prediction start!----------------------------------
+[root    |INFO|build_network.py:195] Prediction end with time 0.03913307189941406!
+[root    |INFO|deepbiome.py:511] Compute time : 0.598935604095459
+[root    |INFO|deepbiome.py:512] 2 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:478] -------3 th repeatition prediction start!----------------------------------
 [root    |INFO|readers.py:58] -----------------------------------------------------------------------
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|deepbiome.py:482] -----------------------------------------------------------------
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|deepbiome.py:496] -----------------------------------------------------------------
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -5258,7 +5293,7 @@ _________________________________________________________________
 [root    |INFO|build_network.py:60] Loss = binary_crossentropy
 [root    |INFO|build_network.py:61] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc
 [root    |INFO|build_network.py:84] Load trained model weight at ./example_result/weight_2.h5
-[root    |INFO|deepbiome.py:492] -----------------------------------------------------------------
+[root    |INFO|deepbiome.py:507] -----------------------------------------------------------------
 [root    |INFO|build_network.py:190] Prediction start!
 </pre></div></div>
 </div>
@@ -5267,7 +5302,7 @@ _________________________________________________________________
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-250/250 [==============================] - 0s 338us/step
+250/250 [==============================] - 0s 254us/step
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -5275,11 +5310,11 @@ _________________________________________________________________
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[root    |INFO|build_network.py:195] Prediction end with time 0.08865666389465332!
-[root    |INFO|deepbiome.py:496] Compute time : 0.7671604156494141
-[root    |INFO|deepbiome.py:497] 3 fold computing end!---------------------------------------------
-[root    |INFO|deepbiome.py:502] Total Computing Ended
-[root    |INFO|deepbiome.py:503] -----------------------------------------------------------------
+[root    |INFO|build_network.py:195] Prediction end with time 0.06684446334838867!
+[root    |INFO|deepbiome.py:511] Compute time : 0.7007813453674316
+[root    |INFO|deepbiome.py:512] 3 fold computing end!---------------------------------------------
+[root    |INFO|deepbiome.py:517] Total Computing Ended
+[root    |INFO|deepbiome.py:518] -----------------------------------------------------------------
 </pre></div></div>
 </div>
 <p>We gathered the outputs from each fold.</p>
@@ -5360,30 +5395,31 @@ _________________________________________________________________
 [root    |INFO|readers.py:59] Construct Dataset
 [root    |INFO|readers.py:60] -----------------------------------------------------------------------
 [root    |INFO|readers.py:61] Load data
-[root    |INFO|build_network.py:509] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:510] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
-[root    |INFO|build_network.py:515] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
-[root    |INFO|build_network.py:516] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:523]      Genus: 48
-[root    |INFO|build_network.py:523]     Family: 40
-[root    |INFO|build_network.py:523]      Order: 23
-[root    |INFO|build_network.py:523]      Class: 17
-[root    |INFO|build_network.py:523]     Phylum: 9
-[root    |INFO|build_network.py:527] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:528] Phylogenetic_tree_dict info: [&#39;Phylum&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;]
-[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:539] Build edge weights between [ Genus, Family]
-[root    |INFO|build_network.py:539] Build edge weights between [Family,  Order]
-[root    |INFO|build_network.py:539] Build edge weights between [ Order,  Class]
-[root    |INFO|build_network.py:539] Build edge weights between [ Class, Phylum]
-[root    |INFO|build_network.py:552] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:560] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:561] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:514] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv
+[root    |INFO|build_network.py:520] Phylogenetic tree level list: [&#39;Genus&#39;, &#39;Family&#39;, &#39;Order&#39;, &#39;Class&#39;, &#39;Phylum&#39;]
+[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:528]      Genus: 48
+[root    |INFO|build_network.py:528]     Family: 40
+[root    |INFO|build_network.py:528]      Order: 23
+[root    |INFO|build_network.py:528]      Class: 17
+[root    |INFO|build_network.py:528]     Phylum: 9
+[root    |INFO|build_network.py:537] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:538] Phylogenetic_tree_dict info: [&#39;Order&#39;, &#39;Phylum&#39;, &#39;Class&#39;, &#39;Number&#39;, &#39;Genus&#39;, &#39;Family&#39;]
+[root    |INFO|build_network.py:539] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:549] Build edge weights between [ Genus, Family]
+[root    |INFO|build_network.py:549] Build edge weights between [Family,  Order]
+[root    |INFO|build_network.py:549] Build edge weights between [ Order,  Class]
+[root    |INFO|build_network.py:549] Build edge weights between [ Class, Phylum]
 [root    |INFO|build_network.py:562] ------------------------------------------------------------------------------------------
-[root    |INFO|build_network.py:644] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:573] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:574] Build network based on phylogenetic tree information
+[root    |INFO|build_network.py:575] ------------------------------------------------------------------------------------------
+[root    |INFO|build_network.py:657] ------------------------------------------------------------------------------------------
+[root    |INFO|&lt;ipython-input-45-9505ee8dcaa8&gt;:3] 5
 </pre></div></div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -5418,14 +5454,6 @@ Total params: 3,483
 Trainable params: 3,483
 Non-trainable params: 0
 _________________________________________________________________
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[root    |INFO|&lt;ipython-input-45-9505ee8dcaa8&gt;:3] 5
 </pre></div></div>
 </div>
 <p>First weight between the <code class="docutils literal notranslate"><span class="pre">genus</span></code> and <code class="docutils literal notranslate"><span class="pre">family</span></code> layers has the shape of <code class="docutils literal notranslate"><span class="pre">(number</span> <span class="pre">of</span> <span class="pre">genus</span> <span class="pre">=</span> <span class="pre">48,</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">family</span> <span class="pre">=</span> <span class="pre">40)</span></code></p>
@@ -5587,14 +5615,14 @@ _________________________________________________________________
       <td>Genus</td>
       <td>31</td>
       <td>48</td>
-      <td>0.956989</td>
-      <td>0.030413</td>
-      <td>0.988001</td>
-      <td>0.003520</td>
-      <td>0.972265</td>
-      <td>0.016480</td>
-      <td>0.987500</td>
-      <td>3.779781e-03</td>
+      <td>0.924731</td>
+      <td>4.023288e-02</td>
+      <td>0.980413</td>
+      <td>1.176607e-02</td>
+      <td>0.951814</td>
+      <td>0.016246</td>
+      <td>0.979514</td>
+      <td>0.011027</td>
     </tr>
     <tr>
       <th>1</th>
@@ -5602,14 +5630,14 @@ _________________________________________________________________
       <td>Family</td>
       <td>23</td>
       <td>40</td>
-      <td>0.942029</td>
-      <td>0.040992</td>
-      <td>0.976589</td>
-      <td>0.006306</td>
-      <td>0.958958</td>
-      <td>0.022445</td>
-      <td>0.975725</td>
-      <td>6.720013e-03</td>
+      <td>0.956522</td>
+      <td>1.110223e-16</td>
+      <td>0.974731</td>
+      <td>1.390434e-03</td>
+      <td>0.965583</td>
+      <td>0.000689</td>
+      <td>0.974275</td>
+      <td>0.001356</td>
     </tr>
     <tr>
       <th>2</th>
@@ -5617,14 +5645,14 @@ _________________________________________________________________
       <td>Order</td>
       <td>9</td>
       <td>23</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.953752</td>
-      <td>0.012884</td>
-      <td>0.976580</td>
-      <td>0.006601</td>
-      <td>0.954817</td>
-      <td>1.258723e-02</td>
+      <td>0.962963</td>
+      <td>5.237828e-02</td>
+      <td>0.952007</td>
+      <td>8.638303e-03</td>
+      <td>0.957115</td>
+      <td>0.027261</td>
+      <td>0.952259</td>
+      <td>0.008694</td>
     </tr>
     <tr>
       <th>3</th>
@@ -5633,13 +5661,13 @@ _________________________________________________________________
       <td>7</td>
       <td>17</td>
       <td>0.952381</td>
-      <td>0.067344</td>
-      <td>0.933790</td>
-      <td>0.003229</td>
-      <td>0.942374</td>
-      <td>0.032204</td>
-      <td>0.934641</td>
+      <td>6.734350e-02</td>
+      <td>0.931507</td>
       <td>1.110223e-16</td>
+      <td>0.941281</td>
+      <td>0.033750</td>
+      <td>0.932462</td>
+      <td>0.003081</td>
     </tr>
   </tbody>
 </table>
