@@ -35,6 +35,8 @@ import copy
 from ete3 import Tree, faces, AttrFace, TreeStyle, NodeStyle, CircleFace, TextFace, RectFace
 import matplotlib.colors as mcolors
 
+pd.set_option('display.float_format', lambda x: '%.03f' % x)
+np.set_printoptions(formatter={'float_kind':lambda x: '%.03f' % x})
 
 def deepbiome_train(log, network_info, path_info, number_of_fold=None, 
                     tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
@@ -597,6 +599,7 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
 def deepbiome_taxa_selection_performance(log, network_info, path_info, num_classes,
                                          true_tree_weight_list, trained_weight_path_list, 
                                          tree_level_list = ['Genus', 'Family', 'Order', 'Class', 'Phylum'],
+                                         lvl_category_dict = None,
                                          verbose=True):
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
@@ -666,16 +669,36 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
     network_class = getattr(build_network, network_info['model_info']['network_class'].strip())  
     network = network_class(network_info, path_info, log, fold=0, num_classes=num_classes, 
                             tree_level_list = tree_level_list,
-                            is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, verbose=False)
+                            is_covariates=reader.is_covariates, covariate_names = reader.covariate_names, 
+                            # lvl_category_dict = lvl_category_dict,
+                            verbose=False)
     
     prediction = []
     accuracy_list = []
     for fold in range(len(trained_weight_path_list)):
-        foldstarttime = time.time()    
+        foldstarttime = time.time()  
         network.load_weights(trained_weight_path_list[fold], verbose=verbose)
         tree_weight_list = network.get_trained_weight()
         # true_tree_weight_list = network.load_true_tree_weight_list(path_info['data_info']['data_path'])
-        accuracy_list.append(np.array(taxa_selection_accuracy(tree_weight_list, true_tree_weight_list[fold])))
+        try: 
+            accuracy_list.append(np.array(taxa_selection_accuracy(tree_weight_list, true_tree_weight_list[fold])))
+        except:
+            for tree_level in range(len(tree_weight_list)):
+                tw = tree_weight_list[tree_level]
+                row_setdiff = np.setdiff1d(lvl_category_dict[tree_level], tw.index)
+                if len(row_setdiff) > 0:
+                    for new_row in row_setdiff:
+                        tw = tw.append(pd.Series(0, index=tw.columns, name=new_row))
+                    tree_weight_list[tree_level] = tw.loc[lvl_category_dict[tree_level],:]
+
+                if tree_level+1 < len(tree_weight_list):
+                    tw = tree_weight_list[tree_level]
+                    col_setdiff = np.setdiff1d(lvl_category_dict[tree_level+1], tw.columns)
+                    if len(col_setdiff) > 0:
+                        for new_col in col_setdiff:
+                            tw[new_col] = 0
+                        tree_weight_list[tree_level] = tw.loc[:, lvl_category_dict[tree_level+1]]
+            accuracy_list.append(np.array(taxa_selection_accuracy(tree_weight_list, true_tree_weight_list[fold])))
     accuracy_list = np.array(accuracy_list)[:,:,1:]
     
     for fold in range(len(trained_weight_path_list)):
