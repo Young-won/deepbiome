@@ -28,9 +28,8 @@
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script >var copybuttonSkipText = '>>> ';</script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processEscapes": true, "processClass": "math|output_area", "inlineMath": [["$", "$"], ["\\(", "\\)"]], "ignoreClass": "document"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -603,7 +602,7 @@ default=True</p>
 
 <dl class="function">
 <dt id="deepbiome.deepbiome.deepbiome_taxa_selection_performance">
-<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_taxa_selection_performance</code><span class="sig-paren">(</span><em class="sig-param">log, network_info, path_info, num_classes, true_tree_weight_list, trained_weight_path_list, tree_level_list=['Genus', 'Family', 'Order', 'Class', 'Phylum'], verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_taxa_selection_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_taxa_selection_performance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deepbiome.deepbiome.</code><code class="sig-name descname">deepbiome_taxa_selection_performance</code><span class="sig-paren">(</span><em class="sig-param">log, network_info, path_info, num_classes, true_tree_weight_list, trained_weight_path_list, tree_level_list=['Genus', 'Family', 'Order', 'Class', 'Phylum'], lvl_category_dict=None, verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deepbiome/deepbiome.html#deepbiome_taxa_selection_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deepbiome.deepbiome.deepbiome_taxa_selection_performance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer.</p>
 <p>See ref url (TODO: update)</p>
 <dl class="field-list simple">

@@ -123,38 +123,38 @@
      "output_type": "stream",
      "text": [
       "Using TensorFlow backend.\n",
-      "[root    |INFO|deepbiome.py:100] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:137] -------1 simulation start!----------------------------------\n",
-      "[root    |INFO|readers.py:57] -----------------------------------------------------------------------\n",
-      "[root    |INFO|readers.py:58] Construct Dataset\n",
-      "[root    |INFO|readers.py:59] -----------------------------------------------------------------------\n",
-      "[root    |INFO|readers.py:60] Load data\n",
-      "[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:148] Build network for 1 simulation\n",
-      "[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:507] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv\n",
-      "[root    |INFO|build_network.py:512] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
-      "[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:520]      Genus: 48\n",
-      "[root    |INFO|build_network.py:520]     Family: 40\n",
-      "[root    |INFO|build_network.py:520]      Order: 23\n",
-      "[root    |INFO|build_network.py:520]      Class: 17\n",
-      "[root    |INFO|build_network.py:520]     Phylum: 9\n",
-      "[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: ['Class', 'Genus', 'Number', 'Family', 'Order', 'Phylum']\n",
-      "[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]\n",
-      "[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information\n",
-      "[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:115] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:153] -------1 simulation start!----------------------------------\n",
+      "[root    |INFO|readers.py:58] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:59] Construct Dataset\n",
+      "[root    |INFO|readers.py:60] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:61] Load data\n",
+      "[root    |INFO|deepbiome.py:164] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:165] Build network for 1 simulation\n",
+      "[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:522] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv\n",
+      "[root    |INFO|build_network.py:528] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
+      "[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:537]      Genus: 48\n",
+      "[root    |INFO|build_network.py:537]     Family: 40\n",
+      "[root    |INFO|build_network.py:537]      Order: 23\n",
+      "[root    |INFO|build_network.py:537]      Class: 17\n",
+      "[root    |INFO|build_network.py:537]     Phylum: 9\n",
+      "[root    |INFO|build_network.py:546] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:547] Phylogenetic_tree_dict info: ['Class', 'Number', 'Order', 'Family', 'Phylum', 'Genus']\n",
+      "[root    |INFO|build_network.py:548] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Genus, Family]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [Family,  Order]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Order,  Class]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Class, Phylum]\n",
+      "[root    |INFO|build_network.py:571] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:586] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:587] Build network based on phylogenetic tree information\n",
+      "[root    |INFO|build_network.py:588] ------------------------------------------------------------------------------------------\n",
       "[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/resource_variable_ops.py:432: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.\n",
       "Instructions for updating:\n",
       "Colocations handled automatically by placer.\n",
-      "[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------\n"
+      "[root    |INFO|build_network.py:670] ------------------------------------------------------------------------------------------\n"
      ]
     },
     {
@@ -197,13 +197,13 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:57] Build Network\n",
-      "[root    |INFO|build_network.py:58] Optimizer = adam\n",
-      "[root    |INFO|build_network.py:59] Loss = binary_crossentropy\n",
-      "[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
-      "[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:158] 1 fold computing start!----------------------------------\n",
-      "[root    |INFO|build_network.py:133] Training start!\n",
+      "[root    |INFO|build_network.py:61] Build Network\n",
+      "[root    |INFO|build_network.py:62] Optimizer = adam\n",
+      "[root    |INFO|build_network.py:63] Loss = binary_crossentropy\n",
+      "[root    |INFO|build_network.py:64] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
+      "[root    |INFO|deepbiome.py:176] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:177] 1 fold computing start!----------------------------------\n",
+      "[root    |INFO|build_network.py:137] Training start!\n",
       "[tensorflow|WARNING|deprecation.py:328] From /usr/local/lib/python3.5/dist-packages/tensorflow/python/ops/math_ops.py:2862: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.\n",
       "Instructions for updating:\n",
       "Use tf.cast instead.\n"
@@ -215,37 +215,37 @@
      "text": [
       "Train on 640 samples, validate on 160 samples\n",
       "Epoch 1/10\n",
-      "640/640 [==============================] - 1s 1ms/step - loss: 0.6872 - binary_accuracy: 0.6750 - sensitivity: 0.9847 - specificity: 0.0072 - gmeasure: 0.0412 - auc: 0.4661 - val_loss: 0.6708 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4638\n",
+      "640/640 [==============================] - 1s 1ms/step - loss: 0.6898 - binary_accuracy: 0.6047 - sensitivity: 0.8222 - specificity: 0.1731 - gmeasure: 0.1118 - auc: 0.4496 - val_loss: 0.6786 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4840\n",
       "Epoch 2/10\n",
-      "640/640 [==============================] - 0s 76us/step - loss: 0.6668 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5575 - val_loss: 0.6486 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4292\n",
+      "640/640 [==============================] - 0s 205us/step - loss: 0.6752 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5014 - val_loss: 0.6618 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5005\n",
       "Epoch 3/10\n",
-      "640/640 [==============================] - 0s 71us/step - loss: 0.6466 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5892 - val_loss: 0.6297 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4356\n",
+      "640/640 [==============================] - 0s 90us/step - loss: 0.6596 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5386 - val_loss: 0.6450 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5134\n",
       "Epoch 4/10\n",
-      "640/640 [==============================] - 0s 73us/step - loss: 0.6318 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5951 - val_loss: 0.6188 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4420\n",
+      "640/640 [==============================] - 0s 63us/step - loss: 0.6434 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4943 - val_loss: 0.6301 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5203\n",
       "Epoch 5/10\n",
-      "640/640 [==============================] - 0s 70us/step - loss: 0.6254 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5916 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4540\n",
+      "640/640 [==============================] - 0s 78us/step - loss: 0.6323 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5018 - val_loss: 0.6195 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5243\n",
       "Epoch 6/10\n",
-      "640/640 [==============================] - 0s 77us/step - loss: 0.6248 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6458 - val_loss: 0.6184 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4698\n",
+      "640/640 [==============================] - 0s 68us/step - loss: 0.6243 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5288 - val_loss: 0.6160 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5334\n",
       "Epoch 7/10\n",
-      "640/640 [==============================] - 0s 73us/step - loss: 0.6278 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6974 - val_loss: 0.6190 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4960\n",
+      "640/640 [==============================] - 0s 62us/step - loss: 0.6238 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5577 - val_loss: 0.6169 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5526\n",
       "Epoch 8/10\n",
-      "640/640 [==============================] - 0s 72us/step - loss: 0.6282 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7014 - val_loss: 0.6180 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5292\n",
+      "640/640 [==============================] - 0s 81us/step - loss: 0.6257 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5954 - val_loss: 0.6169 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5736\n",
       "Epoch 9/10\n",
-      "640/640 [==============================] - 0s 74us/step - loss: 0.6260 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7385 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5627\n",
+      "640/640 [==============================] - ETA: 0s - loss: 0.6430 - binary_accuracy: 0.6650 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.53 - 0s 78us/step - loss: 0.6254 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6563 - val_loss: 0.6161 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6002\n",
       "Epoch 10/10\n",
-      "640/640 [==============================] - 0s 66us/step - loss: 0.6236 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.7905 - val_loss: 0.6162 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5951\n"
+      "640/640 [==============================] - 0s 91us/step - loss: 0.6238 - binary_accuracy: 0.6844 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.6318 - val_loss: 0.6161 - val_binary_accuracy: 0.6938 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.6208\n"
      ]
     },
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:83] Load trained model weight at ./weight_0.h5 \n",
-      "[root    |INFO|build_network.py:143] Training end with time 3.435981273651123!\n",
-      "[root    |INFO|build_network.py:79] Saved trained model weight at ./weight_0.h5 \n",
-      "[root    |DEBUG|deepbiome.py:166] Save weight at ./weight_0.h5\n",
-      "[root    |DEBUG|deepbiome.py:169] Save history at ./hist_0.json\n",
-      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+      "[root    |INFO|build_network.py:87] Load trained model weight at ./weight_0.h5 \n",
+      "[root    |INFO|build_network.py:147] Training end with time 3.954432725906372!\n",
+      "[root    |INFO|build_network.py:83] Saved trained model weight at ./weight_0.h5 \n",
+      "[root    |DEBUG|deepbiome.py:185] Save weight at ./weight_0.h5\n",
+      "[root    |DEBUG|deepbiome.py:188] Save history at ./hist_0.json\n",
+      "[root    |INFO|build_network.py:173] Evaluation start!\n"
      ]
     },
     {
@@ -253,16 +253,16 @@
      "output_type": "stream",
      "text": [
       "\r",
-      "800/800 [==============================] - 0s 9us/step\n"
+      "800/800 [==============================] - 0s 7us/step\n"
      ]
     },
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:174] Evaluation end with time 0.015033245086669922!\n",
-      "[root    |INFO|build_network.py:175] Evaluation: [0.6220226883888245, 0.6862499713897705, 1.0, 0.0, 0.0, 0.7600091695785522]\n",
-      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+      "[root    |INFO|build_network.py:178] Evaluation end with time 0.015036821365356445!\n",
+      "[root    |INFO|build_network.py:179] Evaluation: [0.6221581101417542, 0.6862499713897705, 1.0, 0.0, 0.0, 0.5438174605369568]\n",
+      "[root    |INFO|build_network.py:173] Evaluation start!\n"
      ]
     },
     {
@@ -270,45 +270,45 @@
      "output_type": "stream",
      "text": [
       "\r",
-      "200/200 [==============================] - 0s 25us/step\n"
+      "200/200 [==============================] - 0s 22us/step\n"
      ]
     },
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:174] Evaluation end with time 0.012362003326416016!\n",
-      "[root    |INFO|build_network.py:175] Evaluation: [0.6190998554229736, 0.6899999976158142, 1.0, 0.0, 0.0, 0.7425198554992676]\n",
-      "[root    |INFO|deepbiome.py:180] Compute time : 6.31894063949585\n",
-      "[root    |INFO|deepbiome.py:181] 1 fold computing end!---------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:137] -------2 simulation start!----------------------------------\n",
-      "[root    |INFO|readers.py:57] -----------------------------------------------------------------------\n",
-      "[root    |INFO|readers.py:58] Construct Dataset\n",
-      "[root    |INFO|readers.py:59] -----------------------------------------------------------------------\n",
-      "[root    |INFO|readers.py:60] Load data\n",
-      "[root    |INFO|deepbiome.py:147] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:148] Build network for 2 simulation\n",
-      "[root    |INFO|build_network.py:506] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:507] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv\n",
-      "[root    |INFO|build_network.py:512] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
-      "[root    |INFO|build_network.py:513] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:520]      Genus: 48\n",
-      "[root    |INFO|build_network.py:520]     Family: 40\n",
-      "[root    |INFO|build_network.py:520]      Order: 23\n",
-      "[root    |INFO|build_network.py:520]      Class: 17\n",
-      "[root    |INFO|build_network.py:520]     Phylum: 9\n",
-      "[root    |INFO|build_network.py:524] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:525] Phylogenetic_tree_dict info: ['Class', 'Genus', 'Number', 'Family', 'Order', 'Phylum']\n",
-      "[root    |INFO|build_network.py:526] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Genus, Family]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [Family,  Order]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Order,  Class]\n",
-      "[root    |INFO|build_network.py:536] Build edge weights between [ Class, Phylum]\n",
-      "[root    |INFO|build_network.py:549] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:557] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:558] Build network based on phylogenetic tree information\n",
-      "[root    |INFO|build_network.py:559] ------------------------------------------------------------------------------------------\n",
-      "[root    |INFO|build_network.py:636] ------------------------------------------------------------------------------------------\n"
+      "[root    |INFO|build_network.py:178] Evaluation end with time 0.013112068176269531!\n",
+      "[root    |INFO|build_network.py:179] Evaluation: [0.6190831661224365, 0.6899999976158142, 1.0, 0.0, 0.0, 0.6127863526344299]\n",
+      "[root    |INFO|deepbiome.py:199] Compute time : 5.095764636993408\n",
+      "[root    |INFO|deepbiome.py:200] 1 fold computing end!---------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:153] -------2 simulation start!----------------------------------\n",
+      "[root    |INFO|readers.py:58] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:59] Construct Dataset\n",
+      "[root    |INFO|readers.py:60] -----------------------------------------------------------------------\n",
+      "[root    |INFO|readers.py:61] Load data\n",
+      "[root    |INFO|deepbiome.py:164] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:165] Build network for 2 simulation\n",
+      "[root    |INFO|build_network.py:521] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:522] Read phylogenetic tree information from /DATA/home/muha/github_repos/deepbiome/deepbiome/tests/data/genus48_dic.csv\n",
+      "[root    |INFO|build_network.py:528] Phylogenetic tree level list: ['Genus', 'Family', 'Order', 'Class', 'Phylum']\n",
+      "[root    |INFO|build_network.py:529] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:537]      Genus: 48\n",
+      "[root    |INFO|build_network.py:537]     Family: 40\n",
+      "[root    |INFO|build_network.py:537]      Order: 23\n",
+      "[root    |INFO|build_network.py:537]      Class: 17\n",
+      "[root    |INFO|build_network.py:537]     Phylum: 9\n",
+      "[root    |INFO|build_network.py:546] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:547] Phylogenetic_tree_dict info: ['Class', 'Number', 'Order', 'Family', 'Phylum', 'Genus']\n",
+      "[root    |INFO|build_network.py:548] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Genus, Family]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [Family,  Order]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Order,  Class]\n",
+      "[root    |INFO|build_network.py:558] Build edge weights between [ Class, Phylum]\n",
+      "[root    |INFO|build_network.py:571] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:586] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:587] Build network based on phylogenetic tree information\n",
+      "[root    |INFO|build_network.py:588] ------------------------------------------------------------------------------------------\n",
+      "[root    |INFO|build_network.py:670] ------------------------------------------------------------------------------------------\n"
      ]
     },
     {
@@ -351,13 +351,13 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:57] Build Network\n",
-      "[root    |INFO|build_network.py:58] Optimizer = adam\n",
-      "[root    |INFO|build_network.py:59] Loss = binary_crossentropy\n",
-      "[root    |INFO|build_network.py:60] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
-      "[root    |INFO|deepbiome.py:157] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:158] 2 fold computing start!----------------------------------\n",
-      "[root    |INFO|build_network.py:133] Training start!\n"
+      "[root    |INFO|build_network.py:61] Build Network\n",
+      "[root    |INFO|build_network.py:62] Optimizer = adam\n",
+      "[root    |INFO|build_network.py:63] Loss = binary_crossentropy\n",
+      "[root    |INFO|build_network.py:64] Metrics = binary_accuracy, sensitivity, specificity, gmeasure, auc\n",
+      "[root    |INFO|deepbiome.py:176] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:177] 2 fold computing start!----------------------------------\n",
+      "[root    |INFO|build_network.py:137] Training start!\n"
      ]
     },
     {
@@ -366,37 +366,37 @@
      "text": [
       "Train on 640 samples, validate on 160 samples\n",
       "Epoch 1/10\n",
-      "640/640 [==============================] - 1s 785us/step - loss: 0.6869 - binary_accuracy: 0.6906 - sensitivity: 0.9460 - specificity: 0.0574 - gmeasure: 0.1061 - auc: 0.5067 - val_loss: 0.6684 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5046\n",
+      "640/640 [==============================] - 1s 1ms/step - loss: 0.6910 - binary_accuracy: 0.6062 - sensitivity: 0.7500 - specificity: 0.2500 - gmeasure: 0.0000e+00 - auc: 0.5193 - val_loss: 0.6810 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5068\n",
       "Epoch 2/10\n",
-      "640/640 [==============================] - 0s 72us/step - loss: 0.6644 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5049 - val_loss: 0.6401 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5071\n",
+      "640/640 [==============================] - 0s 62us/step - loss: 0.6791 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4727 - val_loss: 0.6677 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4705\n",
       "Epoch 3/10\n",
-      "640/640 [==============================] - 0s 72us/step - loss: 0.6386 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5282 - val_loss: 0.6136 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5102\n",
+      "640/640 [==============================] - 0s 61us/step - loss: 0.6666 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5033 - val_loss: 0.6550 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4520\n",
       "Epoch 4/10\n",
-      "640/640 [==============================] - 0s 75us/step - loss: 0.6162 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5213 - val_loss: 0.5909 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5176\n",
+      "640/640 [==============================] - 0s 74us/step - loss: 0.6557 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5027 - val_loss: 0.6428 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4691\n",
       "Epoch 5/10\n",
-      "640/640 [==============================] - 0s 73us/step - loss: 0.6017 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4813 - val_loss: 0.5779 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5188\n",
+      "640/640 [==============================] - 0s 74us/step - loss: 0.6456 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5123 - val_loss: 0.6316 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4974\n",
       "Epoch 6/10\n",
-      "640/640 [==============================] - 0s 73us/step - loss: 0.5979 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5115 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5163\n",
+      "640/640 [==============================] - 0s 61us/step - loss: 0.6358 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5090 - val_loss: 0.6218 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5056\n",
       "Epoch 7/10\n",
-      "640/640 [==============================] - 0s 75us/step - loss: 0.5997 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4661 - val_loss: 0.5763 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5141\n",
+      "640/640 [==============================] - 0s 91us/step - loss: 0.6285 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5027 - val_loss: 0.6129 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5174\n",
       "Epoch 8/10\n",
-      "640/640 [==============================] - 0s 76us/step - loss: 0.6003 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5192 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5099\n",
+      "640/640 [==============================] - 0s 60us/step - loss: 0.6203 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4762 - val_loss: 0.6051 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5225\n",
       "Epoch 9/10\n",
-      "640/640 [==============================] - 0s 68us/step - loss: 0.5988 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4937 - val_loss: 0.5758 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5042\n",
+      "640/640 [==============================] - 0s 59us/step - loss: 0.6145 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.4875 - val_loss: 0.5979 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5271\n",
       "Epoch 10/10\n",
-      "640/640 [==============================] - 0s 70us/step - loss: 0.5972 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5483 - val_loss: 0.5767 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.4996\n"
+      "640/640 [==============================] - 0s 77us/step - loss: 0.6093 - binary_accuracy: 0.7156 - sensitivity: 1.0000 - specificity: 0.0000e+00 - gmeasure: 0.0000e+00 - auc: 0.5059 - val_loss: 0.5916 - val_binary_accuracy: 0.7375 - val_sensitivity: 1.0000 - val_specificity: 0.0000e+00 - val_gmeasure: 0.0000e+00 - val_auc: 0.5252\n"
      ]
     },
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:83] Load trained model weight at ./weight_1.h5 \n",
-      "[root    |INFO|build_network.py:143] Training end with time 2.7756500244140625!\n",
-      "[root    |INFO|build_network.py:79] Saved trained model weight at ./weight_1.h5 \n",
-      "[root    |DEBUG|deepbiome.py:166] Save weight at ./weight_1.h5\n",
-      "[root    |DEBUG|deepbiome.py:169] Save history at ./hist_1.json\n",
-      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+      "[root    |INFO|build_network.py:87] Load trained model weight at ./weight_1.h5 \n",
+      "[root    |INFO|build_network.py:147] Training end with time 2.9402072429656982!\n",
+      "[root    |INFO|build_network.py:83] Saved trained model weight at ./weight_1.h5 \n",
+      "[root    |DEBUG|deepbiome.py:185] Save weight at ./weight_1.h5\n",
+      "[root    |DEBUG|deepbiome.py:188] Save history at ./hist_1.json\n",
+      "[root    |INFO|build_network.py:173] Evaluation start!\n"
      ]
     },
     {
@@ -411,9 +411,9 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:174] Evaluation end with time 0.012213706970214844!\n",
-      "[root    |INFO|build_network.py:175] Evaluation: [0.5944244861602783, 0.7200000286102295, 1.0, 0.0, 0.0, 0.508866548538208]\n",
-      "[root    |INFO|build_network.py:169] Evaluation start!\n"
+      "[root    |INFO|build_network.py:178] Evaluation end with time 0.013414382934570312!\n",
+      "[root    |INFO|build_network.py:179] Evaluation: [0.6027529239654541, 0.7200000286102295, 1.0, 0.0, 0.0, 0.4951443076133728]\n",
+      "[root    |INFO|build_network.py:173] Evaluation start!\n"
      ]
     },
     {
@@ -421,28 +421,28 @@
      "output_type": "stream",
      "text": [
       "\r",
-      "200/200 [==============================] - 0s 27us/step\n"
+      "200/200 [==============================] - 0s 28us/step\n"
      ]
     },
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[root    |INFO|build_network.py:174] Evaluation end with time 0.010983943939208984!\n",
-      "[root    |INFO|build_network.py:175] Evaluation: [0.5944291353225708, 0.7200000286102295, 1.0, 0.0, 0.0, 0.4608134925365448]\n",
-      "[root    |INFO|deepbiome.py:180] Compute time : 3.853395462036133\n",
-      "[root    |INFO|deepbiome.py:181] 2 fold computing end!---------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:184] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:186] Train Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
-      "[root    |INFO|deepbiome.py:189]       mean : [0.60822359 0.703125   1.         0.         0.         0.63443786]\n",
-      "[root    |INFO|deepbiome.py:190]        std : [0.0137991  0.01687503 0.         0.         0.         0.12557131]\n",
-      "[root    |INFO|deepbiome.py:191] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:193] Test Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
-      "[root    |INFO|deepbiome.py:196]       mean : [0.6067645  0.70500001 1.         0.         0.         0.60166667]\n",
-      "[root    |INFO|deepbiome.py:197]        std : [0.01233536 0.01500002 0.         0.         0.         0.14085318]\n",
-      "[root    |INFO|deepbiome.py:198] -----------------------------------------------------------------\n",
-      "[root    |INFO|deepbiome.py:207] Total Computing Ended\n",
-      "[root    |INFO|deepbiome.py:208] -----------------------------------------------------------------\n"
+      "[root    |INFO|build_network.py:178] Evaluation end with time 0.011273860931396484!\n",
+      "[root    |INFO|build_network.py:179] Evaluation: [0.6027520895004272, 0.7200000286102295, 1.0, 0.0, 0.0, 0.4978918731212616]\n",
+      "[root    |INFO|deepbiome.py:199] Compute time : 3.5541372299194336\n",
+      "[root    |INFO|deepbiome.py:200] 2 fold computing end!---------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:211] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:212] Train Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
+      "[root    |INFO|deepbiome.py:213]       mean : [0.612 0.703 1.000 0.000 0.000 0.519]\n",
+      "[root    |INFO|deepbiome.py:214]        std : [0.010 0.017 0.000 0.000 0.000 0.024]\n",
+      "[root    |INFO|deepbiome.py:215] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:216] Test Evaluation : ['loss' 'binary_accuracy' 'sensitivity' 'specificity' 'gmeasure' 'auc']\n",
+      "[root    |INFO|deepbiome.py:217]       mean : [0.611 0.705 1.000 0.000 0.000 0.555]\n",
+      "[root    |INFO|deepbiome.py:218]        std : [0.008 0.015 0.000 0.000 0.000 0.057]\n",
+      "[root    |INFO|deepbiome.py:219] -----------------------------------------------------------------\n",
+      "[root    |INFO|deepbiome.py:230] Total Computing Ended\n",
+      "[root    |INFO|deepbiome.py:231] -----------------------------------------------------------------\n"
      ]
     }
    ],
