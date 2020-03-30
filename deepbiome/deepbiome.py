@@ -47,8 +47,6 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
     
     It uses microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
 
-    See ref url (TODO: update)
-
     Parameters
     ----------
     log (logging instance) :
@@ -241,8 +239,6 @@ def deepbiome_test(log, network_info, path_info, number_of_fold=None,
     
     If you use the index file, this function provide the evaluation using test index (index set not included in the index file) for each fold. If not, this function provide the evaluation using the whole samples.
 
-    See ref url (TODO: update)
-
     Parameters
     ----------
     log (logging instance) :
@@ -383,8 +379,6 @@ def deepbiome_prediction(log, network_info, path_info, num_classes, number_of_fo
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
     
-    See ref url (TODO: update)
-
     Parameters
     ----------
     log (logging instance) :
@@ -527,8 +521,6 @@ def deepbiome_get_trained_weight(log, network_info, path_info, num_classes, weig
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
     
-    See ref url (TODO: update)
-
     Parameters
     ----------
     log (logging instance) :
@@ -603,8 +595,6 @@ def deepbiome_taxa_selection_performance(log, network_info, path_info, num_class
                                          verbose=True):
     """
     Function for prediction by the pretrained deep neural network with phylogenetic tree weight regularizer. 
-    
-    See ref url (TODO: update)
 
     Parameters
     ----------
@@ -735,8 +725,6 @@ def deepbiome_draw_phylogenetic_tree(log, network_info, path_info, num_classes,
                                      verbose=True):
     """
     Draw phylogenetic tree
-    
-    See ref url (TODO: update)
 
     Parameters
     ----------

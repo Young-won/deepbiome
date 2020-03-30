@@ -17,7 +17,7 @@ DeepBiome
 Deep Learning package using the phylogenetic tree information for microbiome abandunce data analysis.
 
 * Free software: 3-clause BSD license
-* Documentation: (COMING SOON!) https://Young-won.github.io/deepbiome.
+* Documentation: https://Young-won.github.io/deepbiome
 
 Installation
 --------
@@ -47,8 +47,6 @@ Features
     Function for training the deep neural network with phylogenetic tree weight regularizer.
     
     It uses microbiome abundance data as input and uses the phylogenetic taxonomy to guide the decision of the optimal number of layers and neurons in the deep learning architecture.
-
-    See ref url (TODO: update)
 
 * deepbiome.deepbiome_test(log, network_info, path_info, number_of_fold=None, max_queue_size=10, workers=1, use_multiprocessing=False)
 
