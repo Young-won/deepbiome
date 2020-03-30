@@ -20,7 +20,7 @@ Deep Learning package using the phylogenetic tree information for microbiome aba
 * Documentation: https://Young-won.github.io/deepbiome
 
 Installation
---------
+---------------
 
 Prerequisites
 ^^^^^^^^^^^^^^^^
@@ -29,7 +29,7 @@ Prerequisites
 * Keras
 
 Install DeepBiome
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 At the command line:
 
