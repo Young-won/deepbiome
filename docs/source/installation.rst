@@ -10,8 +10,6 @@ Stable release
 
 To install deepbiome, run this command in your terminal:
 
-.. warning:: This installation not works yet. I will update pypi after finishing release version of our package.- Youngwon
-
 .. code-block:: console
 
     # for python 3.x
