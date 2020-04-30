@@ -15,7 +15,7 @@ A phylogeny regularized weight decay technique regularize the DeepBiome model to
 Microbiome data structure
 ------------------------------------
 
-.. figure:: figures/tree.pdf
+.. figure:: https://github.com/Young-won/deepbiome/blob/master/docs/source/figures/tree.pdf
     :align: center
     :alt: microbiome data structure
 
@@ -30,7 +30,7 @@ DeepBiome architecture
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-.. figure:: figures/DeepBiome.pdf
+.. figure:: https://github.com/Young-won/deepbiome/blob/master/docs/source/figures/DeepBiome.pdf
     :align: center
     :alt: the deepbiome architecture
 
@@ -48,7 +48,7 @@ We constructed a weight decay matrix to regularize weights in the neural network
 Selection of disease associated microbiome taxa 
 ------------------------------------------------------
 
-.. figure:: figures/tree_fev1_deepbiome2.pdf
+.. figure:: https://github.com/Young-won/deepbiome/blob/master/docs/source/figures/tree_fev1_deepbiome2.pdf
     :align: center
     :alt: selection of disease associated microbiome taxa 
     
