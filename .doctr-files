@@ -2,6 +2,7 @@
 ./DeepBiome_usage_classification.ipynb
 ./DeepBiome_usage_regression.html
 ./DeepBiome_usage_regression.ipynb
+./_images/DeepBiome.pdf
 ./_images/example_with_one_input_file_112_0.png
 ./_images/example_with_one_input_file_38_0.png
 ./_images/example_with_one_input_file_46_0.png
@@ -10,6 +11,8 @@
 ./_images/example_with_one_input_file_94_0.png
 ./_images/example_with_the_list_of_inputs_45_0.png
 ./_images/example_with_the_list_of_inputs_53_0.png
+./_images/tree.pdf
+./_images/tree_fev1_deepbiome2.pdf
 ./_modules/deepbiome/deepbiome.html
 ./_modules/index.html
 ./_sources/DeepBiome_usage_classification.ipynb.txt
