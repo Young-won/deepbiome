@@ -37,7 +37,18 @@ At the command line:
 
     # for python 3.x
     
+    $ pip3 install deepbiome
+
+
+
+Alternatively: install DeepBiome from the GitHub source:
+
+.. code-block:: bash
+
+    # for python 3.x
+    
     $ pip3 install git+https://github.com/Young-won/deepbiome.git
+
 
 Features
 --------
