@@ -1,7 +1,7 @@
 # List required packages in this file, one per line.
 numpy
-tensorflow
-keras <= 2.0
+tensorflow >= 1.13
+keras >= 2.0
 pandas
 sklearn
 PyQt5==5.10;python_version<"3.6"
