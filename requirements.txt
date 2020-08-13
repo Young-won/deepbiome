@@ -1,8 +1,8 @@
 # List required packages in this file, one per line.
-keras
+keras <= 2.0
 tensorflow >= 1.12
 numpy >= 1.12
 pandas
 sklearn
-PyQt5 == 5.10
+PyQt5 >= 5.10
 ete3
