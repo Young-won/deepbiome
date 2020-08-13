@@ -1,5 +1,4 @@
 # List required packages in this file, one per line.
-numpy
 tensorflow <= 2.1
 keras<=2.3
 pandas
