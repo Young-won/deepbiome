@@ -28,6 +28,8 @@ Prerequisites
 * Tensorflow
 * Keras
 
+We recommend using Python version 3.6.
+
 Install DeepBiome
 ^^^^^^^^^^^^^^^^^^^
 
