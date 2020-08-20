@@ -12,6 +12,7 @@ __pycache__/
 *.zip
 examples/realdata_diabete
 examples/realdata_bmi
+examples/realdata_metagenomics
 simulation_results_dl
 *backup*
 
