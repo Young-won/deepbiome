@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>deepbiome.deepbiome &mdash; deepbiome 1.0.0+17.gf240124 documentation</title>
+  <title>deepbiome.deepbiome &mdash; deepbiome 1.0.0+18.g644bc22 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <script src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"ignoreClass": "document", "processClass": "math|output_area", "processEscapes": true, "inlineMath": [["$", "$"], ["\\(", "\\)"]]}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.0.0+17.gf240124
+                1.0.0+18.g644bc22
               </div>
             
           
@@ -323,9 +323,11 @@
 
         <span class="c1">### Read datasets ####################################################################################</span>
         <span class="n">reader</span><span class="o">.</span><span class="n">read_dataset</span><span class="p">(</span><span class="n">x_path</span><span class="p">[</span><span class="n">fold</span><span class="p">],</span> <span class="n">y_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">)</span>
-        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">idxs</span><span class="p">[:,</span><span class="n">fold</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">fold_idxs</span> <span class="o">=</span> <span class="n">idxs</span><span class="p">[:,</span><span class="n">fold</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span> <span class="n">fold_idxs</span> <span class="o">=</span> <span class="n">idxs</span><span class="p">[</span><span class="n">fold</span><span class="p">]</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">fold_idxs</span><span class="p">)</span>
         <span class="n">num_classes</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_num_classes</span><span class="p">()</span>
-
+        
         <span class="c1">### Bulid network ####################################################################################</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span> <span class="n">k</span><span class="o">.</span><span class="n">set_session</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
@@ -343,7 +345,7 @@
         <span class="c1">### Training #########################################################################################</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------&#39;</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> fold computing start!----------------------------------&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fold</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">hist</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> 
+        <span class="n">hist</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
                            <span class="n">max_queue_size</span><span class="o">=</span><span class="n">max_queue_size</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="n">workers</span><span class="p">,</span> <span class="n">use_multiprocessing</span><span class="o">=</span><span class="n">use_multiprocessing</span><span class="p">,</span>
                            <span class="n">model_path</span><span class="o">=</span><span class="n">file_path_fold</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">fold</span><span class="p">))</span>
         <span class="c1"># if is_save_hist: history.append(hist.history)</span>
