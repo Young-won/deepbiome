@@ -153,9 +153,11 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
 
         ### Read datasets ####################################################################################
         reader.read_dataset(x_path[fold], y_path, fold)
-        x_train, x_test, y_train, y_test = reader.get_dataset(idxs[:,fold])
+        try: fold_idxs = idxs[:,fold]
+        except: fold_idxs = idxs[fold]
+        x_train, x_test, y_train, y_test = reader.get_dataset(fold_idxs)
         num_classes = reader.get_num_classes()
-
+        
         ### Bulid network ####################################################################################
         if not tf.__version__.startswith('2'): k.set_session(tf.Session(config=config))
         if verbose:
@@ -173,7 +175,7 @@ def deepbiome_train(log, network_info, path_info, number_of_fold=None,
         ### Training #########################################################################################
         log.info('-----------------------------------------------------------------')
         log.info('%d fold computing start!----------------------------------' % (fold+1))
-        hist = network.fit(x_train, y_train, 
+        hist = network.fit(x_train, y_train,
                            max_queue_size=max_queue_size, workers=workers, use_multiprocessing=use_multiprocessing,
                            model_path=file_path_fold(model_path, fold))
         # if is_save_hist: history.append(hist.history)
