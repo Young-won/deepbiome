@@ -64,7 +64,8 @@ class MicroBiomeReader(BaseReader):
         if y_path != None: y = pd.read_csv(y_path)
         
         # Normalize X with min-max normalization
-        mat = np.matrix(x)
+        #mat = np.matrix(x)
+        mat = np.asarray(x)
         prepro = MinMaxScaler()
         prepro.fit(mat)
         self.x_label = np.array(x.columns)
