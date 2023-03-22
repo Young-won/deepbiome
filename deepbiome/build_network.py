@@ -56,7 +56,8 @@ class Base_Network(abc.ABC):
         self.model.compile(loss=getattr(loss_and_metric, self.network_info['model_info']['loss']),
                            optimizer=getattr(tf.keras.optimizers, 
                                              self.network_info['model_info']['optimizer'])(lr=float(self.network_info['model_info']['lr']),
-                                                                                           decay=float(self.network_info['model_info']['decay'])),
+#                                                                                            decay=float(self.network_info['model_info']['decay'])
+                                                                                          ),
                            metrics=[getattr(loss_and_metric, metric.strip()) for metric in self.network_info['model_info']['metrics'].split(',')])
         self.log.info('Build Network')
         self.log.info('Optimizer = {}'.format(self.network_info['model_info']['optimizer']))
