@@ -354,7 +354,7 @@ class Dense_with_new_tree(Dense):
                    trainable=True,
                    constraint=None):
         # ref: https://github.com/keras-team/keras/blob/c10d24959b0ad615a21e671b180a1b2466d77a2b/keras/engine/base_layer.py#L216
-        from keras import initializers
+        from tensorflow.keras import initializers
         
         initializer = initializers.get(initializer)
         if dtype is None:
