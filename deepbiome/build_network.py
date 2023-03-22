@@ -356,19 +356,19 @@ class Dense_with_new_tree(Dense):
         # ref: https://github.com/keras-team/keras/blob/c10d24959b0ad615a21e671b180a1b2466d77a2b/keras/engine/base_layer.py#L216
         from tensorflow.keras import initializers
         
-        initializer = initializers.get(initializer)
+        k_initializer = initializers.get(initializer)
         if dtype is None:
             dtype = self.dtype
         
         
-        weight = K.variable(initializer(shape, dtype=dtype),
+        weight = K.variable(k_initializer(shape, dtype=dtype),
                             dtype=dtype,
                             name=name,
                             constraint=constraint)
         if tree_thrd:
             weight_list = []
             for i in range(self.tree_weight.shape[1]):
-                new_weight = K.variable(initializer((np.sum(self.tree_weight[:,i]==1),1), dtype=dtype), 
+                new_weight = K.variable(k_initializer((np.sum(self.tree_weight[:,i]==1),1), dtype=dtype), 
                                         dtype=dtype, name='%s_%d'%(name,i), constraint=constraint)
                 weight_list.append(new_weight)
                 if regularizer is not None:
@@ -380,7 +380,7 @@ class Dense_with_new_tree(Dense):
                     self._non_trainable_weights.append(new_weight)
             weight = weight_list
         else:
-            weight = K.variable(initializer(shape, dtype=dtype),
+            weight = K.variable(k_initializer(shape, dtype=dtype),
                             dtype=dtype,
                             name=name,
                             constraint=constraint)
