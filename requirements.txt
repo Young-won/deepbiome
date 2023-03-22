@@ -1,6 +1,6 @@
 # List required packages in this file, one per line.
-tensorflow <= 2.1;python_version<"3.8"
-tensorflow <= 2.2;python_version<"3.9"
+tensorflow<=2.1;python_version<"3.8"
+tensorflow<=2.2;python_version<"3.9"
 tensorflow;python_version>="3.9"
 keras<=2.3;python_version<"3.9"
 keras;python_version>="3.9"
