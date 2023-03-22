@@ -22,11 +22,11 @@ import keras.callbacks
 
 import tensorflow as tf
 import keras.backend as K
-from keras.models import Sequential, Model
-from keras.layers import Input, Activation, Dense, Flatten, Lambda, Reshape, LeakyReLU
-from keras.layers import Concatenate
-from keras.layers import BatchNormalization, Dropout
-from keras.initializers import VarianceScaling
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Input, Activation, Dense, Flatten, Lambda, Reshape, LeakyReLU
+from tensorflow.keras.layers import Concatenate
+from tensorflow.keras.layers import BatchNormalization, Dropout
+from tensorflow.keras.initializers import VarianceScaling
 
 from . import loss_and_metric
 # from .utils import TensorBoardWrapper
