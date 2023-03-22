@@ -54,7 +54,7 @@ class Base_Network(abc.ABC):
         
     def model_compile(self):
         self.model.compile(loss=getattr(loss_and_metric, self.network_info['model_info']['loss']),
-                           optimizer=getattr(keras.optimizers, 
+                           optimizer=getattr(tensorflow.keras.optimizers, 
                                              self.network_info['model_info']['optimizer'])(lr=float(self.network_info['model_info']['lr']),
                                                                                            decay=float(self.network_info['model_info']['decay'])),
                            metrics=[getattr(loss_and_metric, metric.strip()) for metric in self.network_info['model_info']['metrics'].split(',')])
