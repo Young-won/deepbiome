@@ -394,7 +394,7 @@ class Dense_with_new_tree(Dense):
         return weight
     
     def build(self, input_shape):
-        from keras.engine.base_layer import InputSpec
+        from tensorflow.keras.layers import InputSpec
         
         assert len(input_shape) >= 2
         input_dim = input_shape[-1]
