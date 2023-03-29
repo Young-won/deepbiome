@@ -333,7 +333,7 @@ class Dense_with_new_tree(Dense):
         self.tree_weight = tree_weight
         self.tree_thrd = tree_thrd
         dtype = K.floatx()
-        self.dtype = dtype
+        self.new_dtype = dtype
         
         self.mask_list = []
         self.np_mask_list = []
@@ -358,7 +358,7 @@ class Dense_with_new_tree(Dense):
         
         k_initializer = initializers.get(initializer)
         if dtype is None:
-            dtype = self.dtype
+            dtype = self.new_dtype
         
         
         weight = K.variable(k_initializer(shape, dtype=dtype),
