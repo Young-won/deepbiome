@@ -53,11 +53,20 @@ class Base_Network(abc.ABC):
         pass
         
     def model_compile(self):
+        init_lr = float(self.network_info['model_info']['lr'])
+        decay_rate = float(self.network_info['model_info']['decay'])
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+                            initial_learning_rate=init_lr,
+                            decay_steps=10000,
+                            decay_rate=decay_rate)
+        try: beta_1 = float(self.network_info['model_info']['beta1'])
+        except: beta_1 = 0.9
+        try: beta_2 = float(self.network_info['model_info']['beta2'])
+        except: beta_2 = 0.999
+        
         self.model.compile(loss=getattr(loss_and_metric, self.network_info['model_info']['loss']),
                            optimizer=getattr(tf.keras.optimizers, 
-                                             self.network_info['model_info']['optimizer'])(lr=float(self.network_info['model_info']['lr']),
-#                                                                                            decay=float(self.network_info['model_info']['decay'])
-                                                                                          ),
+                                             self.network_info['model_info']['optimizer'])(learning_rate=lr_schedule, beta_1=beta_1, beta_2=beta_2),
                            metrics=[getattr(loss_and_metric, metric.strip()) for metric in self.network_info['model_info']['metrics'].split(',')])
         self.log.info('Build Network')
         self.log.info('Optimizer = {}'.format(self.network_info['model_info']['optimizer']))
