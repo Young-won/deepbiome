@@ -5,7 +5,7 @@ tensorflow;python_version>="3.9"
 keras<=2.3;python_version<"3.9"
 keras;python_version>="3.9"
 pandas
-sklearn
+scikit-learn
 PyQt5==5.10;python_version<"3.6"
 PyQt5>=5.10;python_version>="3.6"
 ete3
