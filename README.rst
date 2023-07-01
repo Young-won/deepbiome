@@ -1,10 +1,6 @@
 =========
 DeepBiome
 =========
-
-.. image:: https://img.shields.io/travis/Young-won/deepbiome.svg
-        :target: https://travis-ci.org/Young-won/deepbiome
-        :alt: Build
         
 .. image:: https://coveralls.io/repos/github/Young-won/deepbiome/badge.svg?branch=master
         :target: https://coveralls.io/github/Young-won/deepbiome?branch=master
